@@ -1,0 +1,123 @@
+% Standalone figure: Fig. 1 method-overview schematic -- the coverage-debt
+% audit pipeline. Symbolic only (no data plotted); box terminology matches
+% paper.tex/jstars/paper_ieeetran.tex \S\ref{sec:methods}, \S\ref{sec:results},
+% \S\ref{sec:limitations} verbatim (frozen GFM encoder, spatial-Mondrian,
+% coverage-debt report card, universal-restoration KILL / conditional remedy).
+% Compile: pdflatex fig0_overview.tex  (see Makefile)
+%
+% 2026-07-16 visual-fix pass: rebuilt compact (short one-line box labels only;
+% the backbone roster / probe types / source-target region names moved to the
+% LaTeX \caption in paper.tex + jstars/paper_ieeetran.tex). Text-heavy boxes
+% replaced with small pictogram glyphs (satellite tile, gear + stacked
+% database-cylinder "interchangeable backbones" cue, bar-chart probe glyph,
+% target/calibration glyph, document/report-card glyph). The previous
+% "stacked card" cue behind the encoder box drew full duplicate box borders
+% offset behind the box, which showed as a stray line fragment at the box's
+% top-right corner; replaced with a borderless (draw=none) fill-only stack
+% plus a small explicit cylinder icon. Outcome box labels (KILL / Remedy) are
+% now black text (only the box border/fill carries color, per house style:
+% colored marks/fills are fine, colored in-figure text is not).
+\documentclass[border=1pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+% Colorblind-safe Okabe-Ito subset (matches ../figures/ggtheme.R okabe_ito).
+\definecolor{cPipe}{HTML}{0072B2}   % blue: main pipeline boxes
+\definecolor{cCalib}{HTML}{56B4E9}  % sky blue: conformal/report-card accent
+\definecolor{cKill}{HTML}{D55E00}   % vermillion: KILL outcome
+\definecolor{cRemedy}{HTML}{009E73} % bluish green: remedy outcome
+\definecolor{cGrey}{HTML}{404040}
+
+\begin{document}
+\begin{tikzpicture}[
+  >=Latex,
+  node distance=2.6mm,
+  every node/.style={font=\fontsize{8}{9.5}\selectfont},
+  box/.style={draw=cGrey, thick, rounded corners=2pt, fill=white,
+              minimum width=40mm, minimum height=7mm, inner sep=1.6mm},
+  accent/.style={fill=cCalib!12},
+  outbox/.style={draw, thick, rounded corners=2pt, align=center,
+                 minimum width=17mm, minimum height=7mm, inner sep=1.2mm},
+]
+
+% ---- Main pipeline, top to bottom. One short label per box; all
+% enumerations (backbone roster, probe type, region names) live in the caption.
+\node[box] (tile) {Sentinel-2 tile};
+\node[box, below=of tile] (enc2) {Frozen GFM encoder};
+\node[box, accent, below=of enc2] (probe) {Frozen-embedding probe};
+\node[box, below=of probe] (calib) {Conformal calibration under shift};
+\node[box, accent, below=of calib] (report) {Coverage-debt report card};
+
+\draw[->] (tile) -- (enc2);
+\draw[->] (enc2) -- (probe);
+\draw[->] (probe) -- (calib);
+\draw[->] (calib) -- (report);
+
+% ---- Pictogram glyphs, one per stage, placed left of each box. Simple
+% shapes/icons in place of the text-heavy sub-lines the boxes used to carry.
+\def\iconx{-25mm}
+
+% 1. Satellite/tile glyph: body + two side panels + antenna dot.
+\begin{scope}[shift={($(tile)+(\iconx,0)$)}, thick, cGrey]
+  \draw (-1.6mm,-1mm) rectangle (1.6mm,1mm);
+  \draw (-3.6mm,-0.7mm) rectangle (-1.6mm,0.7mm);
+  \draw (1.6mm,-0.7mm) rectangle (3.6mm,0.7mm);
+  \draw (0,1mm) -- (0,2.2mm);
+  \fill (0,2.2mm) circle (0.4mm);
+\end{scope}
+
+% 2. Encoder glyph: a gear (frozen processing) plus a small stacked-cylinder
+% cue for "one of several interchangeable backbones" (database-cylinder
+% glyph, drawn as its own icon rather than a duplicate box border).
+\begin{scope}[shift={($(enc2)+(\iconx,0)$)}]
+  \begin{scope}[shift={(-1.6mm,0)}, thick, cPipe]
+    \draw (0,0) circle (1.7mm);
+    \foreach \a in {0,45,...,315}{\draw[line width=0.6pt] (\a:1.7mm) -- (\a:2.4mm);}
+    \fill[white] (0,0) circle (0.7mm);
+    \draw (0,0) circle (0.7mm);
+  \end{scope}
+  \begin{scope}[shift={(3mm,-0.3mm)}, thick, cGrey]
+    \foreach \dy in {0,0.9mm}{
+      \draw (-1.5mm,0.5mm+\dy) -- (-1.5mm,-0.5mm+\dy) arc (180:360:1.5mm and 0.5mm) -- (1.5mm,0.5mm+\dy) arc (0:180:1.5mm and 0.5mm);
+    }
+    \draw (-1.5mm,0.5mm+0.9mm) arc (180:360:1.5mm and 0.5mm);
+  \end{scope}
+\end{scope}
+
+% 3. Probe glyph: three ascending bars (extracted embedding/feature vector).
+\begin{scope}[shift={($(probe)+(\iconx,-1.4mm)$)}, cCalib!70!black]
+  \fill (-2.2mm,0) rectangle (-1.0mm,1.6mm);
+  \fill (-0.6mm,0) rectangle (0.6mm,2.4mm);
+  \fill (1.0mm,0) rectangle (2.2mm,3.4mm);
+\end{scope}
+
+% 4. Calibration glyph: a target/bullseye (conformal calibration under shift).
+\begin{scope}[shift={($(calib)+(\iconx,0)$)}, thick, cPipe]
+  \draw (0,0) circle (2.2mm);
+  \draw (0,0) circle (1.3mm);
+  \fill (0,0) circle (0.5mm);
+\end{scope}
+
+% 5. Report-card glyph: a document sheet with a folded corner and rule lines.
+\begin{scope}[shift={($(report)+(\iconx,0)$)}, thick, cCalib!70!black]
+  \draw (-2mm,-2.6mm) -- (-2mm,2.6mm) -- (1mm,2.6mm) -- (2mm,1.6mm) -- (2mm,-2.6mm) -- cycle;
+  \draw (1mm,2.6mm) -- (1mm,1.6mm) -- (2mm,1.6mm);
+  \foreach \y in {0.6mm,-0.6mm,-1.8mm}{\draw[line width=0.5pt] (-1.3mm,\y) -- (1.3mm,\y);}
+\end{scope}
+
+% ---- Outcome branch: preregistered gate verdict. Black text; color carries
+% only the box border/fill (house style: colored in-figure TEXT is reserved
+% for data-series marks, not annotation/label text).
+\node[outbox, draw=cKill, fill=cKill!6, below left=7mm and -2mm of report] (kill)
+  {\textcolor{black}{\textbf{KILL}}};
+\node[outbox, draw=cRemedy, fill=cRemedy!6, below right=7mm and -2mm of report] (remedy)
+  {\textcolor{black}{\textbf{Remedy}}};
+
+\coordinate (branch) at ($(report.south) + (0,-2.4mm)$);
+\draw[cGrey] (report.south) -- (branch);
+\draw[->, cKill, thick] (branch) -| (kill.north);
+\draw[->, cRemedy, thick] (branch) -| (remedy.north);
+
+\end{tikzpicture}
+\end{document}

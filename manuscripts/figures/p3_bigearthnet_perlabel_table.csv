@@ -1,0 +1,37 @@
+"fm","alpha","nominal","metric","arm","mean","ci_low","ci_high"
+"Prithvi-EO-2.0",0.05,0.95,"Recall-coverage","split-conformal (source)",0.873855928601566,0.855230258951197,0.892481598251936
+"Prithvi-EO-2.0",0.05,0.95,"Recall-coverage","spatial-Mondrian",0.908988939924914,0.896602279194224,0.921375600655604
+"Prithvi-EO-2.0",0.05,0.95,"Label-set size (shift)","split-conformal (source)",20.3197516930023,19.8477192990576,20.7917840869469
+"Prithvi-EO-2.0",0.05,0.95,"Label-set size (shift)","spatial-Mondrian",22.2402934537246,21.1243641669887,23.3562227404606
+"Prithvi-EO-2.0",0.1,0.9,"Recall-coverage","split-conformal (source)",0.802299132742308,0.785830969513044,0.818767295971571
+"Prithvi-EO-2.0",0.1,0.9,"Recall-coverage","spatial-Mondrian",0.902737970154051,0.889847256955305,0.915628683352796
+"Prithvi-EO-2.0",0.1,0.9,"Label-set size (shift)","split-conformal (source)",17.9066591422122,17.2780949635129,18.5352233209114
+"Prithvi-EO-2.0",0.1,0.9,"Label-set size (shift)","spatial-Mondrian",21.3214446952596,20.1544052874798,22.4884841030394
+"Prithvi-EO-2.0",0.2,0.8,"Recall-coverage","split-conformal (source)",0.646327251165448,0.616407561330527,0.676246941000369
+"Prithvi-EO-2.0",0.2,0.8,"Recall-coverage","spatial-Mondrian",0.8594933506566,0.84380861922026,0.875178082092941
+"Prithvi-EO-2.0",0.2,0.8,"Label-set size (shift)","split-conformal (source)",12.9595936794582,12.0840860238529,13.8351013350636
+"Prithvi-EO-2.0",0.2,0.8,"Label-set size (shift)","spatial-Mondrian",18.739841986456,17.7592141647846,19.7204698081274
+"SSL4EO-S12",0.05,0.95,"Recall-coverage","split-conformal (source)",0.777530248900033,0.726966501514875,0.82809399628519
+"SSL4EO-S12",0.05,0.95,"Recall-coverage","spatial-Mondrian",0.919537159339095,0.905645905598704,0.933428413079486
+"SSL4EO-S12",0.05,0.95,"Label-set size (shift)","split-conformal (source)",16.4283295711061,14.9025906433122,17.9540684988999
+"SSL4EO-S12",0.05,0.95,"Label-set size (shift)","spatial-Mondrian",21.9062076749436,21.0002706592457,22.8121446906414
+"SSL4EO-S12",0.1,0.9,"Recall-coverage","split-conformal (source)",0.687268459133006,0.663255089855474,0.711281828410538
+"SSL4EO-S12",0.1,0.9,"Recall-coverage","spatial-Mondrian",0.912356461649519,0.899002902663849,0.92571002063519
+"SSL4EO-S12",0.1,0.9,"Label-set size (shift)","split-conformal (source)",13.2996613995485,12.3269837299558,14.2723390691413
+"SSL4EO-S12",0.1,0.9,"Label-set size (shift)","spatial-Mondrian",20.8678329571106,19.9901482826178,21.7455176316034
+"SSL4EO-S12",0.2,0.8,"Recall-coverage","split-conformal (source)",0.523016462386253,0.512161710630965,0.53387121414154
+"SSL4EO-S12",0.2,0.8,"Recall-coverage","spatial-Mondrian",0.867249298452891,0.859044940954357,0.875453655951425
+"SSL4EO-S12",0.2,0.8,"Label-set size (shift)","split-conformal (source)",8.13792325056433,7.71151095637235,8.56433554475632
+"SSL4EO-S12",0.2,0.8,"Label-set size (shift)","spatial-Mondrian",18.1751693002257,17.5671413736043,18.7831972268471
+"Clay v1.5",0.05,0.95,"Recall-coverage","split-conformal (source)",0.842123126854177,0.821861357637573,0.862384896070781
+"Clay v1.5",0.05,0.95,"Recall-coverage","spatial-Mondrian",0.915487763026452,0.906503679537752,0.924471846515153
+"Clay v1.5",0.05,0.95,"Label-set size (shift)","split-conformal (source)",18.1162528216704,17.3202557551011,18.9122498882398
+"Clay v1.5",0.05,0.95,"Label-set size (shift)","spatial-Mondrian",21.5202031602709,20.6466657950894,22.3937405254524
+"Clay v1.5",0.1,0.9,"Recall-coverage","split-conformal (source)",0.765662218484858,0.748422364498354,0.782902072471363
+"Clay v1.5",0.1,0.9,"Recall-coverage","spatial-Mondrian",0.908580956798273,0.900514078334909,0.916647835261638
+"Clay v1.5",0.1,0.9,"Label-set size (shift)","split-conformal (source)",14.970316027088,14.4054405595177,15.5351914946583
+"Clay v1.5",0.1,0.9,"Label-set size (shift)","spatial-Mondrian",20.4671557562077,19.7201093533748,21.2142021590405
+"Clay v1.5",0.2,0.8,"Recall-coverage","split-conformal (source)",0.594905340864771,0.574245832427244,0.615564849302298
+"Clay v1.5",0.2,0.8,"Recall-coverage","spatial-Mondrian",0.867251951534495,0.858463297902231,0.87604060516676
+"Clay v1.5",0.2,0.8,"Label-set size (shift)","split-conformal (source)",9.80011286681716,9.18892003898371,10.4113056946506
+"Clay v1.5",0.2,0.8,"Label-set size (shift)","spatial-Mondrian",17.7960496613995,17.3886420792731,18.203457243526

@@ -1,0 +1,5 @@
+Cross-European shift creates measurable coverage debt in frozen optical encoders. (75)
+Target-region calibration restores reliability under cross-regional shift. (70)
+Larger prediction sets, not better encoders, buy back FNR debt. (63)
+Accuracy alone can hide worst-class coverage collapse. (54)
+A report card makes deployment reliability auditable before release. (68)

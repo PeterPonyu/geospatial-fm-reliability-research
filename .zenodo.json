@@ -1,0 +1,25 @@
+{
+  "title": "Geographic coverage debt of frozen Earth-observation foundation models: code and results for a conditional, encoder-dependent spatial-conformal repair",
+  "description": "Analysis code, cached-feature-driven experiment runners, and result JSONs for a study of conformal-prediction reliability of frozen geospatial foundation models under real geographic distribution shift. On a real East-to-West Europe cross-region holdout of EuroSAT-MS (Sentinel-2), linear probes on four frozen encoders (Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12 DINO and MAE) incur a geographic coverage debt: source-fit split-conformal predictors under-cover the shifted target, and the debt is encoder-dependent and monotone in shift-ECE. A target-side spatial-Mondrian conformal correction restores near-nominal coverage exactly where debt exists, at a prediction-set-size cost, though a label-access ablation shows the active ingredient is labeled target-region calibration rather than spatial binning per se. The repository contains the EuroSAT 4-FM x 3-alpha x 5-seed headline experiment, a P25/P33/P40/P50 boundary-sensitivity sweep, a GEO-Bench m-bigearthnet dominant-label and rigorous per-label multi-label conformal replication, and a conformal-risk-control (FNR) arm, plus the R scripts that regenerate every manuscript figure from the on-disk result JSONs. Analysis uses the relmetrics package from the reliability-commons kit.",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Fu, Zeyu",
+      "orcid": "0009-0001-8329-0108"
+    }
+  ],
+  "keywords": [
+    "machine learning reliability",
+    "conformal prediction",
+    "uncertainty quantification",
+    "geospatial foundation models",
+    "distribution shift",
+    "Earth observation",
+    "calibration",
+    "remote sensing"
+  ],
+  "access_right": "open",
+  "version": "0.1.0",
+  "prereserve_doi": true
+}

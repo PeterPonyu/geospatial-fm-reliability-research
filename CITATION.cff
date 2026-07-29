@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "geospatial-fm-reliability-research: geographic coverage debt of frozen Earth-observation foundation models and conditional conformal repair"
+type: software
+authors:
+  - family-names: "Fu"
+    given-names: "Zeyu"
+    orcid: "https://orcid.org/0009-0001-8329-0108"
+version: 0.1.0
+date-released: "2026-07-02"
+doi: "10.5281/zenodo.21130299"
+license: MIT
+abstract: >-
+  Experiment code, cached frozen-encoder features metadata, and manuscript for a
+  study of conformal-prediction coverage loss of frozen geospatial foundation
+  models (Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12 DINO/MAE) under a real
+  East-to-West Europe geographic shift, with a conditional, encoder-dependent
+  target-side conformal repair, boundary-sensitivity sweep, label-access
+  ablation, and GEO-Bench m-bigearthnet multi-label + CRC replication.
+keywords:
+  - conformal prediction
+  - calibration
+  - geospatial foundation models
+  - distribution shift
+  - Earth observation

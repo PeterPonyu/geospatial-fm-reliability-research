@@ -1,0 +1,79 @@
+PORTAL SUBMISSION PACK — geospatial-fm-reliability-research paper (TGRS)
+Venue: IEEE Transactions on Geoscience and Remote Sensing (IEEE Author Portal / ScholarOne Manuscripts)
+Everything below is copy-paste ready. Radio-button answers are marked [SELECT].
+
+=====================================================================
+1. TITLE
+=====================================================================
+Geographic coverage debt of frozen Earth-observation foundation models: an encoder-robustness reliability diagnostic and a conditional target-recalibration remedy
+
+=====================================================================
+2. KEYWORDS
+=====================================================================
+Earth observation; Geospatial foundation models; Conformal prediction; Distribution shift; Uncertainty quantification; Reliability; Calibration
+
+=====================================================================
+3. ABSTRACT
+=====================================================================
+Frozen geospatial foundation models (GFMs) are increasingly deployed as off-the-shelf encoders for land-cover and local-climate-zone (LCZ) monitoring, yet practitioners lack guidance on which frozen encoder to trust after a regional move, or on how to restore a reliability guarantee once shift breaks it. We supply both through a distribution-free reliability audit (split-conformal, finite-sample guarantees) of frozen GFMs under real cross-region shift (thirteen encoders on GEO-Bench BigEarthNet-S2 for the FNR analysis; five on EuroSAT-MS and non-European m-so2sat; the EuroSAT shift is partly a within-Europe label-prior shift, ruled out by a class-balanced control as the sole driver). This audit is packaged as a reusable pre-deployment reliability report-card protocol: for any frozen GFM, it returns four practitioner-facing numbers before deployment—the in-distribution FNR guarantee, the geographic debt that guarantee incurs under shift, the labeled-data cost of repairing that debt with a target-region slice, and the worst-class coverage a marginal guarantee alone would hide. Every frozen encoder meets a multi-label false-negative-rate (FNR) risk-control guarantee in-distribution, yet all thirteen incur a real geographic debt under shift (FNR 2.6–4.7× nominal), bought back with larger sets, not a better encoder: FNR robustness rises with set size (Spearman ρ=-0.66, p=0.017), the paper's one adequately powered cross-encoder result. A deterministic boundary bounds when the audit is worth running at all: marginal single-label sets collapse to singletons above accuracy ≈0.80, where the conformal layer adds nothing beyond accuracy. The textbook unlabeled fix does not close the debt—covariate-shift-weighted conformal recovers only part of it, its effective sample size collapsing to 0.1–1.6% of the calibration set—so only a labeled target-region slice (e.g. 30% of target data) reliably restores the guarantee, at the cost of large but still-informative restored sets (22–24 of ≈27 active labels); this repair is expected by construction, a verification rather than an independent discovery. The cross-encoder question is weaker: the least accurate encoder (Prithvi) is the most FNR-robust, but the rank correlation with accuracy is only a weak, non-significant positive at n=13 (ρ=+0.32, p=0.28)—directional context, not a proven inversion, since a five-encoder pilot's stronger correlation regressed toward zero on expansion. As a single-encoder, single-class existence proof, restoring the marginal coverage guarantee can also hide a per-class collapse invisible to accuracy and ECE. The audit is diagnostic, reusing existing conformal estimators; the preregistration outcome and exploratory-analysis disclosures are in the Limitations section.
+
+=====================================================================
+4. COVER LETTER
+=====================================================================
+Dear Editor-in-Chief and Associate Editors,
+
+We submit our manuscript, "Geographic coverage debt of frozen Earth-observation foundation models: an encoder-robustness reliability diagnostic and a conditional target-recalibration remedy," for consideration in IEEE Transactions on Geoscience and Remote Sensing.
+
+Across thirteen frozen geospatial foundation-model encoders evaluated on GEO-Bench BigEarthNet-S2 under real cross-region shift, every encoder meets its in-distribution false-negative-rate risk-control guarantee, yet all thirteen incur a real reliability debt once deployed off-region, with false-negative rates running 2.6-4.7 times the nominal target. A deterministic accuracy boundary (about 0.80) marks where this audit stops mattering, since prediction sets collapse to singletons above it. An unlabeled covariate-shift correction recovers only part of the debt, but a labeled target-region slice (about 30% of target data) reliably restores the guarantee, at the cost of larger yet still informative prediction sets (22-24 of about 27 active labels).
+
+This work gives practitioners finite-sample statistical guarantees on when a frozen Earth-observation foundation model can be trusted after a regional move, and a concrete labeled-data prescription for restoring that guarantee once shift breaks it — a distribution-free reliability audit, built on split-conformal risk control, that speaks directly to TGRS's readership deploying these encoders operationally. The manuscript also reports its negative and conditional findings as plainly as its positive ones, which we regard as a strength for a reliability-focused audit.
+
+We confirm that this is original work, that it is not under consideration elsewhere, and that the single author has approved the submission.
+
+Thank you for your consideration.
+
+Sincerely,
+
+Zeyu Fu
+ORCID: 0009-0001-8329-0108
+e-mail: fuzeyu09@gmail.com
+State Key Laboratory of Trauma and Chemical Poisoning, Institute of Combined Injury, Army Medical University, Chongqing, China
+
+=====================================================================
+5. DECLARATIONS
+=====================================================================
+(Note: IEEE/TGRS has no single structured declarations form at the portal like Springer or Elsevier; disclosures are handled via the ScholarOne submission questions, the manuscript's own Acknowledgment/funding footnote, and the Data and Code Availability section already in the manuscript. The statements below are kept here for reuse wherever the portal or a reviewer asks for them.)
+
+-- Competing interests:
+STATEMENT: The author declares no competing interests or other interests that might be perceived to influence the results and/or discussion reported in this paper.
+
+-- Dual publication:
+STATEMENT: The results/data/figures in this manuscript have not been published elsewhere, nor are they under consideration by another publisher.
+
+-- Third party material:
+STATEMENT: All of the material is owned by the author and/or no permissions are required.
+
+-- Data availability:
+STATEMENT: EuroSAT-MS (public, Sentinel-2) and the frozen GFM encoder weights used (Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12 DINO and MAE) are public, no-authentication artifacts. The code and frozen result records used to produce every result and figure in this manuscript are available at https://github.com/PeterPonyu/geospatial-fm-reliability-research and archived at Zenodo, DOI https://doi.org/10.5281/zenodo.21130299; reproduction instructions and a fast regression gate are provided in the code archive.
+
+-- Acknowledgements:
+(leave blank)
+
+-- Research funding:
+STATEMENT: The author received no funding for this work.
+
+-- Author Contributions Statement:
+Z.F. conceived and designed the study, performed all experiments and analyses, prepared all figures and tables, and wrote and reviewed the manuscript.
+
+=====================================================================
+6. SUGGESTED REVIEWERS (portal field; supply names yourself)
+=====================================================================
+Expertise areas to pick three from: (a) geospatial / Earth-observation foundation models (Prithvi, Clay, SSL4EO); (b) conformal prediction / calibration under distribution shift; (c) remote-sensing scene classification and cross-region generalization (Sentinel-2). Avoid recent co-authors and shared-institution conflicts.
+
+=====================================================================
+7. CORRESPONDING AUTHOR
+=====================================================================
+Zeyu Fu
+ORCID: 0009-0001-8329-0108
+e-mail: fuzeyu09@gmail.com
+State Key Laboratory of Trauma and Chemical Poisoning, Institute of Combined Injury, Army Medical University, Chongqing, China

@@ -1,0 +1,40 @@
+# Python dependencies for geospatial-fm-reliability-research.
+# Versions pinned to the environment that produced the on-disk results
+# (Python 3.13.5, Linux; verified 2026-07-02 via importlib __version__).
+# Derived from actual `import` statements across experiments/ and quarantine/.
+
+# Core numerics / analysis (all conformal + calibration post-processing)
+numpy==2.2.6
+scipy==1.17.1
+scikit-learn==1.8.0
+
+# Frozen-encoder feature extraction (only needed to re-extract features;
+# cached feature arrays for all headline results are already on disk / in DATA_MANIFEST.md)
+torch==2.12.0          # local build was 2.12.0+cu130; CPU build also works for cached-feature reruns
+torchvision==0.27.0
+timm==1.0.27
+einops==0.8.2
+huggingface_hub==1.7.1
+datasets==2.21.0
+
+# Geospatial I/O (EuroSAT-MS GeoTIFF prep, So2Sat HDF5 prep)
+rasterio==1.5.0
+pyproj==3.7.2
+h5py==3.16.0
+
+# Plotting (Python-side diagnostics; publication figures are R, see README)
+matplotlib==3.10.8
+
+# --- Not on PyPI-pinnable from this environment ---
+# geobench : required ONLY by experiments/bigearthnet_coverage_debt/build_ben_arrays.py
+#            and experiments/xsensor_real/prep_so2sat.py (GEO-Bench download/unpickle).
+#            NOT installed in the current environment (arrays are already built and
+#            hash-recorded in DATA_MANIFEST.md). Install with: pip install geobench
+# relmetrics : local sibling package providing provenance stamping
+#              (reliability-commons repo). Install with:
+#              pip install -e ../reliability-commons
+#              or set RELIABILITY_COMMONS to its checkout path (see README).
+# torchgeo   : required ONLY by experiments/eurosat_xsensor_calib/dofa_features.py
+#              (5th-encoder DOFA arm, NEXT-EXPERIMENTS.md item 4; see
+#              RUNME_CONTAINER.md). NOT installed in the current environment;
+#              install with: pip install torchgeo
