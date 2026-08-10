@@ -41,7 +41,7 @@ crowded <- names(manual_nudges)
 d_auto  <- d[!(d$label %in% crowded), ]
 manual_layers <- lapply(crowded, function(lbl) {
   cfg <- manual_nudges[[lbl]]
-  ggrepel::geom_text_repel(data = d[d$label == lbl, ], aes(label = label), size = 2.7,
+  ggrepel::geom_text_repel(data = d[d$label == lbl, ], aes(label = label), size = 3.5,
                            colour = "black", family = PAPER_FONT,
                            nudge_x = cfg$nudge_x, nudge_y = cfg$nudge_y,
                            direction = cfg$direction, box.padding = 0.3,
@@ -55,7 +55,7 @@ f <- ggplot(d, aes(mAP_in, fnr_sh)) +
   # (fixwave 2026-07-16, tutor review note 2). Points and the reported Spearman rho
   # are the only load-bearing content of this panel.
   geom_point(aes(colour = arch, shape = roster), size = 3.1) +
-  ggrepel::geom_text_repel(data = d_auto, aes(label = label), size = 2.7,
+  ggrepel::geom_text_repel(data = d_auto, aes(label = label), size = 3.5,
                            colour = "black",
                            family = PAPER_FONT, box.padding = 0.5,
                            point.padding = 0.3, min.segment.length = 0,
@@ -64,7 +64,7 @@ f <- ggplot(d, aes(mAP_in, fnr_sh)) +
   scale_color_paper() +
   scale_shape_manual(values = c("original 5" = 16, "added (roster)" = 17)) +
   annotate("text", x = min(d$mAP_in), y = max(d$fnr_sh),
-           label = lab_stat, hjust = 0, vjust = 1, size = 3.0,
+           label = lab_stat, hjust = 0, vjust = 1, size = 3.5,
            colour = "black", family = PAPER_FONT) +
   labs(x = "In-distribution mAP",
        y = expression(paste("FNR under shift (CRC, ", alpha, " = 0.05)")),

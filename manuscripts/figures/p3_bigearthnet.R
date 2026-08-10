@@ -52,5 +52,5 @@ f <- ggplot(m, aes(factor(alpha), coverage, fill=arm)) +
   theme_paper() + theme(panel.grid.major.x = element_blank())
 # Render size set so effective text at \includegraphics[width=0.95\linewidth]
 # lands at ~8.5pt, matching the other figures (typography re-audit, 2026-07-16).
-save_fig(f, "figures/F5_bigearthnet_domlabel", w=7.99, h=3.84)
+save_fig(f, "figures/F5_bigearthnet_domlabel", w=4.75, h=2.28)
 cat("BigEarthNet dominant-label figure written. Table:\n"); print(df)

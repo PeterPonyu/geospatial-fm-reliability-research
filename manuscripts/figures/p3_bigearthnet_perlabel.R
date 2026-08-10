@@ -58,5 +58,5 @@ f6 <- ggplot(df, aes(factor(alpha), mean, colour = arm, group = arm)) +
   theme_paper() + theme(strip.placement = "outside")
 # Render size set so effective text at \includegraphics[width=0.95\linewidth]
 # lands at ~8.5pt, matching the other figures (typography re-audit, 2026-07-16).
-save_fig(f6, "figures/F6_bigearthnet_perlabel", w = 7.99, h = 4.44)
+save_fig(f6, "figures/F6_bigearthnet_perlabel", w = 4.75, h = 2.64)
 cat("BigEarthNet per-label figure written. Table:\n"); print(df)

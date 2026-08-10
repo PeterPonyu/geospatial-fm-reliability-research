@@ -42,7 +42,7 @@ guarantees) of frozen GFMs under real cross-European regional shift (thirteen op
 five on EuroSAT-MS \citep{helber2019eurosat}; plus a non-European multi-city LCZ extension on m-so2sat), packaged as a reusable pre-deployment reliability report-card protocol
 (\S\ref{sec:reportcard}) that returns four practitioner-facing numbers before
 deployment: the in-distribution false-negative-rate (FNR) guarantee, the geographic debt that guarantee incurs under shift,
-the labeled-data cost of repairing that debt, and the worst-class coverage a
+the labeled-data budget curve for repairing that debt, and the worst-class coverage a
 marginal guarantee alone would hide. Every frozen encoder meets its multi-label FNR risk-control guarantee
 in-distribution, yet all thirteen incur a real geographic debt under shift (FNR $2.6$--$4.7\times$
 nominal), bought back with larger sets, not a better encoder: FNR robustness rises with set size (Spearman
@@ -620,6 +620,82 @@ introduce no new conformal method, and spatial binning is reported here as an ho
 contributions of this paper are correspondingly the encoder-robustness diagnostic and the
 preregistered audit, not a new estimator.
 
+% source: experiments/target_calplanning_2026-08-01/results.json (script sha256_16 in JSON;
+%   EuroSAT P33 5 seeds; fractions 0.005-0.30 of target region; test slice pinned at frozen 30% cut,
+%   calibration slices nested prefixes; 0.30 point verified vs frozen eurosat_boundary_sweep
+%   conformal_target_global per-seed coverage/set-size to |delta|=0.0 exactly.
+%   BEN: prithvi only (compute-bound), 5 seeds, alpha in {0.05,0.10}, 39 active labels.
+%   BEN 0.30-point gate = budget-independent source-calibrated CRC FNR vs frozen
+%   bigearthnet_crc_arm-exec-2026-06-29.json, declared tolerance 1e-3: status=FAIL,
+%   max|delta_fnr| = 1.277e-3 in 1 of 10 cells (alpha=0.10 seed 1); other 9 cells 2.4e-4..1.21e-3.
+%   max|delta_lambda_tgt_global| = 5.39e-6. n_usable_labels matches 10/10.
+%   Cause (recorded in results.json, not asserted): all 10 frozen lambdas are exactly
+%   float32-representable while this box returns float64 -- the frozen record is a Python 3.12.3
+%   run, this is 3.13.5/NumPy 2.2.6. Residual is ~24 float32 ULPs. It is NOT bit-exact and is
+%   reported as a FAIL against the stated tolerance rather than reclassified.
+%   Post-freeze exploratory; not preregistered.
+%   Verified coverage table, cov@frac=0.005 (n=44) -> cov@frac=0.30 (n=2673), per encoder x alpha:
+%     prithvi     a=0.05 0.9937->0.9522 | a=0.10 0.9589->0.8987 | a=0.20 0.9044->0.8327 (split 0.8327)
+%     ssl4eo      a=0.05 0.9805->0.9486 | a=0.10 0.9463->0.9013 | a=0.20 0.8850->0.8798 (split 0.8798)
+%     clay        a=0.05 0.9872->0.9512 | a=0.10 0.9462->0.9180 | a=0.20 0.9180->0.9180 (split 0.9180, FLAT)
+%     ssl4eo_mae  a=0.05 0.9767->0.9496 | a=0.10 0.9503->0.9026 | a=0.20 0.9008->0.8985 (split 0.8985)
+%   Monotone decreasing in budget in all 12 cells. The 0.30 column reproduces the frozen
+%   eurosat_boundary_sweep conformal_target_global means (prithvi 0.9521885521885523 /
+%   0.8987333654000322 / 0.8327400994067661; clay 0.9512265512265513 / 0.9180054513387846;
+%   ssl4eo 0.9485970819304154 / 0.901266634599968; ssl4eo_mae 0.9495911495911497 / 0.9025813692480359)
+%   with max|delta_coverage| = max|delta_set_size| = 0.0 over all per-seed cells; verify=PASS 4/4 encoders.
+%   Effective LAC quantile ceil((n+1)(1-alpha))/n at alpha=0.10: 0.93182 at n=44 vs 0.90049 at n=2673.)
+How small a labeled target-region slice does the repair require? The paper prices the remedy at a
+single point---the fixed $30\%$ target-calibration fraction embedded in the frozen protocol---so we
+sweep the budget post-hoc over $0.5\%$--$30\%$ of the target region on the same cached embeddings,
+holding the evaluation slice fixed at the frozen cut so every budget is scored on the same test
+examples (Fig.~\ref{fig:f10}, \emph{descriptive, not confirmatory}). The curve reveals a non-obvious
+structure: the repaired arm clears the nominal level at the smallest swept budget and then
+\emph{decreases} toward nominal as the budget grows, rather than rising monotonically. This is
+finite-sample conformal conservatism, not a gradual repair: the finite-sample quantile level
+$\lceil (n{+}1)(1{-}\alpha)\rceil / n$ inflates well above $1{-}\alpha$ at small $n$ (at $n{=}44$
+samples, effective level $0.932$ vs.\ nominal $0.900$ at $\alpha{=}0.10$), over-covering and paying for
+the slack in larger prediction sets. As the budget grows toward $30\%$ the inflation shrinks to
+${\approx}5{\times}10^{-4}$ and coverage converges onto nominal---from far above it at the cheapest
+budget (Prithvi at $0.5\%$: $0.994/0.959/0.904$ at $\alpha{=}0.05/0.10/0.20$) down to the frozen
+operating point's $0.952/0.899/0.833$, which is where the paper's headline numbers sit.
+For a practitioner this means the labeled budget controls set-size tightness, not coverage
+validity: wherever debt exists, any labeled slice---down to the finite-sample floor---already repairs
+the guarantee, so the operating-point choice between a small, conservative slice and a larger, tighter
+one is a pure set-size--versus--annotation-cost tradeoff, encodable as a familiar planning curve. The
+exchange rate is steep and worth quoting: for Prithvi, moving from the frozen $n{=}2673$ down to
+$n{=}44$---a $61{\times}$ annotation saving---inflates the mean set from $1.56$ to $3.66$ labels at
+$\alpha{=}0.05$ ($+134\%$), from $1.22$ to $1.77$ at $\alpha{=}0.10$ ($+46\%$), and from $1.00$ to
+$1.28$ at $\alpha{=}0.20$ ($+28\%$). The cheapest budget is therefore valid but blunt, and the $10$-class
+$\alpha{=}0.20$ column shows why the tightening saturates: at $30\%$ the sets are already exact
+singletons ($1.00$), the floor beyond which no further annotation can buy anything. The
+reading is conditional in the same way the rest of the repair analysis is: where source-only split
+coverage already meets nominal there is nothing for the budget to buy. Clay at $\alpha{=}0.20$ is the
+degenerate case---the curve is exactly flat at the split value $0.9180$ at every budget from $0.5\%$ to
+$30\%$---which is the singleton regime of the validity boundary (Table~\ref{tab:singleton}) reasserting
+itself: once the sets are singletons, no calibration budget can change them. Clay at $\alpha{=}0.10$ is
+the intermediate case, descending from $0.9462$ onto the split value rather than rising above it.
+The practical consequence is a deflationary one for the $30\%$ figure the report card quotes: it is a
+\emph{sufficient} budget, not a necessary one, and we relabel it as such.
+The BigEarthNet CRC arm shows the same structure, and adds a hard floor the EuroSAT arm does not
+have: CRC can only certify risk $\alpha$ when $\alpha \ge 1/(n_\mathrm{eff}{+}1)$, so at
+$\alpha{=}0.05$ at least $19$ calibration examples carrying a positive label are needed before any
+finite-sample guarantee can be issued at all. Below that the threshold diverges, the predicted set
+becomes every label, and the measured FNR collapses to zero \emph{vacuously}; we exclude those budgets
+rather than report them as a free repair. That floor is itself the practitioner-facing number: it is a
+minimum labeling budget below which the guarantee is unavailable at any price. It binds in exactly one
+swept cell: at $\alpha{=}0.05$ the $0.5\%$ budget ($n{=}12$) is unattainable for all five seeds, and its
+apparent $\mathrm{FNR}{=}0.0000$ is the $27.2$-label average set that flags it as vacuous; at
+$\alpha{=}0.10$ the same $n{=}12$ is attainable ($1/13 < 0.10$) and behaves normally. Above the floor
+the mirror image of the EuroSAT picture appears: FNR \emph{rises} toward the target as the budget grows
+rather than falling to meet it---at $\alpha{=}0.05$, $0.022$ at $1\%$ ($n{=}25$) against $0.051$ at
+$30\%$ ($n{=}759$), and at $\alpha{=}0.10$, $0.059$ at $0.5\%$ against $0.103$ at $30\%$---while the
+source-calibrated arm sits at $0.129$ and $0.205$. Both are the conservative side of the guarantee, and
+again the budget is paid for in set size: the cheapest usable budget carries $23.7$ labels per set
+against $21.0$ at $30\%$ ($\alpha{=}0.05$), a ${\approx}13\%$ inflation. The practical reading matches
+EuroSAT: ${\approx}1\%$ of the target region already discharges the risk debt, and the remaining $30\times$
+of annotation buys tighter sets, not a guarantee that would otherwise be missing.
+
 Tables~\ref{tab:weighted}--\ref{tab:so2sat} are a robustness battery, not five independent findings: each
 holds the frozen encoders and the coverage debt fixed and swaps exactly one variable---the correction
 method (unlabeled covariate-shift reweighting in Table~\ref{tab:weighted}; label-shift-adjusted
@@ -960,7 +1036,7 @@ DOFA                & 0.608 & 0.214 & 0.877 & 0.733 & 0.253 \\
 %   = deep-merged figure input: four battery encoders from the PROTECTED canonical results.json
 %   (byte-equivalent) + corrected fifth-encoder block (forward_features 768-d; canonical results unchanged).
 %   from corrected fifth-encoder records. Canonical results are never modified.
-\begin{figure}[t]\centering\includegraphics[width=0.62\linewidth]{F1_debt_vs_robustness.pdf}
+\begin{figure}[t]\centering\includegraphics[width=\linewidth]{F1_debt_vs_robustness.pdf}
 \caption{Encoder-dependent coverage debt (mean shift ECE) vs.\ the number of risk levels spatial-Mondrian
 conformal restores, for all five frozen encoders. Debt orders Prithvi $>$ DOFA $>$ SSL4EO-DINO $>$ SSL4EO-MAE $>$ Clay;
 repair count is weakly monotone (Prithvi $=$ DOFA $2$; SSL4EO-DINO $=$ SSL4EO-MAE $=$ Clay $1$), and the repair
@@ -973,7 +1049,7 @@ encoder and $\alpha$ (dashed = nominal $1-\alpha$; error bars seed-level $t$-CIs
 encoders (roster as in Fig.~\ref{fig:f1}). Restoration occurs where debt
 exists; DOFA's shifted split coverage is $0.851$ at every $\alpha$ and spatial-Mondrian lifts it to $0.951/0.913/0.873$.}\label{fig:f2}\end{figure}
 
-\begin{figure}[t]\centering\includegraphics[width=0.62\linewidth]{F3_setsize_vs_alpha.pdf}
+\begin{figure}[t]\centering\includegraphics[width=0.95\linewidth]{F3_setsize_vs_alpha.pdf}
 \caption{Restoration is paid in prediction-set size: spatial-Mondrian set size exceeds the split-conformal
 singleton baseline (dotted line at set size $1$) only where it
 repays coverage debt, across all five frozen encoders (roster as in Fig.~\ref{fig:f1}; DOFA's set size $1.58/1.29/1.08$ at $\alpha=0.05/0.10/0.20$).
@@ -994,6 +1070,23 @@ spatial-Mondrian per FM and $\alpha$ (dash $= 1-\alpha$). Bottom: mean predicted
 per tile. Mondrian restores per-label coverage at $\alpha\in\{0.10,0.20\}$ (paired CI across labels
 excludes~$0$) for all three FMs, confirming coverage debt in a rigorous multi-label
 setting.}\label{fig:f6}\end{figure}
+
+\begin{figure}[t]\centering\includegraphics[width=0.95\linewidth]{F10_target_cal_planning.pdf}
+\caption{Target-recalibration planning curve: what the repair costs in labels. (a) EuroSAT-MS
+($P_{33}$, $\alpha{=}0.10$), marginal coverage of the target-calibrated arm vs.\ the fraction of the
+target region labeled; (b) GEO-Bench BigEarthNet-S2 ($\alpha{=}0.10$), CRC example-averaged FNR;
+(c) EuroSAT-MS at the stricter $\alpha{=}0.05$, same axes; (d) the normalized reading: fraction of
+the coverage debt repaired vs.\ budget ($\alpha{=}0.05$, shaded seed CI; values above 1 are
+over-repair). Solid lines are encoders, dashed horizontal rules the corresponding budget-independent
+no-repair baseline (source-only calibration), and the black rule the nominal level. The repair is
+\emph{not} a rising ramp: it clears the nominal level at the smallest budget swept and then converges
+\emph{downward} onto it, because the finite-sample conformal correction
+$\lceil (n{+}1)(1{-}\alpha)\rceil / n$ inflates the effective quantile at small $n$ (at $n{=}44$, $0.932$
+vs.\ nominal $0.900$), over-covering and paying for it in set size. Budget therefore buys tightness to
+nominal, not validity. So2Sat is excluded (no local frozen features). Post-freeze exploratory
+(\S\ref{sec:limitations}); budgets at which the CRC guarantee is unattainable
+($\alpha < 1/(n_{\mathrm{eff}}{+}1)$, giving a vacuous all-label set) are omitted from
+panel~(b).}\label{fig:f10}\end{figure}
 
 \section{Discussion}\label{sec:discussion}
 In plain terms: the audit earns its keep on the FNR-versus-set-size tradeoff, the singleton-degeneracy
@@ -1248,6 +1341,21 @@ reading would demand have now been run as negative controls: covariate-shift-wei
 (oracle and BBSE, Table~\ref{tab:labelshift}) fails to restore coverage and worsens it for three of
 four encoders---ruling out the class-prior-shift confound the $P_{33}$ cut could otherwise raise.
 Class-conditional Mondrian conformal remains unexecuted.
+The target-recalibration planning curve (Fig.~\ref{fig:f10}) is post-hoc and post-freeze exploratory:
+the paper's frozen protocol hardcodes the calibration budget at $30\%$ of the target region; the sweep
+over $0.5\%$--$30\%$ was run after the freeze on cached embeddings to turn that single point into a
+practitioner-facing planning curve. It is reported here as a secondary descriptive finding on the same
+footing as the boundary-sensitivity sweep and the label-access ablation, not as a confirmatory result.
+Its EuroSAT-MS arm reproduces the frozen $30\%$ operating point exactly (zero difference in coverage and
+set size across all $4$ encoders $\times$ $3$ risk levels $\times$ $5$ seeds), which is the sense in
+which the sweep is anchored rather than a re-derivation. Its BigEarthNet-S2 arm does \emph{not}: the
+budget-independent source-calibrated CRC FNR agrees with the frozen record to $1.28{\times}10^{-3}$
+against a declared $10^{-3}$ tolerance, so that gate fails in one of ten cells. Every frozen
+$\lambda$ in that record is exactly float32-representable while this machine computes in float64, which
+accounts for the residual (${\approx}24$ float32 units in the last place, three orders of magnitude below
+the ${\approx}0.09$ debt being measured), but we report the gate as failed rather than widen the
+tolerance after the fact. The BigEarthNet arm is additionally Prithvi-only: the remaining four encoders
+were not run, so its panel carries one curve where the EuroSAT panel carries four.
 
 \section*{Declaration of competing interest}
 The author declares that he has no known competing financial interests or personal relationships
@@ -1275,8 +1383,7 @@ records and the figure-generation scripts (regenerating every figure from those 
 draft; reproduction instructions and a fast regression gate are provided in the code archive. The code
 is developed at GitHub (\url{https://github.com/PeterPonyu/geospatial-fm-reliability-research}; repository
 handle \texttt{PeterPonyu}) and
-archived at Zenodo under DOI \texttt{10.5281/zenodo.21130299}; the DOI is currently reserved on a
-draft deposition and becomes active when the record is published.
+archived at Zenodo under DOI \texttt{10.5281/zenodo.21130299}.
 
 \bibliographystyle{plainnat}
 \bibliography{shared,refs}
