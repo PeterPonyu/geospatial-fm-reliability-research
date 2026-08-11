@@ -69,7 +69,7 @@ def _conda_root():
     return Path(os.environ.get("CONDA_ROOT", Path.home() / "miniconda3")).expanduser()
 
 GEO = _portal_repo_root()
-IG_STYLE = _portal_repo_root()
+IG_STYLE = _portal_commons_root() / "tools" / "inspect-gate" / "figures_2026-07-19"
 sys.path.insert(0, str(IG_STYLE))
 import figstyle
 
