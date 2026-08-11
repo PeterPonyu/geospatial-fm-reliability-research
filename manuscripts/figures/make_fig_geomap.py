@@ -43,6 +43,31 @@ def _portal_repo_root():
             return p
     return here
 
+def _data_root():
+    import os
+    from pathlib import Path
+    return Path(os.environ.get("DATA_ROOT", Path.home() / "data")).expanduser()
+
+def _portfolio_root():
+    """Parent of theme repos when laid out as a portfolio sibling tree."""
+    from pathlib import Path
+    r = _portal_repo_root()
+    parent = r.parent
+    markers = ("reliability-commons", "inspect-gate", "materials-mlip-research", "asr-gate")
+    if any((parent / m).exists() for m in markers):
+        return parent
+    return parent
+
+def _autodl_tmp():
+    import os
+    from pathlib import Path
+    return Path(os.environ.get("AUTODL_TMP", "/tmp/autodl-tmp"))
+
+def _conda_root():
+    import os
+    from pathlib import Path
+    return Path(os.environ.get("CONDA_ROOT", Path.home() / "miniconda3")).expanduser()
+
 GEO = _portal_repo_root()
 IG_STYLE = _portal_repo_root()
 sys.path.insert(0, str(IG_STYLE))
@@ -57,8 +82,7 @@ import shapefile  # pyshp
 
 figstyle.apply()
 
-SHP = ("${CONDA_ROOT}/envs/dl/lib/python3.13/site-packages/"
-       "pyogrio/tests/fixtures/naturalearth_lowres/naturalearth_lowres.shp")
+SHP = str(_conda_root() / "envs" / "dl" / "lib" / "python3.13" / "site-packages" / "pyogrio" / "tests" / "fixtures" / "naturalearth_lowres" / "naturalearth_lowres.shp")
 MANIFEST = GEO / "results_expansion_2026-07-09" / "eurosat_spatial" / "manifest.csv"
 
 m = pd.read_csv(MANIFEST)
