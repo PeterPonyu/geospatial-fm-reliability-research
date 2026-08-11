@@ -57,7 +57,7 @@ R (figures only): R >= 4.3 with `ggplot2`, `jsonlite`, `scales`
 Bulk data is gitignored; every artifact's size, SHA256, and source is in
 `DATA_MANIFEST.md`. Datasets live at repo-relative paths except the GEO-Bench
 m-so2sat HDF5 source, which is resolved via the `DATA_ROOT` environment
-variable (default `/home/zeyufu/dataset`; layout
+variable (default `${DATA_ROOT}`; layout
 `$DATA_ROOT/geobench/classification_v0.9.1/m-so2sat`):
 
 - EuroSAT-MS zip (Zenodo 7711810) -> `data/eurosat_ms/`, unzip to `data/eurosat_ms/extracted/`, then `python experiments/eurosat_spatial/prepare_eurosat.py`

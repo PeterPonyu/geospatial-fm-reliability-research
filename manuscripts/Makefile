@@ -10,7 +10,7 @@
 # Override SHARED_BIB if the kit moves:
 #   make paper SHARED_BIB=/path/to/reliability-commons/shared.bib
 
-SHARED_BIB ?= /home/zeyufu/Desktop/ml-reliability-research/reliability-commons/shared.bib
+SHARED_BIB ?= ${COMMONS_ROOT}/shared.bib
 # ggtheme.R is a sourced helper (theme + save_fig), not a standalone figure script.
 R_SCRIPTS  := $(filter-out figures/ggtheme.R,$(wildcard figures/*.R))
 

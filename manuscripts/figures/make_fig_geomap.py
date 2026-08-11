@@ -16,8 +16,35 @@ naturalearth_lowres fixture (no network dependency).
 import sys
 from pathlib import Path
 
-GEO = Path("/home/zeyufu/Desktop/ml-reliability-research/geospatial-fm-reliability-research")
-IG_STYLE = Path("/home/zeyufu/Desktop/ml-reliability-research/reliability-commons/tools/inspect-gate/figures_2026-07-19")
+
+def _portal_commons_root():
+    import os
+    from pathlib import Path
+    for key in ("COMMONS_ROOT", "RELIABILITY_COMMONS"):
+        v = os.environ.get(key)
+        if v:
+            p = Path(v).expanduser().resolve()
+            if p.is_dir():
+                return p
+    here = Path(__file__).resolve()
+    for parent in [here.parent, *here.parents]:
+        for cand in (parent / "reliability-commons", parent.parent / "reliability-commons"):
+            if cand.is_dir():
+                return cand
+    raise RuntimeError(
+        "Set COMMONS_ROOT to the reliability-commons checkout (or place it as a sibling of this repo)."
+    )
+
+def _portal_repo_root():
+    from pathlib import Path
+    here = Path(__file__).resolve().parent
+    for p in [here, *here.parents]:
+        if (p / ".git").exists() or (p / "pyproject.toml").exists() or (p / "README.md").exists():
+            return p
+    return here
+
+GEO = _portal_repo_root()
+IG_STYLE = _portal_repo_root()
 sys.path.insert(0, str(IG_STYLE))
 import figstyle
 
@@ -30,7 +57,7 @@ import shapefile  # pyshp
 
 figstyle.apply()
 
-SHP = ("/home/zeyufu/miniconda3/envs/dl/lib/python3.13/site-packages/"
+SHP = ("${CONDA_ROOT}/envs/dl/lib/python3.13/site-packages/"
        "pyogrio/tests/fixtures/naturalearth_lowres/naturalearth_lowres.shp")
 MANIFEST = GEO / "results_expansion_2026-07-09" / "eurosat_spatial" / "manifest.csv"
 

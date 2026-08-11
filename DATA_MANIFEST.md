@@ -41,7 +41,7 @@ Built by scripts in this repo from the raw archives above. Small sibling files
 Built by `experiments/xsensor_real/prep_so2sat.py` from GEO-Bench m-so2sat HDF5
 (`classification_v0.9.1/m-so2sat`, downloadable via `geobench.geobench_download` — see
 the header of `prep_so2sat.py`; source HDF5 dir referenced there:
-`/home/zeyufu/dataset/geobench/classification_v0.9.1/m-so2sat`).
+`${DATA_ROOT}/geobench/classification_v0.9.1/m-so2sat`).
 
 | File | Size (bytes) | SHA256 |
 |---|---|---|
