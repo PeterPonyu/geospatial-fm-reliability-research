@@ -260,10 +260,10 @@ The data come from EuroSAT-MS \citep{helber2019eurosat} (Sentinel-2 L2A, 13 band
 \end{aligned}
 \end{equation}
 with no image transform applied (Figure~\ref{fig:geomap}; patch-level examples in
-Figure~\ref{fig:geopatches}; spectral fingerprint in Figure~\ref{fig:shiftfp}). The $P_{33}$ cut in Eq.~\eqref{eq:p33-cut} is a single, fixed longitude-percentile
+Figure~\ref{fig:geopatches}). The $P_{33}$ cut in Eq.~\eqref{eq:p33-cut} is a single, fixed longitude-percentile
 boundary chosen once in advance; a post-hoc boundary-sensitivity sweep over $P_{25}/P_{40}/P_{50}$ is
 reported in Results (see Limitations).
-% F15 spectral-fingerprint float deferred: EuroSAT_MS tiles not available locally for honest regen.
+% F15 / fig:shiftfp deferred: local EuroSAT-MS incomplete (~6.7k/27k tiles); mixed MS+RGB regen is not an honest spectral fingerprint (Visual Verdict placeholder; 2026-08-12).
 
 This cut also induces a class-frequency (label-prior) shift
 between source and target that we did not adjust for in the headline logistic probe: at $P_{33}$, class~5
@@ -295,27 +295,14 @@ No image transform is applied --- the shift is purely geographic.}
 \centering
 \includegraphics[width=\linewidth]{F9_geopatches.pdf}
 \caption{The shift at patch level: true-color tiles for six land-cover classes
-(AnnualCrop, Forest, PermanentCrop, Residential, Highway, SeaLake), keyed to the
-frozen MS centroid manifest (same tile IDs). Prefer local EuroSAT-MS GeoTIFF
-(B04/B03/B02) when present; otherwise the matching EuroSAT RGB JPEG.
+(AnnualCrop, Forest, PermanentCrop, Residential, Highway, SeaLake) under the same
+$P_{33}$ cut (source $n{=}18{,}090$; target $n{=}8{,}910$).
 Rows are source ($\mathrm{lon}\ge P_{33}$), a boundary band ($|\mathrm{lon}-P_{33}|\le 1.5^\circ$),
 and target ($\mathrm{lon}<P_{33}$), with tile centroids annotated.
 Region-specific crop structure, settlement texture, and water color differ systematically across
 the cut --- the shift is real but subtle at single-patch level, which is exactly why an
 accuracy-only deployment check can miss it (Results).}
 \label{fig:geopatches}
-\end{figure}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{F15_shift_fingerprint.pdf}
-\caption{Spectral fingerprint of the same geographic cut (frozen local tiles keyed to the MS
-manifest; seeded subsample, not a new experiment).
-\textbf{(a)}~Per-class mean true-color channels on the source vs.\ target side of $P_{33}$.
-\textbf{(b)}~Per-tile greenness / NDVI-like index distributions by class and side
-(MS: $(B08-B04)/(B08+B04)$; RGB fallback: $(G-R)/(G+R)$).
-This panel is geographic-shift visualization only; class-prior mass shift is already shown in
-Fig.~\ref{fig:classprior}.}
-\label{fig:shiftfp}
 \end{figure}
 
 \begin{table}[htbp]\centering\small
