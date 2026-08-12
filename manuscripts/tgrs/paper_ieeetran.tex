@@ -765,10 +765,10 @@ reliable remedy.
 \begin{table*}[!t]\centering\small
 \caption{Unlabeled-remedy controls on the identical EuroSAT E$\to$W split (5-seed means; full
 $\alpha\in\{0.05,0.10,0.20\}$ sweep from the frozen result records): covariate-shift-weighted split
-conformal \citep{tibshirani2019covariate} (density-ratio weights from a source-vs-target discriminator on
+conformal (density-ratio weights from a source-vs-target discriminator on
 the frozen embeddings; ``ESS'' is the weights' effective sample size as a fraction of the calibration set,
 fixed before calibration and hence constant across $\alpha$) and label-shift-weighted split conformal
-\citep{podkopaev2021labelshift} (Oracle: true target label marginal; BBSE \citep{lipton2018bbse}: target
+(Oracle: true target label marginal; BBSE: target
 priors from unlabeled target predictions). Split, Weighted, ESS, and Target-global columns are from the
 weighted-run record; the label-shift record reproduces Split and Target-global within $\pm0.001$. Weighted
 conformal under-covers nominal at every $\alpha$ for every encoder (the ESS collapse signals the shift is
@@ -1117,7 +1117,7 @@ and Mondrian restoration replicate across all three encoders. This proxy is a co
 replication; the companion per-label multi-label analysis is the primary BigEarthNet evidence.}\label{fig:f5}\end{figure*}
 
 \begin{figure*}[htbp]\centering\includegraphics[width=0.95\textwidth]{F6_bigearthnet_perlabel.pdf}
-\caption{Per-label multi-label conformal on GEO-Bench \citep{lacoste2023geobench} \texttt{m-bigearthnet}
+\caption{Per-label multi-label conformal on GEO-Bench \texttt{m-bigearthnet}
 (BigEarthNet-S2; 27 active labels after per-split filtering; real geographic E$\to$W shift).
 Columns are frozen encoders; rows are (top) mean per-label recall-coverage
 $\Pr(c\in\mathcal{C}(x)\mid y_c=1)$ and (bottom) mean predicted
