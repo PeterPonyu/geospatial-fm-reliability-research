@@ -146,17 +146,15 @@ f11b_core <- ggplot(pcdf, aes(class, cov)) +
   theme_f11() +
   theme(panel.grid.major.x = element_blank(),
         plot.margin = margin(t = 12, r = 6, b = 0, l = 3))
-# Glue x-title in a short strip under the ticks (avoids patchwork stretching the
-# ggplot axis-title band to match A's angled labels).
+# Fixed-cm x-title strip: keeps "EuroSAT class id" tight under ticks even when
+# patchwork equalizes row decoration against A's angled labels.
 f11b_xlab <- cowplot::ggdraw() +
   cowplot::draw_label(
     "EuroSAT class id", fontfamily = PAPER_FONT, size = 7.5,
-    x = 0.56, y = 0.70, hjust = 0.5, vjust = 0.5
+    x = 0.56, y = 0.82, hjust = 0.5, vjust = 0.5
   )
-f11b <- wrap_elements(full = cowplot::plot_grid(
-  f11b_core, f11b_xlab,
-  ncol = 1, rel_heights = c(1, 0.065), align = "none"
-))
+f11b <- wrap_elements(full = (f11b_core / f11b_xlab) +
+  plot_layout(heights = grid::unit(c(1, 0.22), c("null", "cm"))))
 prov("F11-B", file.path(EXP0, "results.json"), pcdf, "class")
 
 # Panel C: So2Sat dissociation (worst-class vs marginal)
@@ -252,10 +250,10 @@ for (i in seq_along(leg_content$widths)) {
     leg_content$widths[[i]] <- grid::unit(0, "pt")
   }
 }
-# Center content-sized guide under the C *plot* area (y-title pushes the
-# panel right of the column midpoint; x≈0.58 compensates).
+# Center content-sized guide under Panel C column (slight right bias so the
+# guide reads centered under the plot panel, not the y-title gutter).
 leg_row <- cowplot::ggdraw() +
-  cowplot::draw_grob(leg_content, x = 0.58, y = 0.5, hjust = 0.5, vjust = 0.5)
+  cowplot::draw_grob(leg_content, x = 0.56, y = 0.5, hjust = 0.5, vjust = 0.5)
 # align="none" keeps the horizontal guide from being width-squeezed into a wrap.
 c_stack <- cowplot::plot_grid(
   f11c_noleg, leg_row,
@@ -263,9 +261,7 @@ c_stack <- cowplot::plot_grid(
   align = "none"
 )
 f11c_cell <- wrap_elements(full = c_stack)
-# Unlock B's bottom space so the glued x-title strip stays tight under ticks
-# instead of matching A's angled-label floor.
-f11_all <- f11a + free(f11b, type = "space", side = "b") + f11c_cell + f11d +
+f11_all <- f11a + f11b + f11c_cell + f11d +
   plot_layout(design = "AB\nCD", heights = c(1, 1.02)) +
   plot_annotation(tag_levels = "A") &
   tag_f11()
