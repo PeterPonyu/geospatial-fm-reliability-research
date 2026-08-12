@@ -51,7 +51,8 @@ Guillaume Astruc, Nicolas Gonthier, Clement Mallet, and Loic Landrieu.
 \newblock {AnySat}: One {Earth} observation model for many resolutions, scales,
   and modalities.
 \newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
-  Recognition (CVPR)}, 2025.
+  Recognition (CVPR)}, pages 19530--19540, 2025.
+\newblock \doi{10.1109/CVPR52734.2025.01819}.
 \newblock arXiv:2412.14123.
 
 \bibitem[Barber et~al.(2023)Barber, Cand{\`e}s, Ramdas, and
@@ -71,6 +72,7 @@ Favyen Bastani, Piper Wolters, Ritwik Gupta, Joe Ferdinando, and Aniruddha
   understanding.
 \newblock In \emph{Proceedings of the IEEE/CVF International Conference on
   Computer Vision (ICCV)}, pages 16772--16782, 2023.
+\newblock \doi{10.1109/ICCV51070.2023.01538}.
 
 \bibitem[Bates et~al.(2021)Bates, Angelopoulos, Lei, Malik, and
   Jordan]{bates2021distributionfree}
@@ -120,16 +122,6 @@ Gordon Christie, Neil Fendley, James Wilson, and Ryan Mukherjee.
 \newblock Clay foundation model v1.5.
 \newblock Open model weights and documentation,
   \url{https://clay-foundation.github.io/model/}, 2024.
-
-\bibitem[Cohrs et~al.(2025)Cohrs, Osika, Gonzalez-Calabuig, Nedungadi,
-  Cartuyvels, Knoblauch, Massant, Nath, Ebel, and
-  Sitokonstantinou]{cohrs2025shrugfm}
-Kai-Hendrik Cohrs, Zuzanna Osika, Maria Gonzalez-Calabuig, Vishal Nedungadi,
-  Ruben Cartuyvels, Steffen Knoblauch, Joppe Massant, Shruti Nath, Patrick
-  Ebel, and Vasileios Sitokonstantinou.
-\newblock {SHRUG-FM}: Reliability-aware foundation models for {Earth}
-  observation, 2025.
-\newblock arXiv:2511.10370.
 
 \bibitem[Cong et~al.(2022)Cong, Khanna, Meng, Liu, Rozi, He, Burke, Lobell, and
   Ermon]{cong2022satmae}
@@ -213,6 +205,16 @@ Isaac Gibbs and Emmanuel~J. Cand{\`e}s.
 \newblock \emph{Journal of Machine Learning Research}, 25\penalty0
   (162):\penalty0 1--36, 2024.
 
+\bibitem[Gonzalez-Calabuig et~al.(2025)Gonzalez-Calabuig, Cohrs, Nedungadi,
+  Osika, Cartuyvels, Knoblauch, Massant, Nath, Ebel, and
+  Sitokonstantinou]{cohrs2025shrugfm}
+Maria Gonzalez-Calabuig, Kai-Hendrik Cohrs, Vishal Nedungadi, Zuzanna Osika,
+  Ruben Cartuyvels, Steffen Knoblauch, Joppe Massant, Shruti Nath, Patrick
+  Ebel, and Vasileios Sitokonstantinou.
+\newblock {SHRUG-FM}: Reliability-aware foundation models for {Earth}
+  observation, 2025.
+\newblock arXiv:2511.10370.
+
 \bibitem[Guo et~al.(2017)Guo, Pleiss, Sun, and Weinberger]{guo2017calibration}
 Chuan Guo, Geoff Pleiss, Yu~Sun, and Kilian~Q. Weinberger.
 \newblock On calibration of modern neural networks.
@@ -228,7 +230,8 @@ Xin Guo, Jiangwei Lao, Bo~Dang, Yingying Zhang, Lei Yu, Lixiang Ru, Liheng
 \newblock {SkySense}: A multi-modal remote sensing foundation model towards
   universal interpretation for {Earth} observation imagery.
 \newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
-  Recognition (CVPR)}, 2024.
+  Recognition (CVPR)}, pages 27662--27673, 2024.
+\newblock \doi{10.1109/CVPR52733.2024.02613}.
 \newblock arXiv:2312.10115.
 
 \bibitem[Helber et~al.(2019)Helber, Bischke, Dengel, and
@@ -319,7 +322,9 @@ Alexandre Lacoste, Nils Lehmann, Pau Rodriguez, Evan~D. Sherwin, Hannah Kerner,
   Bj{\"o}rn L{\"u}tjens, et~al.
 \newblock {GEO-Bench}: Toward foundation models for {Earth} monitoring.
 \newblock In \emph{Advances in Neural Information Processing Systems (Datasets
-  and Benchmarks)}, volume~36, 2023.
+  and Benchmarks)}, volume~36, pages 51080--51093, 2023.
+\newblock \doi{10.52202/075280-2223}.
+\newblock arXiv:2306.03831.
 
 \bibitem[Lei et~al.(2018)Lei, G'Sell, Rinaldo, Tibshirani, and
   Wasserman]{lei2018distributionfree}
@@ -360,8 +365,9 @@ Xiayin Lou, Peng Luo, and Liqiu Meng.
 Siqi Lu, Junlin Guo, James Zimmer-Dauphinee, Jordan~M. Nieusma, Xiao Wang,
   Parker VanValkenburgh, Steven~A. Wernke, and Yuankai Huo.
 \newblock Vision foundation models in remote sensing: A survey.
-\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 13\penalty0 (3),
-  2025.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 13\penalty0
+  (3):\penalty0 190--215, 2025.
+\newblock \doi{10.1109/MGRS.2025.3541952}.
 \newblock arXiv:2408.03464.
 
 \bibitem[Ma{\~n}as et~al.(2021)Ma{\~n}as, Lacoste, Giro-i Nieto, Vazquez, and
@@ -371,7 +377,8 @@ Oscar Ma{\~n}as, Alexandre Lacoste, Xavier Giro-i Nieto, David Vazquez, and Pau
 \newblock Seasonal contrast: Unsupervised pre-training from uncurated remote
   sensing data.
 \newblock In \emph{IEEE/CVF International Conference on Computer Vision
-  (ICCV)}, 2021.
+  (ICCV)}, pages 9394--9403, 2021.
+\newblock \doi{10.1109/ICCV48922.2021.00928}.
 \newblock arXiv:2103.16607.
 
 \bibitem[Mao et~al.(2024)Mao, Martin, and Reich]{mao2024spatial}
@@ -452,6 +459,7 @@ Colorado~J. Reed, Ritwik Gupta, Shufan Li, Sarah Brockman, Christopher Funk,
   geospatial representation learning.
 \newblock In \emph{IEEE/CVF International Conference on Computer Vision
   (ICCV)}, 2023.
+\newblock \doi{10.1109/ICCV51070.2023.00378}.
 \newblock arXiv:2212.14532.
 
 \bibitem[Rolf et~al.(2021)Rolf, Proctor, Carleton, Bolliger, Shankar, Ishihara,
@@ -490,6 +498,7 @@ Linus Scheibenreif, Michael Mommert, and Damian Borth.
 \newblock Parameter efficient self-supervised geospatial domain adaptation.
 \newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
   and Pattern Recognition (CVPR)}, pages 27841--27851, 2024.
+\newblock \doi{10.1109/CVPR52733.2024.02630}.
 
 \bibitem[Shafer and Vovk(2008)]{shafer2008tutorial}
 Glenn Shafer and Vladimir Vovk.
@@ -510,8 +519,10 @@ Geethen Singh, Glenn Moncrieff, Zander Venter, Kerry Cawse-Nicholson, Jasper
   Sehgal, Robinson, and Banerjee]{stewart2023ssl4eol}
 Adam~J. Stewart, Nils Lehmann, Isaac~A. Corley, Yi~Wang, Yi-Chia Chang, Nassim
   Ait~Ali Braham, Shradha Sehgal, Caleb Robinson, and Arindam Banerjee.
-\newblock {SSL4EO-L}: Datasets and foundation models for {Landsat} imagery,
-  2023.
+\newblock {SSL4EO-L}: Datasets and foundation models for {Landsat} imagery.
+\newblock In \emph{Advances in Neural Information Processing Systems (Datasets
+  and Benchmarks)}, volume~36, pages 59787--59807, 2023.
+\newblock \doi{10.52202/075280-2612}.
 \newblock arXiv:2306.09424.
 
 \bibitem[Sumbul et~al.(2019)Sumbul, Charfuelan, Demir, and
@@ -535,12 +546,15 @@ Xian Sun, Peijin Wang, Wanxuan Lu, Zicong Zhu, Xiaonan Lu, Qibin He, Junxi Li,
   61:\penalty0 1--22, 2023.
 \newblock \doi{10.1109/TGRS.2022.3194732}.
 
-\bibitem[Szwarcman et~al.(2024)Szwarcman, Roy, Fraccaro, G{\'i}slason,
+\bibitem[Szwarcman et~al.(2026)Szwarcman, Roy, Fraccaro, G{\'\i}slason,
   Blumenstiel, Ghosal, et~al.]{szwarcman2024prithvi}
-Daniela Szwarcman, Sujit Roy, Paolo Fraccaro, {\TH}orsteinn~El{\'i}
-  G{\'i}slason, Benedikt Blumenstiel, Rinki Ghosal, et~al.
-\newblock {Prithvi-EO-2.0}: A versatile multi-temporal foundation model for
-  {Earth} observation applications, 2024.
+Daniela Szwarcman, Sujit Roy, Paolo Fraccaro, {\TH}orsteinn~El{\'\i}
+  G{\'\i}slason, Benedikt Blumenstiel, Rinki Ghosal, et~al.
+\newblock {Prithvi-EO-2.0}: A versatile multitemporal foundation model for
+  {Earth} observation applications.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  64:\penalty0 1--20, 2026.
+\newblock \doi{10.1109/TGRS.2025.3642610}.
 \newblock arXiv:2412.02732.
 
 \bibitem[Tamazyan et~al.(2025)Tamazyan, Vanyan, Barseghyan, Khosrovyan,
@@ -610,11 +624,12 @@ Yi~Wang, Nassim Ait~Ali Braham, Zhitong Xiong, Chenying Liu, Conrad~M.
 
 \bibitem[Wang et~al.(2024)Wang, Albrecht, and Zhu]{wang2024softcon}
 Yi~Wang, Conrad~M. Albrecht, and Xiao~Xiang Zhu.
-\newblock Multi-label guided soft contrastive learning for efficient earth
+\newblock Multilabel-guided soft contrastive learning for efficient earth
   observation pretraining.
-\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing}, 62, 2024.
-\newblock arXiv:2405.20462; IEEE TGRS (in press / early access at citation
-  time).
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  62:\penalty0 1--16, 2024.
+\newblock \doi{10.1109/TGRS.2024.3466896}.
+\newblock arXiv:2405.20462.
 
 \bibitem[Xiao et~al.(2025)Xiao, Xuan, Wang, Huang, Tao, Lu, and
   Yokoya]{xiao2025rsfm}
@@ -622,8 +637,10 @@ Aoran Xiao, Weihao Xuan, Junjue Wang, Jiaxing Huang, Dacheng Tao, Shijian Lu,
   and Naoto Yokoya.
 \newblock Foundation models for remote sensing and {Earth} observation: A
   survey.
-\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 2025.
-\newblock arXiv:2410.16602; accepted to IEEE GRSM.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 13\penalty0
+  (4):\penalty0 297--324, 2025.
+\newblock \doi{10.1109/MGRS.2025.3576766}.
+\newblock arXiv:2410.16602.
 
 \bibitem[Xiong et~al.(2024)Xiong, Wang, Zhang, Stewart, Hanna, Borth,
   Papoutsis, Le~Saux, Camps-Valls, and Zhu]{xiong2024dofa}
