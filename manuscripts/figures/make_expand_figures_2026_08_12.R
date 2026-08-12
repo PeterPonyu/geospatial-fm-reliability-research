@@ -421,23 +421,41 @@ save_fig(f12_all, "figures/F12_singleton_lowshot", w = 4.95, h = 3.45)
 # Equal 2×2: A = in vs shift at α=0.05; B/C = Mondrian restore + set-size
 # at α=0.10; D = α sweep of shift FNR. Legends stay on the panels that use
 # them (no distant 3-row floor). A–D tags outside spines (margin/topleft).
+# A/B/C x-axis = encoder names (no α xlab); only D uses xlab α.
 # ---------------------------------------------------------------------------
 if (do_fig("F13")) {
-# Outside-spine A–D (margin/topleft), matching GEO convention / F12.
+# F13-local theme: slight size bump vs shared theme_expand (do not rewrite
+# theme_expand — F11/F12/F14 peers own that helper). Tags stay larger than
+# axis/legend text.
+theme_f13 <- function() {
+  theme_paper(base_size = 9) +
+    theme(
+      axis.title = element_text(size = 7.5),
+      axis.text  = element_text(size = 7.5),
+      legend.text = element_text(size = 7.5),
+      legend.title = element_text(size = 7.5),
+      strip.text = element_text(size = 7.5),
+      axis.title.x = element_text(margin = margin(t = 1)),
+      axis.title.y = element_text(margin = margin(r = 1))
+    )
+}
+# Outside-spine A–D (margin/topleft). Do not move tags inside the panel.
 tag_f13 <- function() {
   theme(text = element_text(family = PAPER_FONT),
         plot.tag = element_text(family = PAPER_FONT, face = "bold",
-                                size = 12, hjust = 0, vjust = 1),
+                                size = 13, hjust = 0, vjust = 1),
         plot.tag.position = "topleft",
         plot.tag.location = "margin",
         plot.margin = margin(t = 6, r = 5, b = 2, l = 5))
 }
-# Compact horizontal key parked on the panel that owns the series — not a
-# collected floor. No legend boxes / alpha fill frames.
+# Compact horizontal key parked top-center on the panel that owns the series
+# (same family as D). Keep position="top" (above the panel, not inside) so
+# C's tall CRC bars do not collide with the key. No legend boxes.
 leg_f13_top <- function() {
   theme(legend.position = "top",
         legend.direction = "horizontal",
-        legend.justification = c(0, 1),
+        legend.justification = c(0.5, 1),
+        legend.box.just = "center",
         legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
         legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
         legend.box.spacing = unit(0, "pt"),
@@ -504,8 +522,8 @@ f13a <- ggplot(a_long, aes(fm, fnr, fill = arm)) +
   scale_fill_manual(values = fill_regime, name = NULL) +
   labs(x = NULL, y = "FNR") +
   guides(fill = guide_legend(nrow = 1, title = NULL)) +
-  theme_expand() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
+  theme_f13() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8),
         panel.grid.major.x = element_blank()) +
   leg_f13_top()
 prov("F13-A", CRC, a_long, "fm")
@@ -528,8 +546,8 @@ f13b <- ggplot(b_long, aes(fm, fnr, fill = arm)) +
   scale_fill_manual(values = fill_method, name = NULL) +
   labs(x = NULL, y = "FNR") +
   guides(fill = guide_legend(nrow = 1, title = NULL)) +
-  theme_expand() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
+  theme_f13() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8),
         panel.grid.major.x = element_blank()) +
   leg_f13_top()
 prov("F13-B", CRC, b_long, "fm")
@@ -552,8 +570,8 @@ f13c <- ggplot(c_long, aes(fm, size, fill = arm)) +
   scale_fill_manual(values = fill_method, name = NULL) +
   labs(x = NULL, y = "Set size") +
   guides(fill = guide_legend(nrow = 1, title = NULL)) +
-  theme_expand() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
+  theme_f13() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8),
         panel.grid.major.x = element_blank()) +
   leg_f13_top()
 prov("F13-C", CRC, c_long, "fm")
@@ -575,7 +593,7 @@ f13d <- ggplot(crcdf, aes(factor(alpha), fnr_sh, colour = fm, group = fm)) +
   guides(colour = guide_legend(nrow = 1, byrow = TRUE, title = NULL,
                                override.aes = list(linetype = "solid",
                                                    linewidth = 0.45))) +
-  theme_expand() +
+  theme_f13() +
   theme(panel.grid.major.x = element_blank(),
         axis.title.x = element_text(margin = margin(t = 1))) +
   leg_f13_top()
