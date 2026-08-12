@@ -86,7 +86,7 @@ fine-tuning papers do not answer the operational question such deployments raise
 coverage or risk-control guarantee attached to the frozen probe still holds after the move, and what labeled
 target budget is required if it does not.
 Beyond the encoders audited here (thirteen optical Sentinel-2 encoders on BigEarthNet, five on EuroSAT and
-m-so2sat), frozen GFM backbones now span single-sensor optical pretraining
+So2Sat LCZ42), frozen GFM backbones now span single-sensor optical pretraining
 (SatMAE \citep{cong2022satmae}, Scale-MAE \citep{reed2023scalemae}, SeCo \citep{manas2021seasonal}, RingMo
 \citep{sun2023ringmo}, GFM \citep{mendieta2023gfm}, SatlasPretrain \citep{bastani2023satlas}),
 multi-sensor and multi-modal pretraining (CROMA
@@ -543,8 +543,11 @@ $\lambda$; bounded by $1$) is
 \label{eq:fnr-loss}
 L_i(\lambda)
 =\frac{\#\{\text{positives of }i\text{ missed by }\mathcal{C}_\lambda(X_i)\}}
-{\#\{\text{positives of }i\}},
-\qquad
+{\#\{\text{positives of }i\}}.
+\end{equation}
+The $B{=}1$ empirical risk on examples with at least one positive is
+\begin{equation}
+\label{eq:crc-risk}
 % Circumflex hats (estimators), not \check/\checkmark: Angelopoulos CRC empirical risk / threshold.
 \widehat{R}(\lambda)
 =\frac{1}{n_{\mathrm{eff}}}\sum_{i:P_i\ge 1}L_i(\lambda),
