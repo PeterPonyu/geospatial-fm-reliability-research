@@ -61,7 +61,9 @@ BOUNDARY_W = 1.5
 
 # Match ~ISPRS single-column \linewidth so fonts are not shrunk at include time.
 FIG_W = 7.15
-FIG_H = 5.55
+# Keep gridspec cells ~square so aspect='equal' does not letterbox (the main
+# source of huge row gaps). Leave hspace room for lon/lat xlabels only.
+FIG_H = 3.85
 UPSAMPLE = 480  # native EuroSAT is 64×64; Lanczos upsample for print DPI
 C_INK = "#111111"
 
@@ -172,6 +174,7 @@ def draw_row_label(ax, side: str, title: str, cond: str) -> None:
     """Compact semantic row label: short accent pill + stacked name/condition.
 
     Avoids tall empty colored squares; the chip hugs the text block.
+    Multi-line conditions (Boundary) get a taller chip so text stays inside.
     """
     accent = ROW_ACCENT[side]
     face = ROW_FACE[side]
@@ -183,34 +186,46 @@ def draw_row_label(ax, side: str, title: str, cond: str) -> None:
         sp.set_visible(False)
     ax.set_facecolor("white")
 
-    # Text-hugging chip (vertically centered; not full row height).
+    n_cond_lines = cond.count("\n") + 1
+    if n_cond_lines >= 2:
+        chip_y, chip_h = 0.12, 0.76
+        title_y, cond_y = 0.74, 0.34
+        cond_fs = 7.4
+    else:
+        chip_y, chip_h = 0.26, 0.48
+        title_y, cond_y = 0.58, 0.38
+        cond_fs = 8.4
+
+    # Full-width chip; clip_on keeps any residual glyphs inside the axes frame.
+    chip_x, chip_w, bar_w = 0.00, 1.00, 0.06
     chip = FancyBboxPatch(
-        (0.08, 0.28),
-        0.84,
-        0.44,
+        (chip_x, chip_y),
+        chip_w,
+        chip_h,
         boxstyle="round,pad=0.012,rounding_size=0.03",
         linewidth=1.0,
         edgecolor=accent,
         facecolor=face,
         transform=ax.transAxes,
-        clip_on=False,
+        clip_on=True,
         zorder=1,
     )
     ax.add_patch(chip)
     bar = Rectangle(
-        (0.08, 0.28),
-        0.075,
-        0.44,
+        (chip_x, chip_y),
+        bar_w,
+        chip_h,
         linewidth=0,
         facecolor=accent,
         transform=ax.transAxes,
-        clip_on=False,
+        clip_on=True,
         zorder=2,
     )
     ax.add_patch(bar)
+    text_x = chip_x + bar_w + (chip_w - bar_w) / 2.0
     ax.text(
-        0.58,
-        0.58,
+        text_x,
+        title_y,
         title,
         ha="center",
         va="center",
@@ -220,19 +235,21 @@ def draw_row_label(ax, side: str, title: str, cond: str) -> None:
         color=C_INK,
         transform=ax.transAxes,
         zorder=3,
+        clip_on=True,
     )
     ax.text(
-        0.58,
-        0.40,
+        text_x,
+        cond_y,
         cond,
         ha="center",
         va="center",
-        fontsize=8.6,
+        fontsize=cond_fs,
         fontfamily=PAPER_FONT,
         color="#222222",
         transform=ax.transAxes,
         zorder=3,
-        linespacing=1.1,
+        linespacing=1.05,
+        clip_on=True,
     )
 
 
@@ -256,25 +273,28 @@ def main():
         (
             "boundary",
             "Boundary",
-            rf"$|\mathrm{{lon}}-P_{{33}}|\leq {BOUNDARY_W:.1f}^\circ$",
+            # Two-line explicit band (matches caption science); stays inside chip.
+            rf"$|\mathrm{{lon}}\!-\!P_{{33}}|$"
+            + "\n"
+            + rf"$\leq\!{BOUNDARY_W:.1f}^\circ$",
         ),
         ("target", "Target", r"lon $< P_{33}$"),
     )
 
     fig = plt.figure(figsize=(FIG_W, FIG_H))
-    # Narrow left gutter: compact semantic row cards + 3×6 patch grid.
+    # Wider left gutter for Boundary chip; hspace only for lon/lat under patches.
     gs = GridSpec(
         3,
         7,
         figure=fig,
-        width_ratios=[0.72] + [1.0] * 6,
+        width_ratios=[1.18] + [1.0] * 6,
         height_ratios=[1, 1, 1],
-        wspace=0.08,
-        hspace=0.30,
-        left=0.02,
+        wspace=0.07,
+        hspace=0.14,
+        left=0.012,
         right=0.995,
-        top=0.90,
-        bottom=0.03,
+        top=0.88,
+        bottom=0.04,
     )
 
     missing = []
@@ -315,8 +335,8 @@ def main():
                 # Place lat/lon under the patch (not over imagery) for print legibility.
                 ax.set_xlabel(
                     fmt_ll(float(rec.lon), float(rec.lat)),
-                    fontsize=8.6,
-                    labelpad=2.5,
+                    fontsize=8.0,
+                    labelpad=0.8,
                     color=C_INK,
                     fontfamily=PAPER_FONT,
                 )
@@ -342,8 +362,8 @@ def main():
     pdf = OUT / "F9_geopatches.pdf"
     png = ART / "F9_geopatches.png"
     # dpi=400 for print-grade raster fallback; vector PDF is authoritative.
-    fig.savefig(pdf, dpi=400, bbox_inches="tight", pad_inches=0.04)
-    fig.savefig(png, dpi=400, bbox_inches="tight", pad_inches=0.04)
+    fig.savefig(pdf, dpi=400, bbox_inches="tight", pad_inches=0.02)
+    fig.savefig(png, dpi=400, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
     mode = "+".join(sorted(src_tags)) if src_tags else "none"
     print(f"wrote {pdf}; missing={missing or 'none'}; mode={mode}; P33={P33:.3f}")
