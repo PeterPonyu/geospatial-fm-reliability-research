@@ -449,7 +449,7 @@ SSL4EO-MoCo          & 0.582 & 0.032 & 0.171 & 0.028 & 10.7 \\
 
 \begin{figure}[htbp]\centering\includegraphics[width=\columnwidth]{F7_ben_inversion_n13.pdf}
 \caption{The five-encoder inversion does not survive expansion to thirteen. FNR under shift vs.\
-in-distribution mAP on \texttt{m-bigearthnet} ($\alpha{=}0.05$, CRC arm); circles are the original five
+in-distribution mAP on BigEarthNet ($\alpha{=}0.05$, CRC arm); circles are the original five
 encoders, triangles the eight added at pull. The rank correlation is a weak, non-significant positive
 ($\mathrm{Spearman}=+0.32$, permutation $p{=}0.28$, $n{=}13$; no trend line is drawn, since the
 correlation does not reach significance): accuracy
@@ -722,9 +722,11 @@ $\alpha < 1/(n_{\mathrm{eff}}{+}1)$ omitted).
 \textbf{(C)}~EuroSAT-MS at the stricter $\alpha{=}0.05$, same coverage axes as~(A).
 \textbf{(D)}~Normalized EuroSAT reading at $\alpha{=}0.05$: fraction of coverage debt repaired
 versus budget (shaded bands $=$ five-seed intervals; values ${>}1$ are over-repair).
-Solid coloured curves are encoders; matching dashed horizontals are budget-independent
-source-only baselines (no target labels); black horizontals mark the nominal coverage
-$1{-}\alpha$, target FNR $\alpha$, or exact debt clearance ($=1$ in~(D)).
+Solid coloured curves are the four encoders.
+Matching coloured dashed horizontals are source-only (no target labels) baselines,
+independent of the annotation budget.
+Solid black horizontals are the design targets: nominal coverage $1{-}\alpha$ in~(A)
+and~(C), target FNR $\alpha$ in~(B), and exact debt clearance ($=1$) in~(D).
 The repair is not a rising ramp: wherever debt exists, the smallest usable budget already
 clears the nominal level, after which curves converge onto it from the conservative side.
 That shape is finite-sample conformal correction---the effective quantile
@@ -944,6 +946,7 @@ $\alpha$ & Encoder & CRC FNR in-dist & CRC FNR shift & Mondrian-CRC FNR shift & 
 \caption{CRC on BigEarthNet (frozen multi-seed bootstrap means with 95\% CIs; no new runs).
 All panels use example-averaged FNR (or set size) pooled over five seeds; error bars are percentile bootstrap 95\% intervals ($B{=}2000$).
 Encoder ticks and the (D) colour key abbreviate SSL4EO-DINO/MAE as DINO/MAE (Prithvi, Clay, DINO, MAE, DOFA).
+The $x$-axis in (A)--(C) is the encoder; only (D) uses $\alpha$ as the $x$-axis.
 (A)~Source-calibrated CRC FNR in-distribution vs.\ under the E$\to$W geographic shift at $\alpha{=}0.05$ (blue $=$ in-dist, vermillion $=$ shift; dashed $=$ nominal FNR level $\alpha$). In-distribution meets the risk level; the same $\widehat{\lambda}$ incurs large FNR debt under shift.
 (B)~Shift FNR at $\alpha{=}0.10$: source-calibrated CRC vs.\ target-side Mondrian-CRC (orange $=$ CRC, green $=$ Mondrian-CRC; dashed $=$ nominal $\alpha$). Mondrian-CRC restores FNR to at-or-below nominal for every encoder.
 (C)~Mean set-size cost under shift at the same $\alpha{=}0.10$ (labels/tile of ${\sim}27$ active): Mondrian-CRC's restore comes with larger sets than source-calibrated CRC (shared orange/green method colours with (B)).

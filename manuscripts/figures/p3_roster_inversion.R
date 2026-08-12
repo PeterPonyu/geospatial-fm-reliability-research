@@ -89,6 +89,8 @@ f <- ggplot(d, aes(mAP_in, fnr_sh)) +
   theme(
     legend.position = "bottom",
     legend.box = "horizontal",
+    legend.justification = "center",
+    legend.box.just = "center",
     legend.margin = margin(t = 2, r = 0, b = 0, l = 0),
     legend.box.spacing = unit(5, "pt"),
     legend.key.width  = unit(12, "pt"),
@@ -98,7 +100,11 @@ f <- ggplot(d, aes(mAP_in, fnr_sh)) +
     legend.title = element_text(size = 11),
     axis.title   = element_text(size = 12),
     axis.text    = element_text(size = 11),
-    plot.caption = element_text(size = 9.5, colour = "grey30", hjust = 0,
+    # Center Spearman on the panel/legend column (not page-center, which
+    # sits left of the scatter because of the y-axis title; not hjust=0,
+    # which sat flush under the roster key).
+    plot.caption.position = "panel",
+    plot.caption = element_text(size = 9.5, colour = "grey30", hjust = 0.5,
                                 family = PAPER_FONT, margin = margin(t = 6)),
     plot.margin  = margin(t = 6, r = 8, b = 4, l = 4)
   )
