@@ -447,8 +447,8 @@ Aleksandr Podkopaev and Aaditya Ramdas.
 \newblock Distribution-free uncertainty quantification for classification under
   label shift.
 \newblock In \emph{Proc. 37th Conf. Uncertainty in Artificial Intelligence
-  (UAI)}, pages 844--853, 2021.
-\newblock arXiv:2007.08107.
+  (UAI)}, volume 161, pages 844--853, 2021.
+\newblock arXiv:2103.03323.
 
 \bibitem[Reed et~al.(2023)Reed, Gupta, Li, Brockman, Funk, Clipp, Keutzer,
   Candido, Uyttendaele, and Darrell]{reed2023scalemae}
