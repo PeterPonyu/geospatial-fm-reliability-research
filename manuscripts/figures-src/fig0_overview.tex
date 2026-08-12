@@ -11,6 +11,8 @@
 % tighter crop, taller cards; REPORT drops to a rail above the outcome labels,
 % then a short stem into a dotted T in the FAILURE|SURVIVING gap (cleans the
 % prior fish L that clipped the SURVIVING card under stage 5).
+% 2026-08-12d leftover: slightly stronger card fill vs page; EVAL unabbreviated;
+% SURVIVING subtitle parallel to FAILURE; a bit more outcome-box padding.
 \documentclass[border=0.4pt]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
@@ -28,7 +30,7 @@
 \definecolor{cInk}{HTML}{1A1A1A}
 \definecolor{cMute}{HTML}{595959}
 \definecolor{cLine}{HTML}{B8B8B8}
-\definecolor{cSurface}{HTML}{FAFAFA}
+\definecolor{cSurface}{HTML}{F1F1F1}
 
 \begin{document}
 \begin{tikzpicture}[
@@ -43,8 +45,8 @@
     fill=cSurface, minimum width=28.5mm, minimum height=25.0mm,
     inner sep=0pt, outer sep=0pt, align=center},
   outbox/.style={draw, line width=1.05pt, rounded corners=1.2mm,
-    align=center, minimum width=56mm, minimum height=12.5mm,
-    inner sep=1.25mm, font=\rmfamily\fontsize{7.4}{8.4}\selectfont},
+    align=center, minimum width=56mm, minimum height=13.4mm,
+    inner sep=1.5mm, font=\rmfamily\fontsize{7.4}{8.4}\selectfont},
   steplab/.style={font=\rmfamily\fontsize{6.3}{7.0}\selectfont, text=cMute},
   rolelab/.style={font=\rmfamily\fontsize{5.7}{6.4}\selectfont\bfseries},
   titlelab/.style={font=\rmfamily\fontsize{7.7}{8.6}\selectfont, text=cInk},
@@ -98,7 +100,7 @@
 \node[rolelab, text=cEval!80!black, anchor=north east]
   at ($(calib.north east)+(-1.05mm,-1.15mm)$) {EVAL};
 \node[titlelab, align=center] at ($(calib.center)+(0.7mm,-3.3)$)
-  {Conformal calib.\\under shift};
+  {Conformal\\[-0.12mm]{\fontsize{6.9}{7.7}\selectfont calibration under shift}};
 
 \node[stage] (report) at (128,0) {};
 \accentbar{report}{cReport}
@@ -176,7 +178,7 @@
 \node[outbox, draw=cCond, fill=cCond!8, anchor=east] (cond)
   at ($(report.south east)+(0,-15.0mm)$)
   {\textbf{Conditional labeled-target}\\[-0.05mm]
-   {\fontsize{6.05}{6.85}\selectfont recalibration}};
+   {\fontsize{6.05}{6.85}\selectfont encoder-dependent recalibration}};
 
 \node[rolelab, text=cFail, above=0.3mm of fail.north] (faillab) {FAILURE};
 \node[rolelab, text=cCond!80!black, above=0.3mm of cond.north] (condlab) {SURVIVING};
