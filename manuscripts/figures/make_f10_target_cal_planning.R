@@ -217,62 +217,98 @@ draw_debt <- function(alpha = 0.05) {
     theme_f10()
 }
 
-# Shared legend panel. Colour-only aes (shape/linetype via override.aes):
-# mapping colour+shape+linetype under ggplot2 4 left a labeled row plus a second
-# unlabeled handle row; "source-only (no target labels)" also clipped at the edge.
+# Shared legend strip as a manual grid grob (not ggplot guides).
+# ggplot2 4 colour/shape/linetype guides leave a labeled row plus a ghost
+# unlabeled handle; a dummy geom_line in the strip also drew a stray dashed
+# tick above Prithvi. Two labeled rows: encoders, then source-only.
 SRC_LAB <- "source-only (no target)"
-leg_levels <- c(fm_levels, SRC_LAB)
 col_leg <- c(MODEL_COLOURS[fm_levels], setNames("#555555", SRC_LAB))
-shp_override <- c(unname(fm_shape[fm_levels]), NA_real_)
-lty_override <- c(rep("solid", length(fm_levels)), "22")
 
-leg_pts <- data.frame(
-  kind = factor(fm_levels, levels = leg_levels),
-  x = seq_along(fm_levels), y = 1,
-  stringsAsFactors = FALSE
-)
-leg_src <- data.frame(
-  kind = factor(SRC_LAB, levels = leg_levels),
-  x = c(0.7, 1.3), y = 1,
-  stringsAsFactors = FALSE
-)
-p_leg <- ggplot() +
-  geom_line(data = leg_src, aes(x, y, colour = kind, group = kind),
-            linewidth = 0.55, linetype = "22") +
-  geom_point(data = leg_pts, aes(x, y, colour = kind, shape = kind),
-             size = 1.8, alpha = 0) +
-  scale_colour_manual(values = col_leg, breaks = leg_levels, name = NULL,
-                      drop = FALSE) +
-  scale_shape_manual(values = fm_shape, breaks = fm_levels, name = NULL,
-                     drop = FALSE) +
-  guides(
-    colour = guide_legend(
-      nrow = 1, title = NULL,
-      override.aes = list(
-        shape = shp_override,
-        linetype = lty_override,
-        linewidth = 0.55,
-        alpha = 1
-      )
-    ),
-    shape = "none"
-  ) +
-  theme_void(base_family = PAPER_FONT) +
-  theme(
-    legend.position = "bottom",
-    legend.direction = "horizontal",
-    legend.justification = "center",
-    legend.text = element_text(size = 7.0, family = PAPER_FONT),
-    legend.key.width = unit(10, "pt"),
-    legend.key.height = unit(7, "pt"),
-    legend.key.spacing.x = unit(2.5, "pt"),
-    legend.margin = margin(t = 0, r = 2, b = 0, l = 2),
-    legend.box.margin = margin(0, 0, 0, 0),
-    legend.box.spacing = unit(0, "pt"),
-    legend.background = element_blank(),
-    legend.box.background = element_blank(),
-    plot.margin = margin(0, 0, 0, 0)
+# Open a throwaway cairo device so stringWidth uses Nimbus Roman metrics.
+grDevices::cairo_pdf(tempfile(fileext = ".pdf"), width = 5, height = 1,
+                     family = PAPER_FONT)
+
+encoder_item <- function(lab) {
+  col <- unname(col_leg[[lab]])
+  shp <- unname(fm_shape[[lab]])
+  glyph <- grid::pointsGrob(
+    x = grid::unit(1.6, "mm"), y = grid::unit(0.5, "npc"),
+    pch = shp, size = grid::unit(1.5, "mm"),
+    gp = grid::gpar(col = col, fill = col)
   )
+  label <- grid::textGrob(
+    lab, x = grid::unit(3.4, "mm"), y = grid::unit(0.5, "npc"), just = "left",
+    gp = grid::gpar(fontfamily = PAPER_FONT, fontsize = 7.2, col = "black")
+  )
+  w <- grid::stringWidth(lab) + grid::unit(4.0, "mm")
+  grid::gTree(
+    children = grid::gList(glyph, label),
+    vp = grid::viewport(width = w, height = grid::unit(3.8, "mm"))
+  )
+}
+
+src_item <- {
+  col <- unname(col_leg[[SRC_LAB]])
+  glyph <- grid::linesGrob(
+    x = grid::unit(c(0.4, 4.2), "mm"), y = grid::unit(c(0.5, 0.5), "npc"),
+    gp = grid::gpar(col = col, lty = 2, lwd = 1.3, lineend = "butt")
+  )
+  label <- grid::textGrob(
+    SRC_LAB, x = grid::unit(5.0, "mm"), y = grid::unit(0.5, "npc"), just = "left",
+    gp = grid::gpar(fontfamily = PAPER_FONT, fontsize = 7.2, col = "black")
+  )
+  w <- grid::stringWidth(SRC_LAB) + grid::unit(5.6, "mm")
+  grid::gTree(
+    children = grid::gList(glyph, label),
+    vp = grid::viewport(width = w, height = grid::unit(3.8, "mm"))
+  )
+}
+
+enc_grobs <- lapply(fm_levels, encoder_item)
+enc_widths <- lapply(fm_levels, function(lab) {
+  grid::stringWidth(lab) + grid::unit(4.0, "mm")
+})
+src_width <- grid::stringWidth(SRC_LAB) + grid::unit(5.6, "mm")
+grDevices::dev.off()
+
+pack_row <- function(grobs, widths, gap_mm = 2.0) {
+  gap <- grid::unit(gap_mm, "mm")
+  children <- lapply(seq_along(grobs), function(i) {
+    xoff <- if (i == 1L) {
+      grid::unit(0, "mm")
+    } else {
+      Reduce(`+`, widths[seq_len(i - 1L)]) + gap * (i - 1L)
+    }
+    grid::gTree(
+      children = grobs[[i]]$children,
+      vp = grid::viewport(
+        x = xoff, y = grid::unit(0.5, "npc"), just = "left",
+        width = widths[[i]], height = grid::unit(3.8, "mm")
+      )
+    )
+  })
+  total <- Reduce(`+`, widths) + gap * (length(widths) - 1L)
+  grid::gTree(
+    children = do.call(grid::gList, children),
+    vp = grid::viewport(width = total, height = grid::unit(4.0, "mm"),
+                        just = "centre")
+  )
+}
+
+# Row 1: four encoders. Row 2: one labeled source-only key (no ggplot ghost).
+row1 <- pack_row(enc_grobs, enc_widths, gap_mm = 2.4)
+row2 <- pack_row(list(src_item), list(src_width), gap_mm = 0)
+leg_stack <- grid::gTree(children = grid::gList(
+  grid::gTree(children = grid::gList(row1),
+              vp = grid::viewport(y = grid::unit(0.72, "npc"),
+                                  height = grid::unit(4.2, "mm"))),
+  grid::gTree(children = grid::gList(row2),
+              vp = grid::viewport(y = grid::unit(0.28, "npc"),
+                                  height = grid::unit(4.2, "mm")))
+))
+p_leg <- wrap_elements(full = cowplot::ggdraw() +
+  cowplot::draw_grob(leg_stack, x = 0.5, y = 0.50,
+                     hjust = 0.5, vjust = 0.5, width = 0.96, height = 0.9))
 
 pA <- draw_eurosat(0.10, expression(EuroSAT ~ (P[33] * "," ~ alpha == 0.10)))
 pB <- draw_ben(0.10)
@@ -280,7 +316,7 @@ pC <- draw_eurosat(0.05, expression(EuroSAT ~ (P[33] * "," ~ alpha == 0.05)))
 pD <- draw_debt(0.05)
 
 f10_all <- ((pA | pB) / (pC | pD) / p_leg) +
-  plot_layout(heights = c(1, 1, 0.12), guides = "keep") +
+  plot_layout(heights = c(1, 1, 0.14), guides = "keep") +
   plot_annotation(tag_levels = "A") & tag_f10()
 f10_all[[3]] <- f10_all[[3]] + theme(plot.tag = element_blank())
 
