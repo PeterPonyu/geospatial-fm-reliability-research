@@ -251,11 +251,12 @@ def main():
     X0, X1 = L, L + CW + G
 
     # Vertical bands. Mid gap ~0.16 fig-fraction (~1.0 in) between A/B legends and C/D.
-    Y_CLASS0, Y_CLASS1 = 0.012, 0.088
-    Y_CD0, Y_CD1 = 0.155, 0.405
+    Y_CLASS0, Y_CLASS1 = 0.008, 0.078
+    Y_CD0, Y_CD1 = 0.160, 0.405
     Y_ABLEG0, Y_ABLEG1 = 0.565, 0.620
     Y_AB0, Y_AB1 = 0.675, 0.905
     # Implicit row gap: Y_CD1 (0.405) → Y_ABLEG0 (0.565) ≈ 0.16.
+    # Bottom clearance: Y_CD0 (0.160) → Y_CLASS1 (0.078) ≈ 0.08 for C/D x-labels.
 
     ax_a = fig.add_axes([X0, Y_AB0, CW, Y_AB1 - Y_AB0])
     ax_b = fig.add_axes([X1, Y_AB0, CW, Y_AB1 - Y_AB0])
