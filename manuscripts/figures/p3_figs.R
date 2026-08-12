@@ -390,8 +390,8 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
         axis.text.x = element_text(size = 6),
         strip.text = element_text(size = 6.5, margin = margin(t = 1.5, b = 1.5)),
         legend.position = "inside",
-        legend.position.inside = c(0.01, 0.02),
-        legend.justification = c(0, 0),
+        legend.position.inside = c(0.01, 0.98),
+        legend.justification = c(0, 1),
         legend.direction = "horizontal",
         legend.text = element_text(size = 6),
         legend.background = element_rect(fill = alpha("white", 0.92),
@@ -520,13 +520,14 @@ f2d <- ggplot(als, aes(arm_x, coverage, colour = fm, group = fm)) +
         axis.text.x = element_text(angle = 28, hjust = 1, size = 6))
 prov("F2-D", LSHIFT, als, "fm")
 
-# Top row taller so A's bar stack matches B's 2×3 facet height. Keep A as a
-# ggplot (stretches to the row) and wrap only B (packs strips to spines without
-# white-banding). Nest C|D with guides="collect" so the floor encoder legend
-# serves C/D only; A's arm fill key stays inside A, not collected to the floor.
+# Top row taller so A's bar stack matches B's 2×3 facet height. Both A and B
+# stay as ggplots (equal panel stretch); wrap_elements(B) was dropped because it
+# fixed B's aspect and left A visually short. B already uses strip.placement=
+# "inside" to keep P25/P40/P50 on the spines. Nest C|D with guides="collect" so
+# the floor encoder legend serves C/D only; A's arm fill key stays inside A.
 # free(C, left space): A's long encoder ticks otherwise pad C's ylab→spine gap.
 # Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
-f2_ab <- (f2a | wrap_elements(full = f2b)) +
+f2_ab <- (f2a | f2b) +
   plot_layout(widths = c(0.88, 1.12))
 f2_cd <- (free(f2c, type = "space", side = "l") | f2d) +
   plot_layout(guides = "collect", widths = c(0.88, 1.12)) &

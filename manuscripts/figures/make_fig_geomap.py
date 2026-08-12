@@ -242,20 +242,20 @@ def main():
     # Explicit figure-fraction layout (avoids GridSpec hspace collapse).
     # Landscape canvas fills ISPRS \linewidth; large mid-gap separates A/B from C/D.
     # Bands (bottom→top): class leg | C/D maps | ROW GAP | A/B leg | A/B maps | title.
-    fig = plt.figure(figsize=(COL_W, 5.90))
+    fig = plt.figure(figsize=(COL_W, 6.15))
 
-    L = 0.070  # left (room for y-labels)
-    R = 0.995  # right edge
-    G = 0.035  # column gap
+    L = 0.062  # left (room for y-labels)
+    R = 0.998  # right edge
+    G = 0.028  # column gap
     CW = (R - L - G) / 2.0
     X0, X1 = L, L + CW + G
 
-    # Vertical bands (figure coords). Mid gap ~0.09 ≈ substantial whitespace.
-    Y_CLASS0, Y_CLASS1 = 0.018, 0.100
-    Y_CD0, Y_CD1 = 0.165, 0.455
-    Y_ABLEG0, Y_ABLEG1 = 0.545, 0.605
-    Y_AB0, Y_AB1 = 0.660, 0.905
-    # Implicit row gap: Y_CD1 (0.455) → Y_ABLEG0 (0.545).
+    # Vertical bands. Mid gap ~0.16 fig-fraction (~1.0 in) between A/B legends and C/D.
+    Y_CLASS0, Y_CLASS1 = 0.012, 0.088
+    Y_CD0, Y_CD1 = 0.155, 0.405
+    Y_ABLEG0, Y_ABLEG1 = 0.565, 0.620
+    Y_AB0, Y_AB1 = 0.675, 0.905
+    # Implicit row gap: Y_CD1 (0.405) → Y_ABLEG0 (0.565) ≈ 0.16.
 
     ax_a = fig.add_axes([X0, Y_AB0, CW, Y_AB1 - Y_AB0])
     ax_b = fig.add_axes([X1, Y_AB0, CW, Y_AB1 - Y_AB0])
@@ -264,10 +264,10 @@ def main():
     ax_c = fig.add_axes([X0, Y_CD0, CW, Y_CD1 - Y_CD0])
 
     # D: histogram + bar share the right column of the C/D band.
-    D_GAP = 0.028
+    D_GAP = 0.024
     DW = CW - D_GAP
-    DW_H = DW * 0.60
-    DW_BAR = DW * 0.40
+    DW_H = DW * 0.62
+    DW_BAR = DW * 0.38
     ax_h = fig.add_axes([X1, Y_CD0, DW_H, Y_CD1 - Y_CD0])
     ax_bar = fig.add_axes([X1 + DW_H + D_GAP, Y_CD0, DW_BAR, Y_CD1 - Y_CD0])
 
@@ -285,8 +285,8 @@ def main():
     ax_a.text(P50 + 0.35, LAT0 + 0.5, "P50", fontsize=6, ha="left", color=C_MUTED)
     ax_a.set_xlim(LON0, LON1)
     ax_a.set_ylim(LAT0, LAT1)
-    ax_a.set_xlabel(r"longitude ($^\circ$E)", labelpad=1)
-    ax_a.set_ylabel(r"latitude ($^\circ$N)", labelpad=1)
+    ax_a.set_xlabel(r"longitude ($^\circ$E)", labelpad=2)
+    ax_a.set_ylabel(r"latitude ($^\circ$N)", labelpad=2)
     ax_a.spines[["top", "right"]].set_visible(False)
     ax_a.set_title("Full Europe, $P_{33}$ cut", loc="left", pad=3)
     ax_a_leg.legend(
@@ -317,8 +317,8 @@ def main():
     _cut_lines(ax_b, P25, P33, P50)
     ax_b.set_xlim(ZLON0, ZLON1)
     ax_b.set_ylim(ZLAT0, ZLAT1)
-    ax_b.set_xlabel(r"longitude ($^\circ$E)", labelpad=1)
-    ax_b.set_ylabel(r"latitude ($^\circ$N)", labelpad=1)
+    ax_b.set_xlabel(r"longitude ($^\circ$E)", labelpad=2)
+    ax_b.set_ylabel(r"latitude ($^\circ$N)", labelpad=2)
     ax_b.spines[["top", "right"]].set_visible(False)
     ax_b.set_title("Zoom: Iberia/Atlantic vs Central Europe", loc="left", pad=3)
     ax_b_leg.legend(
@@ -356,8 +356,8 @@ def main():
     ax_c.axvline(P33, color=C_INK, lw=1.0, ls="--", zorder=4)
     ax_c.set_xlim(LON0, LON1)
     ax_c.set_ylim(LAT0, LAT1)
-    ax_c.set_xlabel(r"longitude ($^\circ$E)")
-    ax_c.set_ylabel(r"latitude ($^\circ$N)")
+    ax_c.set_xlabel(r"longitude ($^\circ$E)", labelpad=2)
+    ax_c.set_ylabel(r"latitude ($^\circ$N)", labelpad=2)
     ax_c.spines[["top", "right"]].set_visible(False)
     ax_c.set_title("Class mix across the cut (subsample)", loc="left", pad=3)
     # C/D tags placed after layout with a shared figure-y (row-aligned).
@@ -412,17 +412,17 @@ def main():
             fontfamily=PAPER_FONT,
         )
     ax_h.set_xlim(LON0, LON1)
-    ax_h.set_xlabel(r"longitude ($^\circ$E)")
-    ax_h.set_ylabel("tile count")
+    ax_h.set_xlabel(r"longitude ($^\circ$E)", labelpad=2)
+    ax_h.set_ylabel("tile count", labelpad=2)
     ax_h.spines[["top", "right"]].set_visible(False)
     ax_h.legend(
         frameon=False,
-        loc="upper right",
-        borderaxespad=0.2,
-        ncol=2,
+        loc="upper left",
+        borderaxespad=0.15,
+        ncol=1,
         fontsize=6.5,
         handletextpad=0.3,
-        columnspacing=0.8,
+        labelspacing=0.25,
     )
     ax_h.set_title("Lon density + cut sweep", loc="left", pad=3)
 

@@ -21,12 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{helber2019eurosat}
-P.~Helber, B.~Bischke, A.~Dengel, and D.~Borth, ``{EuroSAT}: A novel dataset
-  and deep learning benchmark for land use and land cover classification,''
-  \emph{IEEE Journal of Selected Topics in Applied Earth Observations and
-  Remote Sensing}, vol.~12, no.~7, pp. 2217--2226, 2019.
-
 \bibitem{cong2022satmae}
 Y.~Cong, S.~Khanna, C.~Meng, P.~Liu, E.~Rozi, Y.~He, M.~Burke, D.~B. Lobell,
   and S.~Ermon, ``{SatMAE}: Pre-training transformers for temporal and
@@ -163,6 +157,12 @@ Z.~Xiong, Y.~Wang, F.~Zhang, A.~J. Stewart, J.~Hanna, D.~Borth, I.~Papoutsis,
   B.~Le~Saux, G.~Camps-Valls, and X.~X. Zhu, ``Neural plasticity-inspired
   multimodal foundation model for {Earth} observation ({DOFA}),'' 2024,
   arXiv:2403.15356.
+
+\bibitem{helber2019eurosat}
+P.~Helber, B.~Bischke, A.~Dengel, and D.~Borth, ``{EuroSAT}: A novel dataset
+  and deep learning benchmark for land use and land cover classification,''
+  \emph{IEEE Journal of Selected Topics in Applied Earth Observations and
+  Remote Sensing}, vol.~12, no.~7, pp. 2217--2226, 2019.
 
 \bibitem{lacoste2023geobench}
 A.~Lacoste, N.~Lehmann, P.~Rodriguez, E.~D. Sherwin, H.~Kerner, B.~L{\"u}tjens
