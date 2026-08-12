@@ -363,8 +363,8 @@ m$alpha_lab <- factor(sprintf("α = %s", format(m$alpha, nsmall = 2)),
 
 # Compact F2 chrome: smaller facets/strips, less left-axis pad so data panes
 # claim more of the half-width (esp. B's 3×2 grid). Science values unchanged.
-# Arm fill legend stays local to A (short labels; top so the bar pane can stretch
-# to match B's cell height).
+# Arm fill legend stays local to A (short labels; inside the pane so A can
+# stretch to the same cell height as B's 2×3 facet grid).
 f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   geom_col(position = position_dodge(0.72), width = 0.62, colour = NA) +
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high),
@@ -389,15 +389,18 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
         axis.text.y = element_text(size = 6.5),
         axis.text.x = element_text(size = 6),
         strip.text = element_text(size = 6.5, margin = margin(t = 1.5, b = 1.5)),
-        legend.position = "top",
-        legend.justification = "left",
+        legend.position = "inside",
+        legend.position.inside = c(0.01, 0.02),
+        legend.justification = c(0, 0),
         legend.direction = "horizontal",
-        legend.text = element_text(size = 6.5),
-        legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
-        legend.box.spacing = unit(1, "pt"),
-        legend.key.width = unit(8, "pt"),
-        legend.key.height = unit(7, "pt"),
-        plot.margin = margin(t = 0, r = 2, b = 1, l = 2))
+        legend.text = element_text(size = 6),
+        legend.background = element_rect(fill = alpha("white", 0.92),
+                                         colour = NA),
+        legend.margin = margin(t = 1, r = 3, b = 1, l = 2),
+        legend.box.spacing = unit(0, "pt"),
+        legend.key.width = unit(7, "pt"),
+        legend.key.height = unit(6, "pt"),
+        plot.margin = margin(t = 2, r = 2, b = 1, l = 2))
 prov("F2-A", RES, m, "fm")
 
 # F2-B: same split-vs-Mondrian contrast at non-P33 cuts. Row facet = arm so the
@@ -520,7 +523,7 @@ prov("F2-D", LSHIFT, als, "fm")
 # Top row taller so A's bar stack matches B's 2×3 facet height. Keep A as a
 # ggplot (stretches to the row) and wrap only B (packs strips to spines without
 # white-banding). Nest C|D with guides="collect" so the floor encoder legend
-# serves C/D only; A's arm fill key stays on A (top), not collected to the floor.
+# serves C/D only; A's arm fill key stays inside A, not collected to the floor.
 # free(C, left space): A's long encoder ticks otherwise pad C's ylab→spine gap.
 # Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
 f2_ab <- (f2a | wrap_elements(full = f2b)) +
