@@ -136,7 +136,7 @@ pcdf <- data.frame(
   class = factor(names(pc), levels = names(pc)),
   cov = as.numeric(unlist(pc)),
   stringsAsFactors = FALSE)
-f11b <- ggplot(pcdf, aes(class, cov)) +
+f11b_core <- ggplot(pcdf, aes(class, cov)) +
   geom_col(width = 0.72, fill = MODEL_COLOURS[["SSL4EO-DINO"]],
            colour = "grey30", linewidth = 0.2) +
   geom_hline(yintercept = as.numeric(ssl$marg_cov), linetype = 2, colour = "grey30") +
@@ -146,15 +146,16 @@ f11b <- ggplot(pcdf, aes(class, cov)) +
   theme_f11() +
   theme(panel.grid.major.x = element_blank(),
         plot.margin = margin(t = 12, r = 6, b = 0, l = 3))
-# Place x-title just under the tick numbers (tighter than ggplot's default
-# axis-title band; keep a small clearance so it never clips ticks/bars).
-f11b_lab <- cowplot::ggdraw() +
+# Glue x-title in a short strip under the ticks (avoids patchwork stretching the
+# ggplot axis-title band to match A's angled labels).
+f11b_xlab <- cowplot::ggdraw() +
   cowplot::draw_label(
     "EuroSAT class id", fontfamily = PAPER_FONT, size = 7.5,
-    x = 0.55, y = 0.92, hjust = 0.5, vjust = 1
+    x = 0.56, y = 0.70, hjust = 0.5, vjust = 0.5
   )
 f11b <- wrap_elements(full = cowplot::plot_grid(
-  f11b, f11b_lab, ncol = 1, rel_heights = c(1, 0.048), align = "none"
+  f11b_core, f11b_xlab,
+  ncol = 1, rel_heights = c(1, 0.065), align = "none"
 ))
 prov("F11-B", file.path(EXP0, "results.json"), pcdf, "class")
 
@@ -251,9 +252,10 @@ for (i in seq_along(leg_content$widths)) {
     leg_content$widths[[i]] <- grid::unit(0, "pt")
   }
 }
-# Center content-sized guide in the full C column width.
+# Center content-sized guide under the C *plot* area (y-title pushes the
+# panel right of the column midpoint; x≈0.58 compensates).
 leg_row <- cowplot::ggdraw() +
-  cowplot::draw_grob(leg_content, x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5)
+  cowplot::draw_grob(leg_content, x = 0.58, y = 0.5, hjust = 0.5, vjust = 0.5)
 # align="none" keeps the horizontal guide from being width-squeezed into a wrap.
 c_stack <- cowplot::plot_grid(
   f11c_noleg, leg_row,
@@ -261,7 +263,9 @@ c_stack <- cowplot::plot_grid(
   align = "none"
 )
 f11c_cell <- wrap_elements(full = c_stack)
-f11_all <- f11a + f11b + f11c_cell + f11d +
+# Unlock B's bottom space so the glued x-title strip stays tight under ticks
+# instead of matching A's angled-label floor.
+f11_all <- f11a + free(f11b, type = "space", side = "b") + f11c_cell + f11d +
   plot_layout(design = "AB\nCD", heights = c(1, 1.02)) +
   plot_annotation(tag_levels = "A") &
   tag_f11()
