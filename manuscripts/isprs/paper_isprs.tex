@@ -294,11 +294,11 @@ No image transform is applied --- the shift is purely geographic.}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{F9_geopatches.pdf}
-\caption{The shift at patch level: true-color tiles for six land-cover classes
+\caption{The shift at patch level: true-color Sentinel-2 tiles for six land-cover classes
 (AnnualCrop, Forest, PermanentCrop, Residential, Highway, SeaLake) under the same
 $P_{33}$ cut (source $n{=}18{,}090$; target $n{=}8{,}910$).
 Rows are source ($\mathrm{lon}\ge P_{33}$), a boundary band ($|\mathrm{lon}-P_{33}|\le 1.5^\circ$),
-and target ($\mathrm{lon}<P_{33}$), with tile centroids annotated.
+and target ($\mathrm{lon}<P_{33}$), with tile centroids under each patch.
 Region-specific crop structure, settlement texture, and water color differ systematically across
 the cut --- the shift is real but subtle at single-patch level, which is exactly why an
 accuracy-only deployment check can miss it (Results).}
