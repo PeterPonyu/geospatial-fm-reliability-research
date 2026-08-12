@@ -354,12 +354,12 @@ should be stable if the $P_{33}$ class-prior mismatch is not driving the finding
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
 \caption{Class-balanced probe control (U~=~unadjusted headline; B~=~balanced; 5~seeds).
-EuroSAT shift-ECE ranking and repair counts are unchanged; BigEarthNet per-label debt,
-Mondrian restoration, and Mondrian set size are essentially unchanged (SSL4EO-MAE absent from
-panel~B).}\label{tab:balanced}
+(a)~EuroSAT-MS: shift-ECE ranking and repair counts are unchanged.
+(b)~BigEarthNet-S2: per-label debt, Mondrian restoration, and Mondrian set size are essentially
+unchanged (SSL4EO-MAE absent from part~(b)).}\label{tab:balanced}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\multicolumn{4}{@{}l}{\emph{A.~EuroSAT-MS}, $\alpha{=}0.05$} \\
+\multicolumn{4}{@{}l}{\emph{(a)~EuroSAT-MS}, $\alpha{=}0.05$} \\
 \midrule
 Encoder & Acc.\ shift (U~/~B) & ECE shift (U~/~B) & \#$\alpha$ repaired \\
 \midrule
@@ -374,7 +374,7 @@ Clay        & 0.918~/~0.917 & 0.0568~/~0.0584 & 1/3 \\
 \vspace{0.85em}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\multicolumn{4}{@{}l}{\emph{B.~BigEarthNet-S2}, $\alpha{=}0.10$ (per-label)} \\
+\multicolumn{4}{@{}l}{\emph{(b)~BigEarthNet-S2}, $\alpha{=}0.10$ (per-label)} \\
 \midrule
 Encoder & Mean debt (U~/~B) & Mondrian restores & Mond.\ set size (U~/~B) \\
 \midrule
