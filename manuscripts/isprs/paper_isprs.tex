@@ -786,27 +786,14 @@ dotted $=$ nominal $0.95$.
 %   ss_vs_ece +1.0, zero inversions) + lowshot_results.json (prithvi 0.05 singleton transition)
 A conformal set-size axis can decouple from accuracy only where the sets are non-trivial. On EuroSAT at
 full data the source-calibrated split predictor emits \emph{singletons} on the shifted target (mean set
-size $1.00$ for every encoder and $\alpha$; per-seed $\le1.001$; Fig.~\ref{fig:f3}b), so its coverage coincides with shifted
+size $1.00$ for every encoder and $\alpha$; per-seed $\le1.001$; Fig.~\ref{fig:f3}B), so its coverage coincides with shifted
 top-1 accuracy (5-seed-mean $|\Delta|\le2\times10^{-4}$) and the marginal set-size/efficiency axis carries
 no information beyond accuracy. Even after target-side repair the restored Mondrian set size is a
-deterministic image of accuracy loss (Fig.~\ref{fig:f3}a): across the five encoders, Spearman correlation of set size with
+deterministic image of accuracy loss (Fig.~\ref{fig:f3}A): across the five encoders, Spearman correlation of set size with
 accuracy is $-1.0$ and with ECE is $+1.0$ ($\alpha{=}0.05$, zero pairwise inversions). We
 therefore report set size only as a companion to a held guarantee, never as evidence that the conformal
 layer beats accuracy---the preregistered ``efficiency-decoupling'' route is empirically falsified on this
 benchmark and we say so.
-
-\begin{figure}[!htbp]\centering\includegraphics[width=0.95\linewidth]{F3_setsize_vs_alpha.pdf}
-\caption{Four-panel set-size cost of restoration (error bars seed-level $t$-CIs, $n{=}5$; dotted line $=$
-singleton floor of set size~$1$). Shared encoder colours throughout; panel~(c) uses
-linetype/shape for split vs.\ spatial-Mondrian.
-(a)~EuroSAT spatial-Mondrian mean set size vs.\ $\alpha$ (rises above the floor only where
-Mondrian repays coverage debt; DOFA $1.58/1.29/1.08$ at $\alpha=0.05/0.10/0.20$). (b)~Source
-split-conformal set size on the \emph{same} $y$-scale as~(a): every encoder sits on the singleton floor
-($\approx1.000$), so the excess size in~(a) is the restoration cost. (c)~Set size vs.\ spatial boundary
-percentile at $\alpha{=}0.10$ (solid $=$ source split; dashed $=$ spatial-Mondrian). (d)~So2Sat LCZ
-(17~classes) source-split vs.\ target-global set size in side-by-side facets---larger absolute sets than
-EuroSAT, on its own $y$-scale.}\label{fig:f3}\end{figure}
-\FloatBarrier
 
 % source: analysis records/lowshot_results.json (prithvi 0.05: frac 1.0 acc0.832 ss1.000 gap0.000 ... frac0.01 acc0.650 ss2.294 gap0.221; clay singleton by acc~0.87, ssl4eo by acc~0.82)
 Mapping the boundary. Subsampling the probe-training fraction drives shifted accuracy down and
@@ -823,6 +810,19 @@ on BigEarthNet are where the conformal layer earns its keep, and why So2Sat (17-
 $0.52$--$0.60$), which sits below the boundary, carries informative non-singleton sets even
 marginally (the non-European So2Sat validation (below)). The boundary is itself a contribution: it tells a practitioner when a
 marginal conformal audit of a frozen GFM is worth running.
+
+\begin{figure}[!htbp]\centering\includegraphics[width=0.88\linewidth]{F3_setsize_vs_alpha.pdf}
+\caption{Four-panel set-size cost of restoration (error bars seed-level $t$-CIs, $n{=}5$; dotted line $=$
+singleton floor of set size~$1$). Shared encoder colours throughout; panel~(C) uses
+linetype/shape for split vs.\ spatial-Mondrian.
+(A)~EuroSAT spatial-Mondrian mean set size vs.\ $\alpha$ (rises above the floor only where
+Mondrian repays coverage debt; DOFA $1.58/1.29/1.08$ at $\alpha=0.05/0.10/0.20$). (B)~Source
+split-conformal set size on the \emph{same} $y$-scale as~(A): every encoder sits on the singleton floor
+($\approx1.000$), so the excess size in~(A) is the restoration cost. (C)~Set size vs.\ spatial boundary
+percentile at $\alpha{=}0.10$ (solid $=$ source split; dashed $=$ spatial-Mondrian). (D)~So2Sat LCZ
+(17~classes) source-split vs.\ target-global set size in side-by-side facets---larger absolute sets than
+EuroSAT, on its own $y$-scale.}\label{fig:f3}\end{figure}
+\FloatBarrier
 
 \begin{table}[htbp]\centering\small
 \caption{Singleton-degeneracy boundary (EuroSAT, $\alpha{=}0.05$, 3 seeds; frozen low-shot
@@ -848,7 +848,7 @@ Train frac & Train $n$ & Shifted acc & Split set size & Coverage $-$ accuracy \\
 \bottomrule
 \end{tabular}
 
-\vspace{6pt}
+\vspace{3pt}
 \begin{tabular}{lcc}
 \toprule
 Encoder & Last SS$\equiv1$ (acc / frac) & First SS$>1.05$ (acc / frac) \\
