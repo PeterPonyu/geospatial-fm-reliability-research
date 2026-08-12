@@ -5,11 +5,14 @@
   rows  = source (lon >= P33) / boundary-near (|lon-P33| <= 1.5°) / target (lon < P33)
   cols  = six EuroSAT land-cover classes
 
-True-color tiles keyed to the frozen MS centroid manifest. Prefer the
-EuroSAT RGB JPEG for consistent on-page appearance across all classes;
-fall back to EuroSAT-MS GeoTIFF (B04/B03/B02) when the RGB twin is missing.
+True-color tiles keyed to the frozen MS centroid manifest. Prefer local
+EuroSAT-MS GeoTIFF (B04/B03/B02) when present; otherwise the matching
+EuroSAT RGB JPEG (same Class_N tile ID).
 
 P33 cut science unchanged (source n=18090, target n=8910).
+
+Typography: Nimbus Roman (same Times-compatible stack as ggtheme.R /
+PAPER_FONT). No decorative A/B/C/D panel letters.
 """
 from __future__ import annotations
 
@@ -23,6 +26,7 @@ import numpy as np
 import pandas as pd
 import rasterio
 from matplotlib.gridspec import GridSpec
+from matplotlib.patches import FancyBboxPatch, Rectangle
 from PIL import Image
 
 GEO = Path(__file__).resolve().parents[2]
@@ -57,22 +61,34 @@ BOUNDARY_W = 1.5
 
 # Match ~ISPRS single-column \linewidth so fonts are not shrunk at include time.
 FIG_W = 7.15
-FIG_H = 5.85
-UPSAMPLE = 480  # native EuroSAT is 64×64; Lanczos upsample for print DPI (raised 2026-08-12 for print legibility)
+FIG_H = 5.55
+UPSAMPLE = 480  # native EuroSAT is 64×64; Lanczos upsample for print DPI
 C_INK = "#111111"
-ROW_FACE = {
-    "source": "#EEF4FA",
-    "boundary": "#F7F3E8",
-    "target": "#F3EEEA",
+
+# Okabe–Ito semantics (match F8 geomap source/target; boundary distinct).
+ROW_ACCENT = {
+    "source": "#009E73",  # bluish green
+    "boundary": "#E69F00",  # orange — not the target tan
+    "target": "#0072B2",  # blue
 }
+ROW_FACE = {
+    "source": "#E8F5F0",
+    "boundary": "#FFF6E0",
+    "target": "#E6F0F8",
+}
+
+# Manuscript-consistent Times clone (ggtheme.R PAPER_FONT).
+PAPER_FONT = "Nimbus Roman"
 
 
 def _style():
     plt.rcParams.update(
         {
-            "font.size": 10,
-            "axes.titlesize": 10,
-            "axes.labelsize": 9,
+            "font.family": PAPER_FONT,
+            "font.size": 11,
+            "axes.titlesize": 11,
+            "axes.labelsize": 9.5,
+            "mathtext.fontset": "stix",
             "figure.facecolor": "white",
             "axes.facecolor": "white",
             "savefig.facecolor": "white",
@@ -100,19 +116,18 @@ def upsample_rgb(img: np.ndarray) -> np.ndarray:
 def read_rgb(rel: str) -> tuple[np.ndarray, str]:
     """Return (HxWx3 float image in [0,1], source_tag).
 
-    RGB-first so all six classes share the same display transfer; MS is
-    only a fallback when the matching JPEG is absent.
+    Prefer EuroSAT-MS B04/B03/B02; fall back to the matching RGB JPEG.
     """
-    jp = rgb_path_from_rel(rel)
-    if jp.is_file():
-        arr = np.asarray(Image.open(jp).convert("RGB"), dtype=np.float32) / 255.0
-        return upsample_rgb(arr), "RGB"
     ms = MS_ROOT / rel
     if ms.is_file():
         with rasterio.open(ms) as ds:
             a = ds.read([4, 3, 2]).astype(np.float32)
         img = np.clip(a / 3000.0, 0, 1).transpose(1, 2, 0) ** 0.75
         return upsample_rgb(img), "MS"
+    jp = rgb_path_from_rel(rel)
+    if jp.is_file():
+        arr = np.asarray(Image.open(jp).convert("RGB"), dtype=np.float32) / 255.0
+        return upsample_rgb(arr), "RGB"
     raise FileNotFoundError(rel)
 
 
@@ -153,6 +168,74 @@ def fmt_ll(lon: float, lat: float) -> str:
     return f"{abs(lon):.1f}°{ew}  {abs(lat):.1f}°{ns}"
 
 
+def draw_row_label(ax, side: str, title: str, cond: str) -> None:
+    """Compact semantic row label: short accent pill + stacked name/condition.
+
+    Avoids tall empty colored squares; the chip hugs the text block.
+    """
+    accent = ROW_ACCENT[side]
+    face = ROW_FACE[side]
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    ax.set_facecolor("white")
+
+    # Text-hugging chip (vertically centered; not full row height).
+    chip = FancyBboxPatch(
+        (0.08, 0.28),
+        0.84,
+        0.44,
+        boxstyle="round,pad=0.012,rounding_size=0.03",
+        linewidth=1.0,
+        edgecolor=accent,
+        facecolor=face,
+        transform=ax.transAxes,
+        clip_on=False,
+        zorder=1,
+    )
+    ax.add_patch(chip)
+    bar = Rectangle(
+        (0.08, 0.28),
+        0.075,
+        0.44,
+        linewidth=0,
+        facecolor=accent,
+        transform=ax.transAxes,
+        clip_on=False,
+        zorder=2,
+    )
+    ax.add_patch(bar)
+    ax.text(
+        0.58,
+        0.58,
+        title,
+        ha="center",
+        va="center",
+        fontsize=11.5,
+        fontweight="bold",
+        fontfamily=PAPER_FONT,
+        color=C_INK,
+        transform=ax.transAxes,
+        zorder=3,
+    )
+    ax.text(
+        0.58,
+        0.40,
+        cond,
+        ha="center",
+        va="center",
+        fontsize=8.6,
+        fontfamily=PAPER_FONT,
+        color="#222222",
+        transform=ax.transAxes,
+        zorder=3,
+        linespacing=1.1,
+    )
+
+
 def main():
     _style()
     if not MANIFEST.is_file():
@@ -167,30 +250,31 @@ def main():
     assert n_src == 18090 and n_tgt == 8910, (n_src, n_tgt)
 
     rng = np.random.default_rng(7)
+    # STIX mathtext for P_{33} (Nimbus Roman lacks Unicode subscripts; avoids DejaVu).
     sides = (
-        ("source", "Source", rf"lon $\geq P_{{33}}$"),
+        ("source", "Source", r"lon $\geq P_{33}$"),
         (
             "boundary",
             "Boundary",
             rf"$|\mathrm{{lon}}-P_{{33}}|\leq {BOUNDARY_W:.1f}^\circ$",
         ),
-        ("target", "Target", rf"lon $< P_{{33}}$"),
+        ("target", "Target", r"lon $< P_{33}$"),
     )
 
     fig = plt.figure(figsize=(FIG_W, FIG_H))
-    # Left gutter for horizontal row labels; 3×6 patch grid.
+    # Narrow left gutter: compact semantic row cards + 3×6 patch grid.
     gs = GridSpec(
         3,
         7,
         figure=fig,
-        width_ratios=[1.05] + [1.0] * 6,
+        width_ratios=[0.72] + [1.0] * 6,
         height_ratios=[1, 1, 1],
         wspace=0.08,
-        hspace=0.28,
+        hspace=0.30,
         left=0.02,
         right=0.995,
         top=0.90,
-        bottom=0.05,
+        bottom=0.03,
     )
 
     missing = []
@@ -199,34 +283,7 @@ def main():
 
     for row, (side, title, cond) in enumerate(sides):
         lab_ax = fig.add_subplot(gs[row, 0])
-        lab_ax.set_xlim(0, 1)
-        lab_ax.set_ylim(0, 1)
-        lab_ax.set_xticks([])
-        lab_ax.set_yticks([])
-        for sp in lab_ax.spines.values():
-            sp.set_visible(False)
-        lab_ax.set_facecolor(ROW_FACE[side])
-        lab_ax.text(
-            0.5,
-            0.60,
-            title,
-            ha="center",
-            va="center",
-            fontsize=9.5,
-            fontweight="bold",
-            color=C_INK,
-            transform=lab_ax.transAxes,
-        )
-        lab_ax.text(
-            0.5,
-            0.28,
-            cond,
-            ha="center",
-            va="center",
-            fontsize=7.2,
-            color="#333333",
-            transform=lab_ax.transAxes,
-        )
+        draw_row_label(lab_ax, side, title, cond)
 
         for col, cls in enumerate(CLASSES):
             ax = fig.add_subplot(gs[row, col + 1])
@@ -246,7 +303,8 @@ def main():
                     "n/a",
                     ha="center",
                     va="center",
-                    fontsize=9,
+                    fontsize=10,
+                    fontfamily=PAPER_FONT,
                     color="#666666",
                 )
                 missing.append(f"{side}/{cls}")
@@ -257,34 +315,33 @@ def main():
                 # Place lat/lon under the patch (not over imagery) for print legibility.
                 ax.set_xlabel(
                     fmt_ll(float(rec.lon), float(rec.lat)),
-                    fontsize=7.4,
+                    fontsize=8.6,
                     labelpad=2.5,
                     color=C_INK,
+                    fontfamily=PAPER_FONT,
                 )
             if row == 0:
-                ax.set_title(SHORT[cls], fontsize=9.0, pad=3, fontweight="bold")
+                ax.set_title(
+                    SHORT[cls],
+                    fontsize=10.5,
+                    pad=4,
+                    fontweight="bold",
+                    fontfamily=PAPER_FONT,
+                )
 
+    # Title-only chrome; secondary “illustrative tiles…” lives in the manuscript caption.
     fig.suptitle(
         rf"Geographic shift at patch level "
         rf"(true-color Sentinel-2; $P_{{33}}={P33:.1f}^\circ$E)",
-        fontsize=10.5,
+        fontsize=12.5,
         y=0.975,
         fontweight="bold",
-    )
-    # Manuscript caption carries n / boundary science; keep figure chrome leak-free.
-    fig.text(
-        0.5,
-        0.012,
-        "Illustrative tiles (seeded); centroids annotated",
-        ha="center",
-        fontsize=7.2,
-        color="#444444",
+        fontfamily=PAPER_FONT,
     )
 
     pdf = OUT / "F9_geopatches.pdf"
     png = ART / "F9_geopatches.png"
-    # dpi=400 (raised 2026-08-12) for print-grade raster fallback when the
-    # PDF is rasterised downstream; vector PDF is the authoritative output.
+    # dpi=400 for print-grade raster fallback; vector PDF is authoritative.
     fig.savefig(pdf, dpi=400, bbox_inches="tight", pad_inches=0.04)
     fig.savefig(png, dpi=400, bbox_inches="tight", pad_inches=0.04)
     plt.close(fig)
