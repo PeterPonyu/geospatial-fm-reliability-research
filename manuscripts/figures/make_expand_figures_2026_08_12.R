@@ -142,9 +142,20 @@ f11b <- ggplot(pcdf, aes(class, cov)) +
   geom_hline(yintercept = as.numeric(ssl$marg_cov), linetype = 2, colour = "grey30") +
   geom_hline(yintercept = 0.95, linetype = 3, colour = "grey50") +
   coord_cartesian(ylim = c(0.80, 1.0)) +
-  labs(x = "EuroSAT class id", y = "per-class cov") +
+  labs(x = NULL, y = "per-class cov") +
   theme_f11() +
-  theme(panel.grid.major.x = element_blank())
+  theme(panel.grid.major.x = element_blank(),
+        plot.margin = margin(t = 12, r = 6, b = 0, l = 3))
+# Place x-title just under the tick numbers (tighter than ggplot's default
+# axis-title band; keep a small clearance so it never clips ticks/bars).
+f11b_lab <- cowplot::ggdraw() +
+  cowplot::draw_label(
+    "EuroSAT class id", fontfamily = PAPER_FONT, size = 7.5,
+    x = 0.55, y = 0.92, hjust = 0.5, vjust = 1
+  )
+f11b <- wrap_elements(full = cowplot::plot_grid(
+  f11b, f11b_lab, ncol = 1, rel_heights = c(1, 0.048), align = "none"
+))
 prov("F11-B", file.path(EXP0, "results.json"), pcdf, "class")
 
 # Panel C: So2Sat dissociation (worst-class vs marginal)
@@ -177,7 +188,7 @@ f11c <- ggplot(s2m, aes(fm, cov, fill = arm)) +
         panel.grid.major.x = element_blank(),
         legend.position = "bottom",
         legend.direction = "horizontal",
-        legend.justification = "left",
+        legend.justification = "center",
         legend.box.spacing = unit(0, "pt"),
         legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
         legend.key.spacing.x = unit(4, "pt"))
@@ -216,7 +227,7 @@ f11d <- ggplot(cmp, aes(eurosat_gap, so2sat_spread, colour = fm)) +
         axis.title.x = element_text(margin = margin(t = 1, b = 0)))
 prov("F11-D", file.path(EXP0, "results.json"), cmp, "fm")
 
-# Horizontal legend glued tight under C (cowplot stack), then 2×2 with D so
+# Horizontal legend centered under C column (cowplot stack), then 2×2 with D so
 # D's x-title is not padded by C's legend floor. Tag C on the wrapped stack.
 f11c_noleg <- f11c +
   theme(legend.position = "none",
@@ -226,15 +237,26 @@ leg_plot <- f11c +
                              override.aes = list(colour = NA))) +
   theme(legend.position = "bottom",
         legend.direction = "horizontal",
-        legend.justification = c(0, 1),
+        legend.justification = c(0.5, 1),
         legend.key.spacing.x = unit(3, "pt"),
         legend.margin = margin(0, 0, 0, 0),
         legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
         legend.background = element_blank())
 f11_leg <- cowplot::get_legend(leg_plot)
+# Collapse null side pads (they do not expand under wrap_elements).
+leg_content <- f11_leg
+for (i in seq_along(leg_content$widths)) {
+  wi <- leg_content$widths[[i]]
+  if (inherits(wi, "unit") && grepl("null", as.character(wi), fixed = TRUE)) {
+    leg_content$widths[[i]] <- grid::unit(0, "pt")
+  }
+}
+# Center content-sized guide in the full C column width.
+leg_row <- cowplot::ggdraw() +
+  cowplot::draw_grob(leg_content, x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5)
 # align="none" keeps the horizontal guide from being width-squeezed into a wrap.
 c_stack <- cowplot::plot_grid(
-  f11c_noleg, cowplot::ggdraw(f11_leg),
+  f11c_noleg, leg_row,
   ncol = 1, rel_heights = c(1, 0.075),
   align = "none"
 )
@@ -334,12 +356,11 @@ f12c <- ggplot(p05, aes(frac, worst_gap)) +
 prov("F12-C", file.path(EXP0, "lowshot_results.json"), p05, "frac")
 
 # Panel D: α comparison (0.05 vs 0.10) for all three encoders — cov−acc.
-# Unlike Fig.~7 (F3), which parks a complex shared 2-row legend under the whole
-# 2×2 with a large floor gap, keep the multi-series key attached to D only:
-# one horizontal row (colour | α linestyle) tight under D's axes.
-# Short α keys. Half-width D cannot fit colour+α in one external row without
-# clipping, so park a tight 2-row key *inside* D (upper-right empty quadrant)
-# — near the multi-series panel, not a distant full-width floor like Fig.~7/F3.
+# Multi-series key stays on D only (A–C are single-series). Use ggplot's
+# legend.position="top" so the 2-row colour | α key sits in reserved space
+# above D's panel (not npc-inside overlay, no alpha legend fill). Avoid
+# cowplot::get_legend + wrap_elements here — under ggplot2 4 that stack was
+# leaving an empty strip while the guide still drew in-panel.
 lsdf$alpha_lab <- factor(sprintf("α=%g", lsdf$alpha),
                          levels = c("α=0.05", "α=0.1"))
 lsdf$fm <- factor(lsdf$fm, levels = c("Clay", "Prithvi", "SSL4EO-DINO"))
@@ -363,10 +384,10 @@ f12d <- ggplot(lsdf, aes(frac, cov_minus_acc, colour = fm, linetype = alpha_lab,
       override.aes = list(colour = "black", shape = NA, linewidth = 0.55))
   ) +
   theme_f12() +
-  theme(legend.box = "vertical",
+  theme(legend.position = "top",
+        legend.box = "vertical",
         legend.direction = "horizontal",
-        legend.position = c(0.98, 0.98),
-        legend.justification = c(1, 1),
+        legend.justification = c(0.5, 1),
         legend.spacing.y = unit(0, "pt"),
         legend.spacing.x = unit(2, "pt"),
         legend.key.width = unit(9, "pt"),
@@ -374,28 +395,60 @@ f12d <- ggplot(lsdf, aes(frac, cov_minus_acc, colour = fm, linetype = alpha_lab,
         legend.key.spacing.x = unit(2, "pt"),
         legend.key.spacing.y = unit(0, "pt"),
         legend.text = element_text(size = 6.5),
-        legend.margin = margin(t = 0, r = 0, b = 0, l = 1),
+        legend.margin = margin(t = 0, r = 0, b = 1, l = 0),
         legend.box.margin = margin(0, 0, 0, 0),
-        legend.box.spacing = unit(0, "pt"),
-        legend.background = element_rect(fill = alpha("white", 0.88),
-                                         colour = NA))
+        legend.box.spacing = unit(1, "pt"),
+        legend.background = element_blank(),
+        legend.box.background = element_blank(),
+        plot.margin = margin(t = 2, r = 5, b = 2, l = 6))
 prov("F12-D", file.path(EXP0, "lowshot_results.json"), lsdf, "fm")
 
-# Equal 2×2; legend lives inside D only (A–C suppress).
-f12_all <- (f12a + theme(legend.position = "none") |
-            f12b + theme(legend.position = "none")) /
-           (f12c + theme(legend.position = "none") | f12d) +
+# Wider A|B gutter and taller bottom row so D's top legend strip fits cleanly.
+f12a_p <- f12a + theme(legend.position = "none",
+                       plot.margin = margin(t = 6, r = 10, b = 8, l = 4))
+f12b_p <- f12b + theme(legend.position = "none",
+                       plot.margin = margin(t = 6, r = 5, b = 8, l = 10))
+f12c_p <- f12c + theme(legend.position = "none",
+                       plot.margin = margin(t = 12, r = 10, b = 2, l = 4))
+f12_all <- f12a_p + f12b_p + f12c_p + f12d +
+  plot_layout(design = "AB\nCD", heights = c(1, 1.22)) +
   plot_annotation(tag_levels = "A") & tag_f12()
-save_fig(f12_all, "figures/F12_singleton_lowshot", w = 4.85, h = 3.15)
+save_fig(f12_all, "figures/F12_singleton_lowshot", w = 4.95, h = 3.45)
 }  # end F12
 
 # ---------------------------------------------------------------------------
 # F13 — CRC FNR (mirrors tab:crc)
-# Equal 2×2 outer panels: A = in vs shift at α=0.05 (no α-facet);
-# B/C = Mondrian restore + set-size at α=0.10; D = α sweep of shift FNR.
-# One shared fill legend for B+C; A and D keep their own (collected once).
+# Equal 2×2: A = in vs shift at α=0.05; B/C = Mondrian restore + set-size
+# at α=0.10; D = α sweep of shift FNR. Legends stay on the panels that use
+# them (no distant 3-row floor). A–D tags outside spines (margin/topleft).
 # ---------------------------------------------------------------------------
 if (do_fig("F13")) {
+# Outside-spine A–D (margin/topleft), matching GEO convention / F12.
+tag_f13 <- function() {
+  theme(text = element_text(family = PAPER_FONT),
+        plot.tag = element_text(family = PAPER_FONT, face = "bold",
+                                size = 12, hjust = 0, vjust = 1),
+        plot.tag.position = "topleft",
+        plot.tag.location = "margin",
+        plot.margin = margin(t = 6, r = 5, b = 2, l = 5))
+}
+# Compact horizontal key parked on the panel that owns the series — not a
+# collected floor. No legend boxes / alpha fill frames.
+leg_f13_top <- function() {
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.justification = c(0, 1),
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+        legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
+        legend.box.spacing = unit(0, "pt"),
+        legend.spacing.x = unit(2, "pt"),
+        legend.key.width = unit(8, "pt"),
+        legend.key.height = unit(7, "pt"),
+        legend.key.spacing.x = unit(2, "pt"),
+        legend.background = element_blank(),
+        legend.box.background = element_blank())
+}
+
 crc <- read_result(CRC)
 crc_rows <- list()
 for (fm in names(crc$fm_results)) {
@@ -428,8 +481,8 @@ fm_lvls <- c("Prithvi", "Clay", "SSL4EO-DINO", "SSL4EO-MAE", "DOFA")
 fm_tick <- c(Prithvi = "Prithvi", Clay = "Clay",
              `SSL4EO-DINO` = "DINO", `SSL4EO-MAE` = "MAE", DOFA = "DOFA")
 crcdf$fm <- factor(crcdf$fm, levels = fm_lvls)
-# Shared Okabe–Ito fills for A (regime) vs B/C (method); named so collect merges.
-# Keep bar fills distinct from Panel-D model colours (Clay=blue, Prithvi=teal).
+# Okabe–Ito fills for A (regime) vs B/C (method). Keep bar fills distinct
+# from Panel-D model colours (Clay=blue, Prithvi=teal).
 fill_regime <- c("in-dist" = "#56B4E9", "shift" = okabe_ito[4])
 fill_method <- c("CRC" = "#E69F00", "Mondrian-CRC" = "#009E73")
 
@@ -450,10 +503,11 @@ f13a <- ggplot(a_long, aes(fm, fnr, fill = arm)) +
   scale_x_discrete(labels = fm_tick) +
   scale_fill_manual(values = fill_regime, name = NULL) +
   labs(x = NULL, y = "FNR") +
-  guides(fill = guide_legend(nrow = 1, title = NULL, order = 1)) +
+  guides(fill = guide_legend(nrow = 1, title = NULL)) +
   theme_expand() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank()) +
+  leg_f13_top()
 prov("F13-A", CRC, a_long, "fm")
 
 # Panel B: CRC vs Mondrian-CRC shift FNR at α=0.10
@@ -473,13 +527,16 @@ f13b <- ggplot(b_long, aes(fm, fnr, fill = arm)) +
   scale_x_discrete(labels = fm_tick) +
   scale_fill_manual(values = fill_method, name = NULL) +
   labs(x = NULL, y = "FNR") +
-  guides(fill = guide_legend(nrow = 1, title = NULL, order = 2)) +
+  guides(fill = guide_legend(nrow = 1, title = NULL)) +
   theme_expand() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank()) +
+  leg_f13_top()
 prov("F13-B", CRC, b_long, "fm")
 
-# Panel C: set size CRC vs Mondrian under shift, α=0.10 (same fill legend as B)
+# Panel C: set size CRC vs Mondrian under shift, α=0.10
+# Method colours shared with B; repeat a compact top key so C is self-local
+# (B is diagonal, not above C).
 c_long <- rbind(
   data.frame(fm = b10$fm, arm = "CRC", size = b10$ss_crc,
              lo = b10$ss_crc_lo, hi = b10$ss_crc_hi),
@@ -494,10 +551,11 @@ f13c <- ggplot(c_long, aes(fm, size, fill = arm)) +
   scale_x_discrete(labels = fm_tick) +
   scale_fill_manual(values = fill_method, name = NULL) +
   labs(x = NULL, y = "Set size") +
-  guides(fill = "none") +
+  guides(fill = guide_legend(nrow = 1, title = NULL)) +
   theme_expand() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 7),
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank()) +
+  leg_f13_top()
 prov("F13-C", CRC, c_long, "fm")
 
 # Panel D: CRC shift FNR across α by encoder (short labels match A–C ticks)
@@ -514,22 +572,26 @@ f13d <- ggplot(crcdf, aes(factor(alpha), fnr_sh, colour = fm, group = fm)) +
                       labels = unname(fm_tick[fm_lvls]), name = NULL) +
   scale_x_discrete(labels = function(x) sprintf("%.2f", as.numeric(x))) +
   labs(x = "α", y = "FNR") +
-  guides(colour = guide_legend(nrow = 1, byrow = TRUE, title = NULL, order = 3)) +
+  guides(colour = guide_legend(nrow = 1, byrow = TRUE, title = NULL,
+                               override.aes = list(linetype = "solid",
+                                                   linewidth = 0.45))) +
   theme_expand() +
   theme(panel.grid.major.x = element_blank(),
-        axis.title.x = element_text(margin = margin(t = 1)))
+        axis.title.x = element_text(margin = margin(t = 1))) +
+  leg_f13_top()
 prov("F13-D", CRC, crcdf, "fm")
 
-f13_all <- (f13a | f13b) / (f13c | f13d) +
-  plot_layout(guides = "collect") +
+# Modest gutters so margin tags + top legends do not collide across cells.
+# Do not collect guides — that recreated the distant 3-row floor.
+f13a_p <- f13a + theme(plot.margin = margin(t = 4, r = 8, b = 4, l = 4))
+f13b_p <- f13b + theme(plot.margin = margin(t = 4, r = 4, b = 4, l = 8))
+f13c_p <- f13c + theme(plot.margin = margin(t = 8, r = 8, b = 2, l = 4))
+f13d_p <- f13d + theme(plot.margin = margin(t = 8, r = 4, b = 2, l = 8))
+f13_all <- f13a_p + f13b_p + f13c_p + f13d_p +
+  plot_layout(design = "AB\nCD", heights = c(1, 1.02)) +
   plot_annotation(tag_levels = "A") &
-  tag_expand() &
-  theme(legend.position = "bottom",
-        legend.box = "vertical",
-        legend.box.just = "left",
-        legend.spacing.y = unit(4, "pt"),
-        legend.margin = margin(t = 0, r = 2, b = 0, l = 2))
-save_fig(f13_all, "figures/F13_crc_fnr", w = 5.8, h = 4.35)
+  tag_f13()
+save_fig(f13_all, "figures/F13_crc_fnr", w = 5.8, h = 4.15)
 }  # end F13
 
 # ---------------------------------------------------------------------------

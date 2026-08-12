@@ -1366,12 +1366,12 @@ $\alpha$ & Encoder & \shortstack{FNR\\in-dist} & \shortstack{FNR\\shift} & \shor
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F13_crc_fnr.pdf}
 \caption{CRC on BigEarthNet (frozen multi-seed bootstrap means with 95\% CIs; no new runs).
-All panels use example-averaged FNR (or set size) pooled over five seeds; error bars are percentile bootstrap intervals ($B{=}2000$).
-Encoder ticks and the panel-(d) colour key abbreviate SSL4EO-DINO/MAE as DINO/MAE.
-(a)~Source-calibrated CRC FNR in-distribution vs.\ under the E$\to$W geographic shift at $\alpha{=}0.05$ (blue $=$ in-dist, vermillion $=$ shift; dashed $=$ nominal FNR level $\alpha$). In-distribution meets the risk level; the same $\hat\lambda$ incurs large FNR debt under shift.
-(b)~Shift FNR at $\alpha{=}0.10$: source-calibrated CRC vs.\ target-side Mondrian-CRC (blue/green; dashed $=$ nominal $\alpha$). Mondrian-CRC restores FNR to at-or-below nominal for every encoder.
-(c)~Mean set-size cost under shift at the same $\alpha{=}0.10$ (labels/tile of ${\sim}27$ active): Mondrian-CRC's restore comes with larger sets than source-calibrated CRC (shared method colours with (b)).
-(d)~Source-calibrated CRC FNR under shift across $\alpha\in\{0.05,0.10,0.20\}$ by encoder (coloured lines; dotted horizontals $=$ nominal $\alpha$ at each risk level).
+All panels use example-averaged FNR (or set size) pooled over five seeds; error bars are percentile bootstrap 95\% intervals ($B{=}2000$).
+Encoder ticks and the (D) colour key abbreviate SSL4EO-DINO/MAE as DINO/MAE (Prithvi, Clay, DINO, MAE, DOFA).
+(A)~Source-calibrated CRC FNR in-distribution vs.\ under the E$\to$W geographic shift at $\alpha{=}0.05$ (blue $=$ in-dist, vermillion $=$ shift; dashed $=$ nominal FNR level $\alpha$). In-distribution meets the risk level; the same $\hat\lambda$ incurs large FNR debt under shift.
+(B)~Shift FNR at $\alpha{=}0.10$: source-calibrated CRC vs.\ target-side Mondrian-CRC (orange $=$ CRC, green $=$ Mondrian-CRC; dashed $=$ nominal $\alpha$). Mondrian-CRC restores FNR to at-or-below nominal for every encoder.
+(C)~Mean set-size cost under shift at the same $\alpha{=}0.10$ (labels/tile of ${\sim}27$ active): Mondrian-CRC's restore comes with larger sets than source-calibrated CRC (shared orange/green method colours with (B)).
+(D)~Source-calibrated CRC FNR under shift across $\alpha\in\{0.05,0.10,0.20\}$ by encoder (coloured lines; dotted horizontals $=$ nominal $\alpha$ at each risk level).
 }\label{fig:crcfnr}\end{figure}
 \FloatBarrier
 
