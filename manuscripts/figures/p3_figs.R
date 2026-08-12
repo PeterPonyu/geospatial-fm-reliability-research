@@ -338,8 +338,8 @@ print(deb_a[, c("fm", "debt", "n_restored")])
 # F2: coverage restoration (equal 2×2). Redesign 2026-08-12:
 #   A — P33 split vs spatial-Mondrian bars; facet by α (not by encoder)
 #   B — non-P33 boundaries as arm × boundary grid; colour = encoder
-#   C/D — multi-arm contrasts at α=0.10; shared encoder colour legend
-# One fig-level encoder legend; one arm fill legend; no in-panel legend boxes.
+#   C/D — multi-arm contrasts at α=0.10; floor encoder colour legend (C/D only)
+# A's arm fill key stays under A; floor row is encoder colours for C/D (also B).
 # ---------------------------------------------------------------------------
 if (do_fig("F2")) {
 arm_lv <- c("split (source)", "spatial-Mondrian")
@@ -363,6 +363,8 @@ m$alpha_lab <- factor(sprintf("α = %s", format(m$alpha, nsmall = 2)),
 
 # Compact F2 chrome: smaller facets/strips, less left-axis pad so data panes
 # claim more of the half-width (esp. B's 3×2 grid). Science values unchanged.
+# Arm fill legend stays local to A (short labels; top so the bar pane can stretch
+# to match B's cell height).
 f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   geom_col(position = position_dodge(0.72), width = 0.62, colour = NA) +
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high),
@@ -373,12 +375,13 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   # Shared y-axis (one encoder column) — avoids truncated per-facet tick clones.
   facet_grid(. ~ alpha_lab) +
   scale_y_discrete(labels = fm_tick, limits = rev) +
-  scale_fill_paper(name = NULL) +
+  scale_fill_paper(name = NULL, labels = c("split", "Mondrian")) +
   scale_x_continuous(breaks = c(0.80, 0.90, 1.00),
                      labels = c(".80", ".90", "1")) +
   coord_cartesian(xlim = c(0.78, 1.0)) +
   labs(x = "coverage", y = NULL) +
-  guides(fill = guide_legend(nrow = 1, order = 1)) +
+  guides(fill = guide_legend(nrow = 1, order = 1,
+                             override.aes = list(colour = NA))) +
   theme_p3_panel() +
   theme(panel.grid.major.y = element_blank(),
         panel.spacing.x = unit(3, "pt"),
@@ -386,7 +389,15 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
         axis.text.y = element_text(size = 6.5),
         axis.text.x = element_text(size = 6),
         strip.text = element_text(size = 6.5, margin = margin(t = 1.5, b = 1.5)),
-        legend.text = element_text(size = 6.5))
+        legend.position = "top",
+        legend.justification = "left",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 6.5),
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+        legend.box.spacing = unit(1, "pt"),
+        legend.key.width = unit(8, "pt"),
+        legend.key.height = unit(7, "pt"),
+        plot.margin = margin(t = 0, r = 2, b = 1, l = 2))
 prov("F2-A", RES, m, "fm")
 
 # F2-B: same split-vs-Mondrian contrast at non-P33 cuts. Row facet = arm so the
@@ -506,26 +517,29 @@ f2d <- ggplot(als, aes(arm_x, coverage, colour = fm, group = fm)) +
         axis.text.x = element_text(angle = 28, hjust = 1, size = 6))
 prov("F2-D", LSHIFT, als, "fm")
 
-# 2×2 with a slight right bias so B's facet grid gets more data width than A.
-# wrap_elements(B): patchwork aligns A/B panel tops; A's taller α-strips then
-# leave a white gap under B's P25/P40/P50 — wrap frees B to pack strips to spines.
-# (free(panel,"t") hits a patchwork 1.3.2 bug in 2×2 + guides="collect".)
+# Top row taller so A's bar stack matches B's 2×3 facet height. Keep A as a
+# ggplot (stretches to the row) and wrap only B (packs strips to spines without
+# white-banding). Nest C|D with guides="collect" so the floor encoder legend
+# serves C/D only; A's arm fill key stays on A (top), not collected to the floor.
 # free(C, left space): A's long encoder ticks otherwise pad C's ylab→spine gap.
-# A supplies the arm legend, B the encoder legend; C/D guides dropped.
 # Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
-f2_all <- (f2a | wrap_elements(full = f2b)) /
-          (free(f2c, type = "space", side = "l") | f2d) +
-  plot_layout(guides = "collect", heights = c(1.05, 1), widths = c(0.88, 1.12)) +
-  plot_annotation(tag_levels = "A") &
-  tag_p3() &
+f2_ab <- (f2a | wrap_elements(full = f2b)) +
+  plot_layout(widths = c(0.88, 1.12))
+f2_cd <- (free(f2c, type = "space", side = "l") | f2d) +
+  plot_layout(guides = "collect", widths = c(0.88, 1.12)) &
   theme(legend.position = "bottom",
         legend.box = "horizontal",
-        legend.box.just = "left",
-        legend.spacing.x = unit(8, "pt"),
+        legend.box.just = "center",
+        legend.spacing.x = unit(6, "pt"),
         legend.spacing.y = unit(1, "pt"),
-        # Slightly less left chrome so plot content sits farther right.
-        plot.margin = margin(t = 5, r = 4, b = 1, l = 3))
-save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.55, h = 4.20)
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+        legend.box.spacing = unit(2, "pt"))
+f2_all <- (f2_ab / f2_cd) +
+  plot_layout(heights = c(1.55, 1)) +
+  plot_annotation(tag_levels = "A") &
+  tag_p3() &
+  theme(plot.margin = margin(t = 5, r = 4, b = 1, l = 3))
+save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.55, h = 4.65)
 
 chk <- function(lab, got, expect, tol = 5e-4) {
   ok <- isTRUE(abs(got - expect) < tol)

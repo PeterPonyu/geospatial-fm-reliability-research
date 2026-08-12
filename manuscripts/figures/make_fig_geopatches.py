@@ -171,10 +171,11 @@ def fmt_ll(lon: float, lat: float) -> str:
 
 
 def draw_row_label(ax, side: str, title: str, cond: str) -> None:
-    """Compact semantic row label: short accent pill + stacked name/condition.
+    """Semantic row label: accent bar + equal-height chip for every row.
 
-    Avoids tall empty colored squares; the chip hugs the text block.
-    Multi-line conditions (Boundary) get a taller chip so text stays inside.
+    Source / Boundary / Target share one chip box (same y/h) so visual weight
+    matches. Multi-line conditions keep a slightly smaller condition font;
+    single-line rows use the extra vertical room for title/condition spacing.
     """
     accent = ROW_ACCENT[side]
     face = ROW_FACE[side]
@@ -186,18 +187,17 @@ def draw_row_label(ax, side: str, title: str, cond: str) -> None:
         sp.set_visible(False)
     ax.set_facecolor("white")
 
+    # Uniform chip geometry across all three rows (match Boundary visual weight).
+    chip_x, chip_y, chip_w, chip_h = 0.00, 0.12, 1.00, 0.76
+    bar_w = 0.06
     n_cond_lines = cond.count("\n") + 1
     if n_cond_lines >= 2:
-        chip_y, chip_h = 0.12, 0.76
-        title_y, cond_y = 0.74, 0.34
-        cond_fs = 7.4
+        title_y, cond_y, cond_fs = 0.74, 0.34, 7.4
     else:
-        chip_y, chip_h = 0.26, 0.48
-        title_y, cond_y = 0.58, 0.38
-        cond_fs = 8.4
+        # Same box; space title / condition evenly inside the shared height.
+        title_y, cond_y, cond_fs = 0.66, 0.36, 8.2
 
     # Full-width chip; clip_on keeps any residual glyphs inside the axes frame.
-    chip_x, chip_w, bar_w = 0.00, 1.00, 0.06
     chip = FancyBboxPatch(
         (chip_x, chip_y),
         chip_w,

@@ -216,49 +216,64 @@ draw_debt <- function(alpha = 0.05) {
     theme_f10()
 }
 
-# Shared legend panel: encoder solids + one neutral dashed source-only proxy.
-# Two x-values per series so geom_line draws a visible key segment.
-leg_levels <- c(fm_levels, "source-only (no target labels)")
-leg_src <- do.call(rbind, lapply(seq_along(leg_levels), function(i) {
-  data.frame(kind = leg_levels[[i]], x = c(i - 0.2, i + 0.2), y = 1,
-             stringsAsFactors = FALSE)
-}))
-leg_src$kind <- factor(leg_src$kind, levels = leg_levels)
-col_leg <- c(MODEL_COLOURS[fm_levels],
-             "source-only (no target labels)" = "#555555")
-shp_leg <- c(fm_shape, "source-only (no target labels)" = 32)  # 32 = blank
+# Shared legend strip: encoder solids + one neutral dashed source-only proxy.
+# Colour-only aes (shape/linetype via override.aes) — mapping colour+shape+linetype
+# together left a second unlabeled guide row under the labeled keys, and the
+# long "…labels" string + 18 pt keys clipped at the device edge.
+SRC_LAB <- "source-only (no target)"
+leg_levels <- c(fm_levels, SRC_LAB)
+leg_df <- data.frame(
+  kind = factor(leg_levels, levels = leg_levels),
+  x = seq_along(leg_levels),
+  y = 1,
+  stringsAsFactors = FALSE
+)
+col_leg <- c(MODEL_COLOURS[fm_levels], setNames("#555555", SRC_LAB))
+shp_leg <- c(fm_shape, setNames(32, SRC_LAB))  # 32 = blank (line-only key)
 lty_leg <- c(setNames(rep("solid", length(fm_levels)), fm_levels),
-             "source-only (no target labels)" = "22")
+             setNames("22", SRC_LAB))
 
-p_leg <- ggplot(leg_src, aes(x, y, colour = kind, shape = kind, linetype = kind,
-                             group = kind)) +
-  geom_line(linewidth = 0.55) +
-  geom_point(data = leg_src[!duplicated(leg_src$kind), ], size = 1.8) +
-  scale_colour_manual(values = col_leg, breaks = leg_levels) +
-  scale_shape_manual(values = shp_leg, breaks = leg_levels) +
-  scale_linetype_manual(values = lty_leg, breaks = leg_levels) +
+leg_plot <- ggplot(leg_df, aes(x, y, colour = kind)) +
+  geom_point(size = 1.8) +
+  scale_colour_manual(values = col_leg, breaks = leg_levels, name = NULL) +
   guides(
     colour = guide_legend(
-      title = NULL, nrow = 1, order = 1,
+      nrow = 1,
       override.aes = list(
         shape = unname(shp_leg[leg_levels]),
         linetype = unname(lty_leg[leg_levels]),
         linewidth = 0.55
       )
-    ),
-    shape = "none",
-    linetype = "none"
+    )
   ) +
   theme_void(base_family = PAPER_FONT) +
   theme(
     legend.position = "bottom",
-    legend.text = element_text(size = 8.5, family = PAPER_FONT),
-    legend.key.width = unit(18, "pt"),
+    legend.direction = "horizontal",
+    legend.justification = "center",
+    legend.text = element_text(size = 7.5, family = PAPER_FONT),
+    legend.key.width = unit(11, "pt"),
     legend.key.height = unit(8, "pt"),
-    legend.margin = margin(0, 0, 0, 0),
+    legend.key.spacing.x = unit(3, "pt"),
+    legend.margin = margin(0, 2, 0, 2),
+    legend.box.margin = margin(0, 0, 0, 0),
     legend.box.spacing = unit(0, "pt"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
     plot.margin = margin(0, 0, 0, 0)
   )
+# Extract guide only (no data panel) so the floor is one clean labeled row.
+leg_grob <- cowplot::get_legend(leg_plot)
+for (i in seq_along(leg_grob$widths)) {
+  wi <- leg_grob$widths[[i]]
+  if (inherits(wi, "unit") && grepl("null", as.character(wi), fixed = TRUE)) {
+    leg_grob$widths[[i]] <- grid::unit(0, "pt")
+  }
+}
+p_leg <- wrap_elements(
+  full = cowplot::ggdraw() +
+    cowplot::draw_grob(leg_grob, x = 0.5, y = 0.55, hjust = 0.5, vjust = 0.5)
+)
 
 pA <- draw_eurosat(0.10, expression(EuroSAT ~ (P[33] * "," ~ alpha == 0.10)))
 pB <- draw_ben(0.10)
@@ -266,7 +281,7 @@ pC <- draw_eurosat(0.05, expression(EuroSAT ~ (P[33] * "," ~ alpha == 0.05)))
 pD <- draw_debt(0.05)
 
 f10_all <- ((pA | pB) / (pC | pD) / p_leg) +
-  plot_layout(heights = c(1, 1, 0.16)) +
+  plot_layout(heights = c(1, 1, 0.11)) +
   plot_annotation(tag_levels = "A") & tag_f10()
 # Legend strip must not receive a panel tag.
 f10_all[[3]] <- f10_all[[3]] + theme(plot.tag = element_blank())
