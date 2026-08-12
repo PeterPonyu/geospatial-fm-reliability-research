@@ -1,0 +1,292 @@
+COPY-READY SUBMISSION PACK — GEO / ISPRS Journal
+Prepared: 2026-08-12
+paper=GEO
+SSOT=geospatial-fm-reliability-research/manuscripts/isprs/
+Kit=submissions/geo/isprs/
+Pin=9d50845b278c4273836df2dec3790f4477e375e5
+Documentclass: elsarticle [preprint,11pt,authoryear]
+\journal{ISPRS Journal of Photogrammetry and Remote Sensing}
+
+Paste the labeled blocks below into Elsevier Editorial Manager (PHOTO).
+Do not invent author names, emails, or reviewer identities.
+TODO-USER marks fields the portal may still ask for that are not in the manuscript.
+
+Official sources (accessed 2026-08-12):
+- Guide for Authors: https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing/publish/guide-for-authors
+- Journal home: https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing
+- Editorial Manager: https://www.editorialmanager.com/PHOTO/default.aspx
+- Editorial board (EiCs Clément Mallet; Qihao Weng): https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing/about/editorial-board
+- Elsevier Highlights (3–5 bullets, ≤85 characters each, including spaces): https://www.elsevier.com/researcher/author/tools-and-resources/highlights
+- Competing-interest declarations tool (.docx upload): https://declarations.elsevier.com/home
+- Generative AI policies for journals: https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
+- Publishing ethics: https://www.elsevier.com/about/policies-and-standards/publishing-ethics
+- ISSN 0924-2716 (P&RS). Copyright © 2026 ISPRS; published by Elsevier B.V.
+
+=====================================================================
+0. VENUE CONFIRMATION (keep ISPRS Journal; do not switch)
+=====================================================================
+Recommended journal: ISPRS Journal of Photogrammetry and Remote Sensing
+(Elsevier; official journal of ISPRS; sister title is the Open Journal).
+
+Why this venue (1 paragraph):
+The manuscript is already classed as an Elsevier elsarticle paper aimed at this
+journal. It reports a reusable, distribution-free reliability audit of frozen
+optical Earth-observation foundation models under a real cross-European
+Sentinel-2 shift, plus a priced labeled-target recalibration remedy. That is a
+remote-sensing / geospatial-method contribution with transfer evidence, not a
+single-scene application paper and not a generic vision benchmark. Regular
+“Papers” (research) have no Guide-for-Authors word, page, or reference cap
+(Perspective papers are capped at 4,000 words / 5 figures-or-tables / 50
+references — this submission is not a Perspective). Fallback IEEE TGRS exists
+in the same theme repo but is not the active venue.
+
+Article type to select: Paper (research).
+Peer review: single anonymized (names stay on the PDF).
+Your Paper Your Way: a single PDF is enough for refereeing; editable LaTeX is
+required at revision / acceptance.
+Copyright: Journal Publishing Agreement (subscription) or License Agreement
+(gold OA) is completed after acceptance — not at first upload.
+
+=====================================================================
+1. TITLE
+=====================================================================
+Cross-European coverage debt of frozen optical Earth-observation foundation models: a pre-deployment reliability report card and a conditional target-recalibration remedy
+
+=====================================================================
+2. AUTHORS / AFFILIATIONS / CORRESPONDING AUTHOR
+=====================================================================
+Author 1 (sole author; corresponding):
+  Given name: Zeyu
+  Family name: Fu
+  ORCID: 0009-0001-8329-0108
+  Email (from TeX \ead): fuzeyu09@gmail.com
+  Affiliation: State Key Laboratory of Trauma and Chemical Poisoning, Institute of Combined Injury, Army Medical University, Chongqing, China
+
+TODO-USER: street, building, and postal code are not in the TeX title block.
+If Editorial Manager requires a full postal address, add them; do not invent them here.
+
+=====================================================================
+3. ABSTRACT  (exact science from paper_isprs.tex; math detexed for the portal)
+=====================================================================
+Word count: 264. The Guide for Authors does not set an abstract word limit for
+regular Papers (only that it be concise and able to stand alone).
+
+Frozen optical geospatial foundation models (GFMs) are increasingly deployed as off-the-shelf encoders for land-cover and local-climate-zone monitoring, yet practitioners lack guidance on which frozen encoder to trust after a regional move, or on how to restore a reliability guarantee once shift breaks it. We supply both through a distribution-free reliability audit (split-conformal, finite-sample guarantees) of frozen GFMs under real cross-European regional shift (thirteen optical Sentinel-2 encoders on GEO-Bench BigEarthNet-S2; five on EuroSAT-MS; plus a non-European multi-city LCZ extension on So2Sat LCZ42), packaged as a reusable pre-deployment reliability report-card protocol that returns four practitioner-facing numbers before deployment: the in-distribution false-negative-rate (FNR) guarantee, the geographic debt that guarantee incurs under shift, the labeled-data budget curve for repairing that debt, and the worst-class coverage a marginal guarantee alone would hide. Every frozen encoder meets its multi-label FNR risk-control guarantee in-distribution, yet all thirteen incur a real geographic debt under shift (FNR 2.6–4.7× nominal), bought back with larger sets, not a better encoder: FNR robustness rises with set size (Spearman ρ=−0.66, p=0.017), the paper's one adequately powered cross-encoder result. The textbook unlabeled fix does not close the debt—covariate-shift-weighted conformal sees its effective sample size collapse to 0.1–1.6% of the calibration set—so only a labeled target-region slice reliably restores the guarantee; target-label recalibration is the priced remedy, not a label-free method. Cross-encoder rankings remain exploratory and underpowered: a five-encoder pilot's stronger accuracy correlation regressed toward zero at n=13. The powered results are the 13/13 FNR debt and the worst-class gap; the audit is diagnostic, reusing existing conformal estimators, with preregistration outcome and exploratory-analysis disclosures stated in the main text.
+
+=====================================================================
+4. KEYWORDS  (TeX \keyword; maximum 6 — this set is 6)
+=====================================================================
+Earth observation; geospatial foundation models; conformal prediction; distribution shift; uncertainty quantification; reliability
+
+=====================================================================
+5. HIGHLIGHTS  (3–5 bullets; Elsevier ≤85 characters including spaces)
+=====================================================================
+Guide-for-Authors checklist: “Graphical Abstracts / Highlights files (where
+applicable)”. Elsevier’s Highlights page: 3–5 bullets, ≤85 characters each;
+often collected at revision/final files, but EM may still offer the item at
+first upload. Upload as a short Word file named Highlights (Elsevier prefers
+.docx). The five lines below are the frozen kit text; all are ≤85 characters.
+
+- Cross-European shift creates measurable coverage debt in frozen optical encoders.  [81]
+- Target-region calibration restores reliability under cross-regional shift.  [74]
+- Larger prediction sets, not better encoders, buy back FNR debt.  [63]
+- Accuracy alone can hide worst-class coverage collapse.  [54]
+- A report card makes deployment reliability auditable before release.  [68]
+
+Note: bullet 3 uses the acronym FNR, which also appears in the abstract.
+Elsevier’s Highlights page prefers avoiding jargon; leave as-is unless you
+rewrite without changing the science.
+
+=====================================================================
+6. GRAPHICAL ABSTRACT  (optional; encouraged)
+=====================================================================
+Not required. If you upload one: minimum 531 × 1328 pixels (h × w); TIFF/EPS/PDF
+or MS Office; separate EM file.
+Candidate already in the kit: figures/fig0_overview.pdf (vector overview).
+At 96 dpi that PDF is about 594 × 179 px, so it does NOT meet the 531-px height
+minimum without a higher-resolution export.
+TODO-USER: export a banner that meets 531 × 1328 if you want a graphical
+abstract. Do not invent a new science figure.
+
+=====================================================================
+7. COVER-LETTER BODY  (paste into EM; EiCs verified 2026-08-12)
+=====================================================================
+Dear Prof. Mallet and Prof. Weng,
+
+We submit "Cross-European coverage debt of frozen optical Earth-observation foundation models: a pre-deployment reliability report card and a conditional target-recalibration remedy" for consideration in the ISPRS Journal of Photogrammetry and Remote Sensing.
+
+The manuscript asks whether a frozen optical encoder's reliability survives regional transfer and what evidence is required to repair it. On GEO-Bench BigEarthNet-S2, all thirteen Sentinel-2 encoders satisfy their in-distribution false-negative-rate guarantee, yet all thirteen incur a 2.6-4.7-fold nominal FNR debt under the cross-European shift. The debt is paid for through larger prediction sets rather than a uniformly better encoder; FNR robustness and set size are associated across the roster (Spearman rho=-0.66, p=0.017).
+
+We package the analysis as a four-number pre-deployment report card: the in-distribution guarantee, shifted debt, labeled target-slice cost of repair, and worst-class coverage hidden by a marginal guarantee. The manuscript also states where the report card does not add information. Above an empirical accuracy boundary near 0.80, marginal single-label conformal sets collapse to singletons and reproduce accuracy. Standard unlabeled corrections do not close the observed debt because density-ratio effective sample size collapses; the validated repair requires labeled target-region calibration and is presented as a priced data requirement, not a label-free solution.
+
+The principal evidence is cross-European optical transfer, complemented by a multi-city LCZ arm. A Sentinel-1 cross-sensor probe failed its in-distribution control and is withheld, so no cross-sensor claim is made. Encoder rankings remain exploratory; the powered results are the universal 13/13 FNR debt, the set-size tradeoff, and the worst-class gap.
+
+The manuscript is original, is not under consideration elsewhere, and includes the required declarations and reproducibility records.
+
+Sincerely,
+Zeyu Fu
+fuzeyu09@gmail.com
+
+----- EM / Guide-for-Authors Q&A (use these if the portal asks) -----
+Q. Article type?
+A. Paper (research). Not a Perspective (4,000-word cap does not apply).
+
+Q. Has this work been published or submitted elsewhere?
+A. No. Original; not under consideration elsewhere. (Submission declaration:
+https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing/publish/guide-for-authors )
+
+Q. Do all authors approve this submission?
+A. Yes. Sole author.
+
+Q. Funding?
+A. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+Q. Competing interests?
+A. None. Complete the Elsevier declarations tool and upload the .docx
+(https://declarations.elsevier.com/home ). Choose the “nothing to declare”
+option. Do not convert the .docx to PDF.
+
+Q. Generative AI used in manuscript preparation?
+A. Yes, auxiliary assistance only. Paste the manuscript statement in block 8.
+TODO-USER: Elsevier’s example asks for [NAME OF TOOL / SERVICE] and [REASON].
+The manuscript does not name tools. Do not invent names here. If you want the
+portal statement to match the example, add the real tool names yourself.
+
+Q. Data / code available?
+A. Yes. See block 8.
+
+Q. Suggested / opposed reviewers?
+A. TODO-USER (none are stored in this repo). See block 9.
+
+Q. Color figures?
+A. Color online is fine (Elsevier: no charge for color online). Print color is
+optional; TODO-USER if you want print color.
+
+=====================================================================
+8. DECLARATIONS  (match manuscript end-matter; do not invent)
+=====================================================================
+-- CRediT authorship contribution statement
+Zeyu Fu: Conceptualization, Methodology, Software, Validation, Formal analysis,
+Investigation, Data curation, Writing -- original draft, Writing -- review &
+editing, Visualization, Project administration.
+
+-- Declaration of competing interest
+The author declares that he has no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+-- Funding
+This research did not receive any specific grant from funding agencies in the
+public, commercial, or not-for-profit sectors.
+
+-- Data availability
+Public datasets: EuroSAT-MS, BigEarthNet, and So2Sat LCZ42. Public
+foundation-model weights include Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12,
+and DOFA.
+Code repository: https://github.com/PeterPonyu/geospatial-fm-reliability-research
+Archive: Zenodo DOI 10.5281/zenodo.21130299
+(portal URL form: https://doi.org/10.5281/zenodo.21130299 )
+
+-- Declaration of generative AI use  (manuscript section title; Elsevier’s
+   example title is “Declaration of generative AI and AI-assisted technologies
+   in the manuscript preparation process”)
+Generative AI tools were used only for auxiliary assistance. The author
+reviewed and verified the final manuscript and takes full responsibility for
+its content.
+
+-- Acknowledgements
+None in the manuscript. Leave blank unless you add names yourself.
+
+=====================================================================
+9. SUGGESTED REVIEWERS
+=====================================================================
+TODO-USER. No reviewer names, emails, or institutions are stored in this
+repository (the TGRS cover letter already flags the same TODO). Do not invent
+identities.
+
+Elsevier guidance (generic Guide for Authors / suggesting reviewers):
+submit several potential reviewers with institutional e-mail addresses; do not
+suggest colleagues or anyone with a co-authorship/collaboration in the last
+three years; avoid the journal’s existing editorial team; prefer geographic
+and career-stage diversity.
+https://www.elsevier.com/subject/next/guide-for-authors
+
+If you fill the EM fields, expertise areas already used internally (names
+still TODO-USER):
+  (a) geospatial / Earth-observation foundation models
+  (b) conformal prediction / calibration under distribution shift
+  (c) remote-sensing scene classification and cross-region generalization
+      (Sentinel-2)
+
+Opposed reviewers: TODO-USER (leave blank unless you have a documented reason).
+
+=====================================================================
+10. FILE CHECKLIST  (what to upload)
+=====================================================================
+Initial submission (Your Paper Your Way — one PDF is enough for refereeing):
+  [REQUIRED] paper_isprs.pdf
+             53-page compiled manuscript (figures and tables in place)
+             path: submissions/geo/isprs/paper_isprs.pdf
+  [REQUIRED] Cover letter — paste block 7 into the EM box
+             file copy: cover_letter_isprs.md
+  [REQUIRED] Competing-interest .docx from https://declarations.elsevier.com/home
+             (generate; not stored in this repo)
+  [WHERE APPLICABLE] Highlights — paste block 5 into a short Highlights.docx
+             kit text: highlights.txt
+  [OPTIONAL] Graphical abstract — only if you export a 531×1328 banner
+  [OPTIONAL now / REQUIRED at revision] editable source:
+             paper_isprs.tex
+             paper_isprs.bbl
+             refs.bib
+             shared.bib
+             figures/ (14 manuscript PDFs listed below)
+             or the source zip: geo_isprs_submission_source_2026-08-12.zip
+
+Manuscript figures (upload separately only if a figure is >10 MB; none are):
+  fig0_overview.pdf
+  F1_debt_vs_robustness.pdf
+  F2_coverage_restoration.pdf
+  F3_setsize_vs_alpha.pdf
+  F5_bigearthnet_domlabel.pdf
+  F6_bigearthnet_perlabel.pdf
+  F7_ben_inversion_n13.pdf
+  F8_geomap.pdf
+  F9_geopatches.pdf
+  F10_target_cal_planning.pdf
+  F11_conditional_coverage.pdf
+  F12_singleton_lowshot.pdf
+  F13_crc_fnr.pdf
+  F14_classprior.pdf
+
+Do NOT upload:
+  .omc/ session state
+  figure generators (*.R, *.py), CSVs, PNG previews
+  F15_shift_fingerprint.pdf (present on disk; not included in the manuscript)
+  LaTeX junk (*.aux *.log *.fls *.fdb_latexmk *.spl *.out)
+
+=====================================================================
+11. COUNTS  (compiled PDF + TeX; pin 9d50845b / PDF built 2026-08-12 14:12)
+=====================================================================
+Pages:              53  (elsarticle preprint 11 pt, not journal typeset pages)
+Figures:            14  (figure environments / includegraphics)
+Tables:             12  (tab:classprior, tab:balanced, tab:fnrdecouple,
+                         tab:condcov, tab:singleton, tab:weighted,
+                         tab:labelshift, tab:boundary, tab:crc, tab:so2sat,
+                         tab:so2satcond, tab:reportcard)
+References:         78  (paper_isprs.bbl \bibitem count)
+Abstract words:     264
+Keywords:           6 / 6 maximum
+Highlights:         5 bullets, all ≤85 characters
+Authors:            1
+Word/page limit:    none for regular Papers
+                    (Perspective cap 4,000 words / 5 floats / 50 refs does
+                    not apply)
+
+=====================================================================
+12. LATEX VS PDF
+=====================================================================
+First upload: PDF (paper_isprs.pdf) is sufficient.
+Revision / acceptance: editable elsarticle source (already prepared).
+Bibliography: BibTeX via shared.bib + refs.bib; authoryear / plainnat.
+Individual figure files >10 MB must be uploaded separately — not applicable
+(largest manuscript figure is F9_geopatches.pdf, under 2 MB).
