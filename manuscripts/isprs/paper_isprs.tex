@@ -171,8 +171,7 @@ report-card entry non-obvious and worth running the protocol for.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.92\linewidth]{fig0_overview.pdf}
-\caption{Overview of the pre-deployment reliability report-card protocol
-(\S\ref{sec:reportcard}, Table~\ref{tab:reportcard}).
+\caption{Overview of the pre-deployment reliability report-card protocol.
 Stages~1--5 (left to right): (1)~optical Sentinel-2 tile (EuroSAT-MS / GEO-Bench
 BigEarthNet-S2 / m-so2sat); (2)~one frozen, interchangeable optical GFM encoder under
 audit on EuroSAT/BigEarthNet (Prithvi, Clay, SSL4EO-DINO, SSL4EO-MAE, DOFA; on m-so2sat the
@@ -186,13 +185,12 @@ practitioner-facing numbers---in-distribution FNR guarantee, geographic debt und
 target-slice repair cost, and worst-class coverage a marginal guarantee alone would miss.
 Cross-sensor transfer (Sentinel-1) failed in-distribution control and is withheld.
 Fork from the report card: the protocol fails to restore coverage universally;
-the surviving path is conditional, encoder-dependent labeled-target recalibration
-(\S\ref{sec:limitations}).}
+the surviving path is conditional, encoder-dependent labeled-target recalibration.}
 \label{fig:overview}
 \end{figure}
 
  The experimental narrative follows a
-preregistered falsification-versus-remedy logic that is preserved honestly in the Limitations: the Stage-2 preregistered
+preregistered falsification-versus-remedy logic that is preserved honestly in Discussion: the Stage-2 preregistered
 \emph{universal}-restoration gate was not met (Clay restored at only $1$ of $3$ risk levels), so the
 encoder-dependent target-region recalibration reported in Results is an exploratory reframe of that
 falsification, not a confirmatory universal fix (\S\ref{sec:limitations}). The protocol's first evidence
@@ -262,7 +260,7 @@ The data come from EuroSAT-MS \citep{helber2019eurosat} (Sentinel-2 L2A, 13 band
 with no image transform applied (Figure~\ref{fig:geomap}; patch-level examples in
 Figure~\ref{fig:geopatches}). The $P_{33}$ cut in Eq.~\eqref{eq:p33-cut} is a single, fixed longitude-percentile
 boundary chosen once in advance; a post-hoc boundary-sensitivity sweep over $P_{25}/P_{40}/P_{50}$ is
-reported in Results (see Limitations).
+reported in Results (see Discussion).
 % F15 / fig:shiftfp deferred: local EuroSAT-MS incomplete (~6.7k/27k tiles); mixed MS+RGB regen is not an honest spectral fingerprint (Visual Verdict placeholder; 2026-08-12).
 
 This cut also induces a class-frequency (label-prior) shift
@@ -294,14 +292,15 @@ No image transform is applied --- the shift is purely geographic.}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{F9_geopatches.pdf}
-\caption{The shift at patch level: true-color Sentinel-2 tiles for six land-cover classes
-(AnnualCrop, Forest, PermanentCrop, Residential, Highway, SeaLake) under the same
-$P_{33}$ cut (source $n{=}18{,}090$; target $n{=}8{,}910$).
-Rows are source ($\mathrm{lon}\ge P_{33}$), a boundary band ($|\mathrm{lon}-P_{33}|\le 1.5^\circ$),
-and target ($\mathrm{lon}<P_{33}$), with tile centroids under each patch.
+\caption{Geographic shift at patch level: illustrative true-color Sentinel-2 tiles
+(seeded selection; tile centroids annotated under each patch) for six land-cover classes
+(AnnualCrop, Forest, PermanentCrop, Residential, Highway, SeaLake) under the frozen
+$P_{33}$ longitude cut ($=4.2^\circ$E; source $n{=}18{,}090$; target $n{=}8{,}910$).
+Rows encode the split sides: source ($\mathrm{lon}\ge P_{33}$), a near-cut boundary band
+($|\mathrm{lon}-P_{33}|\le 1.5^\circ$), and target ($\mathrm{lon}<P_{33}$).
 Region-specific crop structure, settlement texture, and water color differ systematically across
 the cut --- the shift is real but subtle at single-patch level, which is exactly why an
-accuracy-only deployment check can miss it (Results).}
+accuracy-only deployment check can miss it.}
 \label{fig:geopatches}
 \end{figure}
 
@@ -326,17 +325,16 @@ Class & Source \% & Target \% & Target/Source ratio \\
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.95\linewidth]{F14_classprior.pdf}
-\caption{Class-prior / balanced-probe control at the frozen $P_{33}$ cut
-(Tables~\ref{tab:classprior},~\ref{tab:balanced}; no new runs).
+\caption{Class-prior / balanced-probe control at the frozen $P_{33}$ cut (no new runs).
 \textbf{A:}~target/source class-prior ratio by EuroSAT class id (orange~=~five tabled extremes;
 grey~=~others); dashed line at ratio~$1$ (no prior shift).
 \textbf{B:}~source vs.\ target class frequency (\%) for those five classes.
 \textbf{C:}~shift ECE at $\alpha{=}0.05$ under the unadjusted (headline) vs.\ class-balanced probe;
 error bars are 5-seed $t$-CIs.
 \textbf{D:}~count of $\alpha\in\{0.05,0.10,0.20\}$ at which spatial-Mondrian restores coverage
-(Eq.~\eqref{eq:restoration}; CI excludes~$0$), matching Table~\ref{tab:balanced}'s
-``\#$\alpha$ repaired'' column---not Mondrian coverage itself.
-Shared bottom legend for C--D: blue~=~unadjusted, orange~=~balanced.
+(CI excludes~$0$)---the ``\#$\alpha$ repaired'' count, not Mondrian coverage itself.
+Shared bottom legend: frequency (B)~=~source/target; probe (C--D)~=~unadjusted/balanced
+(same blue/orange hues, distinct meanings).
 Principle: the balanced probe is a \emph{control}---encoder ranking by shift-ECE and repair counts
 should be stable if the $P_{33}$ class-prior mismatch is not driving the finding.}
 \label{fig:classprior}
@@ -761,7 +759,7 @@ SSL4EO-DINO & 0.880 & 0.076 & 0.956 & 0.850 & 0.100 \\
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F11_conditional_coverage.pdf}
 \caption{Conditional-coverage panels from the frozen EuroSAT and So2Sat roster summaries
-(Tables~\ref{tab:condcov} and~\ref{tab:so2satcond}; no new runs; $\alpha{=}0.05$).
+(no new runs; $\alpha{=}0.05$).
 (a)~EuroSAT worst-class coverage gap $G_{\mathrm{worst}}$ by encoder (Okabe--Ito colours).
 (b)~SSL4EO-DINO per-class conditional coverage on EuroSAT (dashed $=$ encoder marginal;
 dotted $=$ nominal $0.95$).
@@ -854,7 +852,7 @@ SSL4EO-DINO & $0.821$ / $0.10$ & $0.784$ / $0.02$ \\
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F12_singleton_lowshot.pdf}
 \caption{Singleton / low-shot validity boundary from the frozen EuroSAT
-low-shot sweep (Table~\ref{tab:singleton}; no new runs).
+low-shot sweep (no new runs).
 Panels~(a)--(c) show the Prithvi series at $\alpha{=}0.05$ vs.\ probe-train fraction
 (log-$x$).
 (a)~Coverage$-$accuracy gap: as the budget rises, gap$\to0$ and coverage collapses onto
@@ -932,7 +930,7 @@ Prithvi $>$ DOFA $>$ SSL4EO-DINO $>$ SSL4EO-MAE $>$ Clay; repair counts are weak
 \#$\alpha$ restored at spatial cuts P25--P50.
 (D)~So2Sat LCZ cross-continent label-access check: source-split vs.\ target-global coverage
 (facets), with grey ticks marking nominal $1-\alpha$ and error bars seed-level CIs.
-Set-size cost of repair is in Fig.~\ref{fig:f3}.}\label{fig:f1}\end{figure}
+Set-size cost of repair is reported with the companion set-size panel.}\label{fig:f1}\end{figure}
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F2_coverage_restoration.pdf}
 \caption{Coverage restoration under real geographic shift (error bars = seed-level $t$-CIs, $n{=}5$;
@@ -1610,7 +1608,7 @@ Worst class, 2nd region (\texttt{m-so2sat} LCZ) & $0.732\ [0.692,0.772]$ \\
 \end{table}
 
 \subsection{Scope and future work}
-The Limitations section that follows is the paper's preregistration disclosure; here we only deepen the
+The preregistration disclosure below bounds what the evidence licenses; here we only deepen the
 deployment-facing reading of those boundaries. The headline geographic design is optical Sentinel-2 with a
 EuroSAT-MS longitude cut ($P_{33}$ source = E/Central Europe; target = W/Iberian-Atlantic) plus BigEarthNet
 replication and one non-European multi-city LCZ extension (m-so2sat). That is real regional shift, not a
@@ -1633,13 +1631,11 @@ for input-space underrepresentation diagnostics; and (iv)~treat cross-band GeoCr
 \citep{tamazyan2025geocrossbench} and geographic coverage debt as separate pre-deployment checks. None of
 these extensions is licensed by the present results; they are scoped follow-ons.
 
-\section{Limitations}\label{sec:limitations}
+\paragraph{Preregistration and limitations.}\label{sec:limitations}
 In plain terms: our one preregistered confirmatory result is a falsification, our cross-encoder
 accuracy claim is weaker than a five-encoder pilot suggested, our geographic reach is cross-European optical plus one
 non-European LCZ benchmark, and a cross-sensor probe failed in-distribution control and is withheld.
-This section is a single continuous preregistration-disclosure narrative, not a conventional caveats
-list, and it is deliberately long because it is by design as load-bearing as the results themselves. It
-discloses, in order: (i) the paper's one preregistered outcome and how the encoder-dependent claim
+We disclose, in order: (i) the paper's one preregistered outcome and how the encoder-dependent claim
 reported in the main text reframes it (the Stage-2 \emph{universal-restoration} gate); (ii) the power
 limits of every post-hoc decoupling analysis added after that gate, including the roster-expansion result
 that weakened rather than strengthened, and the small-$n$ conditional-coverage findings; and (iii) the
@@ -1774,11 +1770,11 @@ or not-for-profit sectors.
 Investigation, Data curation, Writing -- original draft, Writing -- review \& editing,
 Visualization, Project administration.
 
-\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+\section*{Declaration of generative AI use}
 Generative AI tools were used only for auxiliary assistance. The author reviewed and verified the
 final manuscript and takes full responsibility for its content.
 
-\section*{Data \& Code Availability}
+\section*{Data availability}
 Public datasets: EuroSAT-MS, BigEarthNet, and So2Sat (m-so2sat). Public foundation-model weights
 include Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12, and DOFA.
 Code repository:
