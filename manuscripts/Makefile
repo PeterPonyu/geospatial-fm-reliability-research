@@ -6,6 +6,8 @@
 #   make bib      - copy the portfolio shared bibliography next to the paper
 #   make paper    - figures + bib, then latexmk -pdf
 #   make clean    - remove LaTeX aux files and generated figure PDFs/PNGs
+#   make sync-figures-to-isprs - refresh isprs/ cwd figure shadows from figures/ SSOT
+#                   (latex searches cwd before \graphicspath{{../figures/}})
 #
 # Override SHARED_BIB if the kit moves:
 #   make paper SHARED_BIB=/path/to/reliability-commons/shared.bib
@@ -14,7 +16,7 @@ SHARED_BIB ?= ${COMMONS_ROOT}/shared.bib
 # ggtheme.R is a sourced helper (theme + save_fig), not a standalone figure script.
 R_SCRIPTS  := $(filter-out figures/ggtheme.R,$(wildcard figures/*.R))
 
-.PHONY: all figures fig1 bib paper clean
+.PHONY: all figures fig1 bib paper clean sync-figures-to-isprs
 
 all: paper
 
@@ -49,3 +51,17 @@ clean:
 	latexmk -C paper.tex 2>/dev/null || true
 	rm -f paper.bbl paper.run.xml shared.bib
 	rm -f figures/*.pdf figures/*.png figures/*.csv
+
+# LaTeX resolves \includegraphics against the TeX cwd before \graphicspath.
+# Stale PDFs left in isprs/ therefore shadow manuscripts/figures/ SSOT.
+sync-figures-to-isprs:
+	@for f in isprs/*.pdf isprs/*.png; do \
+		[ -e "$$f" ] || continue; \
+		base=$$(basename "$$f"); \
+		case "$$base" in paper_*|cover_*) continue ;; esac; \
+		src="figures/$$base"; \
+		if [ -f "$$src" ] && ! cmp -s "$$src" "$$f"; then \
+			cp -f "$$src" "$$f"; \
+			echo "synced $$f <- $$src"; \
+		fi; \
+	done
