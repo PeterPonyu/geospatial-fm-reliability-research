@@ -201,8 +201,10 @@ draw_debt <- function(alpha = 0.05) {
     geom_hline(yintercept = 1.0, colour = "black", linewidth = 0.55) +
     geom_line(linewidth = 0.55) +
     geom_point(size = 1.7) +
-    annotate("text", x = 1.2, y = 1.0, label = "debt exactly closed",
-             hjust = 0, vjust = -0.5, size = 2.9, family = PAPER_FONT) +
+    # Far-right, under seed-CI floor (min lo≈0.82 at x≥20): left-above y=1
+    # overlapped low-x markers/ribbons; sitting just under the rule clips CI.
+    annotate("text", x = 31.5, y = 0.65, label = "debt exactly closed",
+             hjust = 1, vjust = 0.5, size = 2.9, family = PAPER_FONT) +
     scale_colour_model(drop = FALSE) +
     scale_fill_model(drop = FALSE) +
     scale_shape_manual(values = fm_shape, drop = FALSE) +
