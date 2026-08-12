@@ -23,4 +23,5 @@
 Use `geospatial-fm-reliability-research/scripts/restore_eurosat_ms.py` — do not abuse the GPU box for the archive.
 
 ## Residual
+F15 PDF regenerated locally in MS mode (2026-08-12); ISPRS/TGRS manuscript floats remain deferred pending human re-insert.
 F15 float remains deferred from ISPRS/TGRS manuscripts (`F15_DEFERRED.txt`); generator + PDF asset may be regenerated locally now that the 6-class MS tiles exist.
