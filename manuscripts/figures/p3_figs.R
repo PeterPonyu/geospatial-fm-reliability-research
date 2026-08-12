@@ -422,24 +422,28 @@ f2b <- ggplot(bm_off, aes(factor(alpha), coverage, colour = fm, group = fm)) +
   scale_color_model(name = NULL) +
   coord_cartesian(ylim = c(0.78, 1.0)) +
   labs(x = "α", y = "coverage") +
-  guides(colour = guide_legend(nrow = 1, order = 2,
-                               override.aes = list(linewidth = 0.6))) +
+  # Colour guide lives on C: wrap_elements(B) cannot contribute to guide collection.
+  guides(colour = "none") +
   theme_p3_panel() +
   theme(panel.grid.major.x = element_blank(),
         # Shrink strip chrome vs tiny panes; park P25/P40/P50 on the spines.
-        panel.spacing.x = unit(2.5, "pt"),
-        panel.spacing.y = unit(2.5, "pt"),
-        strip.placement = "outside",
+        panel.spacing.x = unit(2, "pt"),
+        panel.spacing.y = unit(2, "pt"),
+        # "inside" keeps P25/P40/P50 flush on the panel spines (outside + patchwork
+        # left a white band under the top strips even after wrap_elements).
+        strip.placement = "inside",
         strip.switch.pad.grid = unit(0, "pt"),
-        strip.text.x = element_text(size = 6, margin = margin(t = 1, b = 0.5)),
-        strip.text.y.left = element_text(size = 6, angle = 0,
-                                         margin = margin(r = 1, l = 0.5)),
-        axis.title = element_text(size = 7),
-        axis.title.y = element_text(margin = margin(r = 1)),
-        axis.title.x = element_text(margin = margin(t = 1)),
-        axis.text.x = element_text(size = 6),
-        axis.text.y = element_text(size = 6),
-        legend.text = element_text(size = 6.5))
+        strip.text.x = element_text(size = 5.5, margin = margin(t = 0.5, b = 0)),
+        # Vertical row strips — less horizontal chrome than horizontal "Mondrian".
+        strip.text.y.left = element_text(size = 5.5, angle = 90,
+                                         margin = margin(r = 0.5, l = 0.5)),
+        axis.title = element_text(size = 6.5),
+        axis.title.y = element_text(margin = margin(r = 0)),
+        axis.title.x = element_text(margin = margin(t = 0.5)),
+        axis.text.x = element_text(size = 5.5),
+        axis.text.y = element_text(size = 5.5),
+        legend.text = element_text(size = 6.5),
+        plot.margin = margin(t = 2, r = 2, b = 1, l = 2))
 prov("F2-B", BSWEEP, bm_off, "fm")
 
 # F2-C: five conformal arms at α=0.10 (battery encoders; no DOFA in this record).
@@ -462,14 +466,16 @@ f2c <- ggplot(a5, aes(arm_x, coverage, colour = fm, group = fm)) +
   scale_color_model(name = NULL) +
   coord_cartesian(ylim = c(0.80, 0.96)) +
   labs(x = NULL, y = "coverage") +
-  # Drop colour guide here so patchwork does not duplicate B's encoder legend.
-  guides(colour = "none") +
+  # Encoder legend collected from C (B is wrap_elements'd and cannot supply it).
+  guides(colour = guide_legend(nrow = 1, order = 2,
+                               override.aes = list(linewidth = 0.6, size = 1.7))) +
   theme_p3_panel() +
   theme(panel.grid.major.x = element_blank(),
         # Pull categorical points toward the y-spine (less ylab / left pad).
-        axis.title.y = element_text(size = 7, margin = margin(r = 0)),
-        axis.text.y = element_text(size = 6),
-        axis.text.x = element_text(angle = 28, hjust = 1, size = 6))
+        axis.title.y = element_text(size = 6.5, margin = margin(r = -2)),
+        axis.text.y = element_text(size = 5.5),
+        axis.text.x = element_text(angle = 28, hjust = 1, size = 5.5),
+        legend.text = element_text(size = 6.5))
 prov("F2-C", BASE5, a5, "fm")
 
 # F2-D: label-shift arms at α=0.10 (oracle ceiling vs BBSE estimate).
@@ -501,10 +507,15 @@ f2d <- ggplot(als, aes(arm_x, coverage, colour = fm, group = fm)) +
 prov("F2-D", LSHIFT, als, "fm")
 
 # 2×2 with a slight right bias so B's facet grid gets more data width than A.
+# wrap_elements(B): patchwork aligns A/B panel tops; A's taller α-strips then
+# leave a white gap under B's P25/P40/P50 — wrap frees B to pack strips to spines.
+# (free(panel,"t") hits a patchwork 1.3.2 bug in 2×2 + guides="collect".)
+# free(C, left space): A's long encoder ticks otherwise pad C's ylab→spine gap.
 # A supplies the arm legend, B the encoder legend; C/D guides dropped.
 # Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
-f2_all <- (f2a | f2b) / (f2c | f2d) +
-  plot_layout(guides = "collect", heights = c(1.05, 1), widths = c(0.92, 1.08)) +
+f2_all <- (f2a | wrap_elements(full = f2b)) /
+          (free(f2c, type = "space", side = "l") | f2d) +
+  plot_layout(guides = "collect", heights = c(1.05, 1), widths = c(0.88, 1.12)) +
   plot_annotation(tag_levels = "A") &
   tag_p3() &
   theme(legend.position = "bottom",
@@ -514,7 +525,7 @@ f2_all <- (f2a | f2b) / (f2c | f2d) +
         legend.spacing.y = unit(1, "pt"),
         # Slightly less left chrome so plot content sits farther right.
         plot.margin = margin(t = 5, r = 4, b = 1, l = 3))
-save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.45, h = 4.15)
+save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.55, h = 4.20)
 
 chk <- function(lab, got, expect, tol = 5e-4) {
   ok <- isTRUE(abs(got - expect) < tol)
