@@ -258,4 +258,59 @@ X.~X. Zhu, J.~Hu, C.~Qiu, Y.~Shi, J.~Kang, L.~Mou, H.~Bagheri, M.~H{\"a}berle,
   and Remote Sensing Magazine}, vol.~8, no.~3, pp. 76--89, 2020,
   arXiv:1912.12171.
 
+\bibitem{ovadia2019uncertainty}
+Y.~Ovadia, E.~Fertig, J.~Ren, Z.~Nado, D.~Sculley, S.~Nowozin, J.~Dillon,
+  B.~Lakshminarayanan, and J.~Snoek, ``Can you trust your model's uncertainty?
+  evaluating predictive uncertainty under dataset shift,'' in \emph{Advances in
+  Neural Information Processing Systems (NeurIPS)}, vol.~32, 2019,
+  arXiv:1906.02530.
+
+\bibitem{xiao2025rsfm}
+A.~Xiao, W.~Xuan, J.~Wang, J.~Huang, D.~Tao, S.~Lu, and N.~Yokoya, ``Foundation
+  models for remote sensing and {Earth} observation: A survey,'' \emph{IEEE
+  Geoscience and Remote Sensing Magazine}, vol.~13, no.~4, pp. 297--324, 2025,
+  arXiv:2410.16602.
+
+\bibitem{ghamisi2025sustainfm}
+P.~Ghamisi, W.~Yu, X.~Zhang, A.~Rizaldy, J.~Wang, C.~Zhou, R.~Gloaguen, and
+  G.~Camps-Valls, ``Geospatial foundation models to enable progress on
+  sustainable development goals,'' \emph{arXiv preprint arXiv:2505.24528},
+  2025, arXiv:2505.24528.
+
+\bibitem{cauchois2021knowing}
+M.~Cauchois, S.~Gupta, and J.~C. Duchi, ``Knowing what you know: Valid and
+  validated confidence sets in multiclass and multilabel prediction,''
+  \emph{Journal of Machine Learning Research}, vol.~22, no.~81, pp. 1--42,
+  2021.
+
+\bibitem{doerksen2026earthshift}
+K.~Doerksen and H.~Kerner, ``{EarthShift}: A benchmark for measuring robustness
+  to real-world distribution shifts in {Earth} observation,'' 2026,
+  arXiv:2605.29330.
+
+\bibitem{alemadi2025dsgr}
+S.~A. Al-Emadi, Y.~Yang, and F.~Ofli, ``Analysing satellite imagery
+  classification under spatial domain shift across geographic regions,''
+  \emph{International Journal of Computer Vision}, 2025.
+
+\bibitem{meyer2021aoa}
+H.~Meyer and E.~Pebesma, ``Predicting into unknown space? estimating the area
+  of applicability of spatial prediction models,'' \emph{Methods in Ecology and
+  Evolution}, vol.~12, no.~9, pp. 1620--1633, 2021.
+
+\bibitem{zhou2026acp}
+Y.~Zhou, R.~Fathony, N.~H. Nguyen, and M.~Sesia, ``Audited conformal prediction
+  for classification under unknown distribution shift,'' \emph{arXiv preprint
+  arXiv:2606.14909}, 2026, arXiv:2606.14909.
+
+\bibitem{gibbs2021adaptive}
+I.~Gibbs and E.~J. Cand{\`e}s, ``Adaptive conformal inference under
+  distribution shift,'' in \emph{Advances in Neural Information Processing
+  Systems (NeurIPS)}, vol.~34, 2021, arXiv:2106.00170.
+
+\bibitem{gibbs2024online}
+------, ``Conformal inference for online prediction with arbitrary distribution
+  shifts,'' \emph{Journal of Machine Learning Research}, vol.~25, no. 162, pp.
+  1--36, 2024.
+
 \end{thebibliography}
