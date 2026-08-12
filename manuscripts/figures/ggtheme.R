@@ -113,6 +113,7 @@ save_fig <- function(plot, stem, w = 6.5, h = 4) {
 # (identical rule to figstyle.panel_label() on the Python side). Use as:
 #   (pA | pB) / (pC | pD) + plot_annotation(tag_levels = "A") & paper_tag_theme()
 paper_tag_theme <- function(base_size = 11) {
+  # GEO convention: uppercase A–D outside the spines (left + top).
   # plot.tag.location = "margin" is load-bearing, not cosmetic. The default
   # ("panel", or an npc position like c(0,1)) anchors the tag in the same
   # region as a rotated y-axis title, so on panels whose y title spans the
@@ -123,5 +124,5 @@ paper_tag_theme <- function(base_size = 11) {
                                 size = base_size, hjust = 0, vjust = 1),
         plot.tag.position = "topleft",
         plot.tag.location = "margin",
-        plot.margin = margin(t = 4, r = 5, b = 2, l = 2))
+        plot.margin = margin(t = 6, r = 5, b = 2, l = 6))
 }

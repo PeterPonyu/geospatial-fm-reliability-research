@@ -70,16 +70,19 @@ def _style():
 
 
 def _tag(ax, letter: str):
+    """Uppercase panel letter outside the spines (upper-left of axes)."""
+    letter = str(letter).upper()
     ax.text(
-        0.02,
-        0.98,
+        -0.14,
+        1.06,
         letter,
         transform=ax.transAxes,
         fontweight="bold",
         fontsize=12,
-        va="top",
-        ha="left",
+        va="bottom",
+        ha="right",
         color=BLACK,
+        clip_on=False,
     )
 
 
@@ -205,9 +208,9 @@ def fig_condcov():
 
 
 def fig_singleton():
-    """Mirror R shipper: Prithvi A–C @ α=0.05; multi-encoder D with α linestyles."""
+    """Mirror R shipper: Prithvi A–C @ α=0.05; multi-encoder D with in-panel legend."""
     ls = _load(ROOT / "exp0_2026-07-13/lowshot_results.json")
-    fig, axes = plt.subplots(2, 2, figsize=(4.75, 3.85), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(4.85, 3.15), constrained_layout=True)
     major = [0.01, 0.05, 0.25, 1.0]
     major_lab = ["0.01", "0.05", "0.25", "1"]
 
@@ -246,7 +249,7 @@ def fig_singleton():
     ax.set_ylabel("worst-class gap")
     _tag(ax, "C")
 
-    # D: all encoders; solid α=0.05, dotted α=0.10
+    # D: all encoders; solid α=0.05, dotted α=0.10; tight in-panel legend
     ax = axes[1, 1]
     ax.axhline(0, color="#7f7f7f", lw=0.8)
     for e, rec in ls["encoders"].items():
@@ -261,11 +264,13 @@ def fig_singleton():
                 lw=0.9,
                 label=LABEL.get(e, e) if a == "0.05" else None,
             )
+    # Synthetic α linestyle handles (match R in-panel key).
+    ax.plot([], [], "-", color="black", lw=1.0, label="α=0.05")
+    ax.plot([], [], ":", color="black", lw=1.0, label="α=0.1")
     _logx(ax)
     ax.set_xlabel("probe-train fraction")
     ax.set_ylabel("coverage − accuracy")
-    ax.legend(frameon=False, loc="upper right", fontsize=6)
-    # α linestyles: solid=0.05, dotted=0.10 (documented in LaTeX caption).
+    ax.legend(frameon=False, loc="upper right", fontsize=6, ncol=1)
     _tag(ax, "D")
 
     _save(fig, "F12_singleton_lowshot")

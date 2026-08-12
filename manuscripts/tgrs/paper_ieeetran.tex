@@ -240,9 +240,10 @@ between source and target that we did not adjust for in the headline logistic pr
 % source: experiments/results/eurosat_stage2_multifm_multialpha\slash recompute_class_prior_balanced_control_2026-07-01.json (class_prior_shift_at_P33)
 goes from $2.62\%$ of source tiles to $17.13\%$ of target tiles ($6.54\times$ enriched), class~1 from
 $15.02\%$ to $3.16\%$ ($\sim\!4.7\times$ depleted), class~8 from $11.60\%$ to $4.51\%$, and class~9 from
-$14.10\%$ to $5.04\%$ (remaining classes shift by ${<}2.4\times$; Table~\ref{tab:classprior}). We
+$14.10\%$ to $5.04\%$ (remaining classes shift by ${<}2.4\times$; Table~\ref{tab:classprior},
+Fig.~\ref{fig:classprior}A--B). We
 re-fit the probe with class-balanced sample weighting on the same cached embeddings as a control
-(Table~\ref{tab:balanced}; see Discussion). The frozen encoders are Prithvi-EO-2.0-300M \citep{szwarcman2024prithvi} (mean-pooled patch tokens, 1024-d); Clay~v1.5 \citep{clay2024model}
+(Table~\ref{tab:balanced}, Fig.~\ref{fig:classprior}C--D; see Discussion). The frozen encoders are Prithvi-EO-2.0-300M \citep{szwarcman2024prithvi} (mean-pooled patch tokens, 1024-d); Clay~v1.5 \citep{clay2024model}
 (cls token, 1024-d); SSL4EO-S12 \citep{wang2023ssl4eo} ViT-S/16 DINO via torchgeo (cls token, 384-d); SSL4EO-S12 \citep{wang2023ssl4eo} ViT-B/16 MAE
 (\texttt{wangyi111/SSL4EO-S12} on HuggingFace, 87.8M params, token-free global pool, 768-d). A fifth
 encoder, DOFA (Dynamic One-For-All) \citep{xiong2024dofa}---a ViT-B/16 whose dynamic
@@ -511,13 +512,13 @@ SSL4EO-DINO & 0.880 & 0.076 & 0.956 & 0.850 & 0.100 \\
 \begin{figure*}[htbp]\centering\includegraphics[width=0.95\textwidth]{F11_conditional_coverage.pdf}
 \caption{Conditional-coverage panels from the frozen EuroSAT and So2Sat roster summaries
 (no new runs; $\alpha{=}0.05$).
-(a)~EuroSAT worst-class coverage gap $G_{\mathrm{worst}}$ by encoder (Okabe--Ito colours).
-(b)~SSL4EO-DINO per-class conditional coverage on EuroSAT (dashed $=$ encoder marginal;
+(A)~EuroSAT worst-class coverage gap $G_{\mathrm{worst}}$ by encoder (Okabe--Ito colours).
+(B)~SSL4EO-DINO per-class conditional coverage on EuroSAT (dashed $=$ encoder marginal;
 dotted $=$ nominal $0.95$).
-(c)~So2Sat source-only split coverage by encoder: marginal (blue) vs.\ worst class (gold);
+(C)~So2Sat source-only split coverage by encoder: marginal (blue) vs.\ worst class (gold);
 dotted $=$ nominal $0.95$.
-(d)~Encoder scatter of EuroSAT worst-class gap vs.\ So2Sat class-coverage spread
-(same encoder colours as~(a)).
+(D)~Encoder scatter of EuroSAT worst-class gap vs.\ So2Sat class-coverage spread
+(same encoder colours as~(A)).
 }\label{fig:condcov}\end{figure*}
 \FloatBarrier
 
@@ -571,19 +572,19 @@ Train frac & Train $n$ & Shifted acc & Split set size & Coverage $-$ accuracy \\
 \end{tabular}
 \end{table*}
 
-\begin{figure*}[htbp]\centering\includegraphics[width=0.95\textwidth]{F12_singleton_lowshot.pdf}
+\begin{figure*}[!htbp]\centering\includegraphics[width=0.95\textwidth]{F12_singleton_lowshot.pdf}
 \caption{Singleton / low-shot validity boundary from the frozen EuroSAT
 low-shot sweep (no new runs).
-Panels~(a)--(c) show the Prithvi series at $\alpha{=}0.05$ vs.\ probe-train fraction
+Panels~(A)--(C) show the Prithvi series at $\alpha{=}0.05$ vs.\ probe-train fraction
 (log-$x$).
-(a)~Coverage$-$accuracy gap: as the budget rises, gap$\to0$ and coverage collapses onto
+(A)~Coverage$-$accuracy gap: as the budget rises, gap$\to0$ and coverage collapses onto
 accuracy (degenerate regime).
-(b)~Mean split set size on the same $x$-axis---a \emph{different} quantity from~(a), not a
+(B)~Mean split set size on the same $x$-axis---a \emph{different} quantity from~(A), not a
 restatement of the gap; the dotted line at size~$=1$ is the singleton floor.
-(c)~Worst-class coverage gap vs.\ fraction (conditional residual under the same sweep).
-(d)~Multi-encoder comparison (Clay, Prithvi, SSL4EO-DINO): coverage$-$accuracy vs.\ fraction
+(C)~Worst-class coverage gap vs.\ fraction (conditional residual under the same sweep).
+(D)~Multi-encoder comparison (Clay, Prithvi, SSL4EO-DINO): coverage$-$accuracy vs.\ fraction
 with colour $=$ encoder and linestyle solid~$\alpha{=}0.05$ / dotted~$\alpha{=}0.10$.
-Panels~(a) and~(b) are related through the singleton transition but are not redundant:
+Panels~(A) and~(B) are related through the singleton transition but are not redundant:
 gap measures coverage--accuracy decoupling, while set size measures how large the prediction
 sets become once that decoupling appears.
 }\label{fig:singleton}\end{figure*}
@@ -1196,7 +1197,8 @@ error bars are 5-seed $t$-CIs.
 \textbf{D:}~count of $\alpha\in\{0.05,0.10,0.20\}$ at which spatial-Mondrian restores coverage
 (paired restoration CI excludes~$0$)---the ``\#$\alpha$ repaired'' count, not Mondrian
 coverage itself.
-Shared bottom legend for C--D: blue~=~unadjusted, orange~=~balanced.
+Shared bottom legend: frequency (B)~=~source/target; probe (C--D)~=~unadjusted/balanced
+(same blue/orange hues, distinct meanings).
 Principle: the balanced probe is a \emph{control}---encoder ranking by shift-ECE and repair counts
 should be stable if the $P_{33}$ class-prior mismatch is not driving the finding.}
 \label{fig:classprior}\end{figure*}

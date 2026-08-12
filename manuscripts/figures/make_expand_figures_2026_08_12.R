@@ -65,20 +65,43 @@ theme_expand <- function() {
       axis.title.y = element_text(margin = margin(r = 1))
     )
 }
-# Tags inside the panel corner (not margin) so they read as the largest type.
+# Uppercase A–D outside the spines (left + top margin), GEO convention 2026-08-12.
+# Do not place tags in panel npc coords — that puts letters inside the drawing area.
 tag_expand <- function() {
-  theme(text = element_text(family = PAPER_FONT),
-        plot.tag = element_text(family = PAPER_FONT, face = "bold",
-                                size = 14, hjust = 0, vjust = 1),
-        plot.tag.position = c(0.02, 0.98),
-        plot.tag.location = "panel",
-        plot.margin = margin(t = 2, r = 3, b = 1, l = 1))
+  paper_tag_theme(base_size = 14) +
+    theme(plot.margin = margin(t = 6, r = 5, b = 2, l = 6))
 }
 
 # ---------------------------------------------------------------------------
 # F11 — conditional coverage (mirrors tab:condcov / tab:so2satcond)
 # ---------------------------------------------------------------------------
 if (do_fig("F11")) {
+# F11-local theme: modest size bump vs shared theme_expand; tags outside spines
+# (margin/topleft) so A–D clear the axes. Do not rewrite shared tag_expand —
+# F12–F14 peers own that helper.
+theme_f11 <- function() {
+  theme_paper(base_size = 9) +
+    theme(
+      axis.title = element_text(size = 7.5),
+      axis.text  = element_text(size = 7),
+      legend.text = element_text(size = 7),
+      legend.title = element_text(size = 7),
+      strip.text = element_text(size = 7),
+      axis.title.x = element_text(margin = margin(t = 1)),
+      axis.title.y = element_text(margin = margin(r = 2))
+    )
+}
+tag_f11 <- function() {
+  # Tag in the full plot box (incl. axes), top-left corner, with top pad so
+  # A–D sit above the spine / clear of the y-title band.
+  theme(text = element_text(family = PAPER_FONT),
+        plot.tag = element_text(family = PAPER_FONT, face = "bold",
+                                size = 11, hjust = 0, vjust = 0),
+        plot.tag.position = c(0.0, 1.0),
+        plot.tag.location = "plot",
+        plot.margin = margin(t = 12, r = 6, b = 2, l = 3))
+}
+
 exp0 <- read_result(file.path(EXP0, "results.json"))
 tb <- exp0$test_B_eurosat_conditional_coverage$per_alpha[["0.05"]]
 stopifnot(!is.null(tb$per_encoder))
@@ -101,9 +124,9 @@ f11a <- ggplot(gapdf, aes(fm, worst_gap, fill = fm)) +
   geom_hline(yintercept = 0, colour = "grey40") +
   scale_fill_model() +
   labs(x = NULL, y = "worst-class gap") +
-  theme_expand() +
+  theme_f11() +
   theme(legend.position = "none",
-        axis.text.x = element_text(angle = 25, hjust = 1, size = 7))
+        axis.text.x = element_text(angle = 25, hjust = 1, size = 7.5))
 prov("F11-A", file.path(EXP0, "results.json"), gapdf, "fm")
 
 # Panel B: per-class bars for SSL4EO-DINO (smoking-gun encoder in tab:condcov)
@@ -120,7 +143,7 @@ f11b <- ggplot(pcdf, aes(class, cov)) +
   geom_hline(yintercept = 0.95, linetype = 3, colour = "grey50") +
   coord_cartesian(ylim = c(0.80, 1.0)) +
   labs(x = "EuroSAT class id", y = "per-class cov") +
-  theme_expand() +
+  theme_f11() +
   theme(panel.grid.major.x = element_blank())
 prov("F11-B", file.path(EXP0, "results.json"), pcdf, "class")
 
@@ -148,16 +171,16 @@ f11c <- ggplot(s2m, aes(fm, cov, fill = arm)) +
   scale_fill_paper() +
   coord_cartesian(ylim = c(0.65, 1.0)) +
   labs(x = NULL, y = "So2Sat coverage") +
-  guides(fill = guide_legend(ncol = 1, title = NULL)) +
-  theme_expand() +
-  theme(axis.text.x = element_text(angle = 25, hjust = 1, size = 7),
+  guides(fill = guide_legend(nrow = 1, title = NULL)) +
+  theme_f11() +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1, size = 7.5),
         panel.grid.major.x = element_blank(),
         legend.position = "bottom",
-        legend.direction = "vertical",
+        legend.direction = "horizontal",
         legend.justification = "left",
-        legend.box.spacing = unit(1, "pt"),
+        legend.box.spacing = unit(0, "pt"),
         legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
-        legend.key.spacing.y = unit(0, "pt"))
+        legend.key.spacing.x = unit(4, "pt"))
 prov("F11-C", SO2, s2m, "fm")
 
 # Panel D: encoder comparison — EuroSAT worst gap vs So2Sat class spread
@@ -165,13 +188,15 @@ cmp <- merge(
   data.frame(fm = gapdf$fm, eurosat_gap = gapdf$worst_gap),
   data.frame(fm = s2df$fm, so2sat_spread = s2df$spread),
   by = "fm")
-# Fixed label anchors (F7-style) for the left cluster + DINO outlier.
-lab_pos <- data.frame(
+# Short leaders: small offsets from each point (avoid long callouts).
+lab_off <- data.frame(
   fm = c("DOFA", "SSL4EO-MAE", "Prithvi", "Clay", "SSL4EO-DINO"),
-  lx = c(0.032, 0.028, 0.058, 0.072, 0.086),
-  ly = c(0.246, 0.286, 0.278, 0.252, 0.290),
+  dx = c(-0.004, -0.009, 0.005, 0.005, -0.008),
+  dy = c(-0.007, 0.010, 0.009, -0.007, 0.008),
   stringsAsFactors = FALSE)
-cmp_lab <- merge(cmp, lab_pos, by = "fm")
+cmp_lab <- merge(cmp, lab_off, by = "fm")
+cmp_lab$lx <- cmp_lab$eurosat_gap + cmp_lab$dx
+cmp_lab$ly <- cmp_lab$so2sat_spread + cmp_lab$dy
 f11d <- ggplot(cmp, aes(eurosat_gap, so2sat_spread, colour = fm)) +
   geom_segment(data = cmp_lab,
                aes(x = eurosat_gap, y = so2sat_spread, xend = lx, yend = ly),
@@ -180,42 +205,75 @@ f11d <- ggplot(cmp, aes(eurosat_gap, so2sat_spread, colour = fm)) +
   geom_point(size = 2.3) +
   geom_text(data = cmp_lab,
             aes(x = lx, y = ly, label = fm),
-            size = 1.7, colour = "black", family = PAPER_FONT,
+            size = 2.0, colour = "black", family = PAPER_FONT,
             show.legend = FALSE) +
   scale_color_model() +
   coord_cartesian(xlim = c(0.018, 0.112), ylim = c(0.240, 0.314),
                   expand = FALSE) +
   labs(x = "EuroSAT worst-class gap", y = "So2Sat class spread") +
-  theme_expand() +
+  theme_f11() +
   theme(legend.position = "none",
-        axis.title.x = element_text(margin = margin(t = 0, b = 0)),
-        plot.margin = margin(t = 3, r = 4, b = 0, l = 2))
+        axis.title.x = element_text(margin = margin(t = 1, b = 0)))
 prov("F11-D", file.path(EXP0, "results.json"), cmp, "fm")
 
-# Legend cell under C only (design E#). Keep D out of the legend row so its
-# x-title is not padded by C's legend height; leave # empty under D.
-f11c_noleg <- f11c + theme(legend.position = "none")
+# Horizontal legend glued tight under C (cowplot stack), then 2×2 with D so
+# D's x-title is not padded by C's legend floor. Tag C on the wrapped stack.
+f11c_noleg <- f11c +
+  theme(legend.position = "none",
+        plot.margin = margin(t = 12, r = 6, b = 0, l = 3))
 leg_plot <- f11c +
-  guides(fill = guide_legend(ncol = 1, title = NULL,
+  guides(fill = guide_legend(nrow = 1, title = NULL,
                              override.aes = list(colour = NA))) +
-  theme(legend.position = "right",
-        legend.direction = "vertical",
-        legend.justification = "left",
-        legend.key.spacing.y = unit(1, "pt"),
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        legend.justification = c(0, 1),
+        legend.key.spacing.x = unit(3, "pt"),
         legend.margin = margin(0, 0, 0, 0),
+        legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
         legend.background = element_blank())
-f11_leg <- wrap_elements(full = cowplot::get_legend(leg_plot))
-f11_all <- f11a + f11b + f11c_noleg + f11d + f11_leg +
-  plot_layout(design = "AB\nCD\nE#", heights = c(1, 1, 0.18)) +
-  plot_annotation(tag_levels = list(c("A", "B", "C", "D", ""))) &
-  tag_expand()
-save_fig(f11_all, "figures/F11_conditional_coverage", w = 4.75, h = 3.55)
+f11_leg <- cowplot::get_legend(leg_plot)
+# align="none" keeps the horizontal guide from being width-squeezed into a wrap.
+c_stack <- cowplot::plot_grid(
+  f11c_noleg, cowplot::ggdraw(f11_leg),
+  ncol = 1, rel_heights = c(1, 0.075),
+  align = "none"
+)
+f11c_cell <- wrap_elements(full = c_stack)
+f11_all <- f11a + f11b + f11c_cell + f11d +
+  plot_layout(design = "AB\nCD", heights = c(1, 1.02)) +
+  plot_annotation(tag_levels = "A") &
+  tag_f11()
+save_fig(f11_all, "figures/F11_conditional_coverage", w = 5.0, h = 3.55)
 }  # end F11
 
 # ---------------------------------------------------------------------------
 # F12 — singleton / low-shot boundary (mirrors tab:singleton)
 # ---------------------------------------------------------------------------
 if (do_fig("F12")) {
+# F12-local: modest font bump vs theme_expand (6.5 was hard to read at print
+# width); keep shared theme_expand untouched for F13/F14 peers.
+theme_f12 <- function() {
+  theme_paper(base_size = 9) +
+    theme(
+      axis.title = element_text(size = 7.5),
+      axis.text  = element_text(size = 7),
+      legend.text = element_text(size = 7),
+      legend.title = element_text(size = 7),
+      strip.text = element_text(size = 7),
+      axis.title.x = element_text(margin = margin(t = 1)),
+      axis.title.y = element_text(margin = margin(r = 2))
+    )
+}
+# Outside-spine A–D (margin/topleft), matching GEO convention / F11 pattern.
+tag_f12 <- function() {
+  theme(text = element_text(family = PAPER_FONT),
+        plot.tag = element_text(family = PAPER_FONT, face = "bold",
+                                size = 11, hjust = 0, vjust = 1),
+        plot.tag.position = "topleft",
+        plot.tag.location = "margin",
+        plot.margin = margin(t = 6, r = 5, b = 2, l = 4))
+}
+
 ls <- read_result(file.path(EXP0, "lowshot_results.json"))
 ls_rows <- list()
 for (fm in names(ls$encoders)) {
@@ -255,7 +313,7 @@ f12a <- ggplot(p05, aes(frac, cov_minus_acc)) +
   geom_point(size = 2.0, colour = MODEL_COLOURS[["Prithvi"]]) +
   f12_x() +
   labs(x = "probe-train fraction", y = "coverage − accuracy") +
-  theme_expand()
+  theme_f12()
 prov("F12-A", file.path(EXP0, "lowshot_results.json"), p05, "frac")
 
 f12b <- ggplot(p05, aes(frac, ss)) +
@@ -264,7 +322,7 @@ f12b <- ggplot(p05, aes(frac, ss)) +
   geom_point(size = 2.0, colour = MODEL_COLOURS[["Prithvi"]]) +
   f12_x() +
   labs(x = "probe-train fraction", y = "split set size") +
-  theme_expand()
+  theme_f12()
 prov("F12-B", file.path(EXP0, "lowshot_results.json"), p05, "frac")
 
 f12c <- ggplot(p05, aes(frac, worst_gap)) +
@@ -272,29 +330,63 @@ f12c <- ggplot(p05, aes(frac, worst_gap)) +
   geom_point(size = 2.0, colour = MODEL_COLOURS[["Prithvi"]]) +
   f12_x() +
   labs(x = "probe-train fraction", y = "worst-class gap") +
-  theme_expand()
+  theme_f12()
 prov("F12-C", file.path(EXP0, "lowshot_results.json"), p05, "frac")
 
-# Panel D: α comparison (0.05 vs 0.10) for all three encoders — cov−acc
-lsdf$alpha_lab <- sprintf("α = %.2f", lsdf$alpha)
+# Panel D: α comparison (0.05 vs 0.10) for all three encoders — cov−acc.
+# Unlike Fig.~7 (F3), which parks a complex shared 2-row legend under the whole
+# 2×2 with a large floor gap, keep the multi-series key attached to D only:
+# one horizontal row (colour | α linestyle) tight under D's axes.
+# Short α keys. Half-width D cannot fit colour+α in one external row without
+# clipping, so park a tight 2-row key *inside* D (upper-right empty quadrant)
+# — near the multi-series panel, not a distant full-width floor like Fig.~7/F3.
+lsdf$alpha_lab <- factor(sprintf("α=%g", lsdf$alpha),
+                         levels = c("α=0.05", "α=0.1"))
+lsdf$fm <- factor(lsdf$fm, levels = c("Clay", "Prithvi", "SSL4EO-DINO"))
 f12d <- ggplot(lsdf, aes(frac, cov_minus_acc, colour = fm, linetype = alpha_lab,
                          group = interaction(fm, alpha))) +
   geom_hline(yintercept = 0, colour = "grey50") +
   geom_line(linewidth = 0.4) +
-  geom_point(size = 1.5) +
-  scale_color_model() +
+  geom_point(size = 1.5, show.legend = TRUE) +
+  scale_color_model(drop = FALSE) +
+  scale_linetype_manual(
+    values = c("α=0.05" = "solid", "α=0.1" = "dotted"),
+    drop = FALSE) +
   f12_x() +
   labs(x = "probe-train fraction", y = "coverage − accuracy") +
-  guides(colour = guide_legend(nrow = 1, title = NULL, order = 1),
-         linetype = guide_legend(nrow = 1, title = NULL, order = 2)) +
-  theme_expand() +
+  guides(
+    colour = guide_legend(
+      nrow = 1, title = NULL, order = 1,
+      override.aes = list(linetype = "solid", shape = 16, linewidth = 0.4)),
+    linetype = guide_legend(
+      nrow = 1, title = NULL, order = 2,
+      override.aes = list(colour = "black", shape = NA, linewidth = 0.55))
+  ) +
+  theme_f12() +
   theme(legend.box = "vertical",
-        legend.spacing.y = unit(1, "pt"))
+        legend.direction = "horizontal",
+        legend.position = c(0.98, 0.98),
+        legend.justification = c(1, 1),
+        legend.spacing.y = unit(0, "pt"),
+        legend.spacing.x = unit(2, "pt"),
+        legend.key.width = unit(9, "pt"),
+        legend.key.height = unit(7, "pt"),
+        legend.key.spacing.x = unit(2, "pt"),
+        legend.key.spacing.y = unit(0, "pt"),
+        legend.text = element_text(size = 6.5),
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 1),
+        legend.box.margin = margin(0, 0, 0, 0),
+        legend.box.spacing = unit(0, "pt"),
+        legend.background = element_rect(fill = alpha("white", 0.88),
+                                         colour = NA))
 prov("F12-D", file.path(EXP0, "lowshot_results.json"), lsdf, "fm")
 
-f12_all <- (f12a | f12b) / (f12c | f12d) +
-  plot_annotation(tag_levels = "A") & tag_expand()
-save_fig(f12_all, "figures/F12_singleton_lowshot", w = 4.75, h = 3.85)
+# Equal 2×2; legend lives inside D only (A–C suppress).
+f12_all <- (f12a + theme(legend.position = "none") |
+            f12b + theme(legend.position = "none")) /
+           (f12c + theme(legend.position = "none") | f12d) +
+  plot_annotation(tag_levels = "A") & tag_f12()
+save_fig(f12_all, "figures/F12_singleton_lowshot", w = 4.85, h = 3.15)
 }  # end F12
 
 # ---------------------------------------------------------------------------
@@ -481,9 +573,9 @@ tab_long$arm <- factor(tab_long$arm, levels = c("source", "target"))
 f14b <- ggplot(tab_long, aes(class, pct, fill = arm)) +
   geom_col(position = position_dodge(0.78), width = 0.7,
            colour = "grey30", linewidth = 0.15) +
-  scale_fill_manual(values = fill_freq, name = NULL) +
+  scale_fill_manual(values = fill_freq, name = "frequency") +
   labs(x = "class id (tabled)", y = "frequency (%)") +
-  guides(fill = guide_legend(nrow = 1, title = NULL, order = 1)) +
+  guides(fill = guide_legend(nrow = 1, title = "frequency", order = 1)) +
   theme_expand() + theme(panel.grid.major.x = element_blank())
 prov("F14-B", PRIOR, tab_long, "class")
 
@@ -514,9 +606,9 @@ f14c <- ggplot(ecedf, aes(fm, ece, fill = mode)) +
   geom_errorbar(aes(ymin = lo, ymax = hi),
                 position = position_dodge(0.78), width = 0.22, linewidth = 0.3) +
   scale_x_discrete(labels = fm_tick14) +
-  scale_fill_manual(values = fill_probe, name = NULL) +
+  scale_fill_manual(values = fill_probe, name = "probe") +
   labs(x = NULL, y = "shift ECE") +
-  guides(fill = guide_legend(nrow = 1, title = NULL, order = 2)) +
+  guides(fill = guide_legend(nrow = 1, title = "probe", order = 2)) +
   theme_expand() +
   theme(axis.text.x = element_text(angle = 25, hjust = 1, size = 7),
         panel.grid.major.x = element_blank())
