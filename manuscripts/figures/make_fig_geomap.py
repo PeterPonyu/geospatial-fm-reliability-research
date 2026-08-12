@@ -11,7 +11,8 @@ Panels (all from frozen manifest centroids; no new experiments):
 
 Typography: Nimbus Roman (same PAPER_FONT as manuscripts/figures/ggtheme.R).
 Panel tags sit in the margin above-left of each spine (outside the drawing
-area). Split / class legends sit in reserved strips below the map axes.
+area). Split legends sit in a dedicated strip under A/B; an explicit spacer
+row separates A/B from C/D; the class legend is a 2×5 strip under C/D.
 
 Data: experiments/results/eurosat_spatial/manifest.csv (27,000 patches).
 Coastline: local pyogrio naturalearth_lowres fixture (no network).
@@ -27,7 +28,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pyogrio
-from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
 from matplotlib.lines import Line2D
 
 GEO = Path(__file__).resolve().parents[2]
@@ -239,42 +239,39 @@ def main():
     idx_c = rng.choice(len(m), size=6000, replace=False)
     sub_c = m.iloc[idx_c]
 
-    # Layout tiers (top → bottom):
-    #   figure title  →  A/B tags  →  A/B subplot titles  →  maps
-    #   A/B legends (1 horizontal row each)  →  C/D tags (shared y)  →  C/D titles  →  maps
-    #   class legend under both C and D (tight floor)
-    fig = plt.figure(figsize=(COL_W, 6.30))
-    gs = GridSpec(
-        4,
-        2,
-        figure=fig,
-        height_ratios=[1.20, 0.11, 1.20, 0.10],
-        wspace=0.30,
-        hspace=0.05,
-        left=0.11,
-        right=0.98,
-        top=0.870,
-        bottom=0.015,
-    )
+    # Explicit figure-fraction layout (avoids GridSpec hspace collapse).
+    # Landscape canvas fills ISPRS \linewidth; large mid-gap separates A/B from C/D.
+    # Bands (bottom→top): class leg | C/D maps | ROW GAP | A/B leg | A/B maps | title.
+    fig = plt.figure(figsize=(COL_W, 5.90))
 
-    ax_a = fig.add_subplot(gs[0, 0])
-    ax_a_leg = fig.add_subplot(gs[1, 0])
-    ax_b = fig.add_subplot(gs[0, 1])
-    ax_b_leg = fig.add_subplot(gs[1, 1])
-    ax_c = fig.add_subplot(gs[2, 0])
-    # Class legend spans both columns to remove empty floor under D.
-    ax_c_leg = fig.add_subplot(gs[3, :])
+    L = 0.070  # left (room for y-labels)
+    R = 0.995  # right edge
+    G = 0.035  # column gap
+    CW = (R - L - G) / 2.0
+    X0, X1 = L, L + CW + G
 
-    # D matches C map row only.
-    d_inner = GridSpecFromSubplotSpec(
-        1,
-        2,
-        subplot_spec=gs[2, 1],
-        wspace=0.40,
-        width_ratios=[1.55, 1.0],
-    )
-    ax_h = fig.add_subplot(d_inner[0, 0])
-    ax_bar = fig.add_subplot(d_inner[0, 1])
+    # Vertical bands (figure coords). Mid gap ~0.09 ≈ substantial whitespace.
+    Y_CLASS0, Y_CLASS1 = 0.018, 0.100
+    Y_CD0, Y_CD1 = 0.165, 0.455
+    Y_ABLEG0, Y_ABLEG1 = 0.545, 0.605
+    Y_AB0, Y_AB1 = 0.660, 0.905
+    # Implicit row gap: Y_CD1 (0.455) → Y_ABLEG0 (0.545).
+
+    ax_a = fig.add_axes([X0, Y_AB0, CW, Y_AB1 - Y_AB0])
+    ax_b = fig.add_axes([X1, Y_AB0, CW, Y_AB1 - Y_AB0])
+    ax_a_leg = fig.add_axes([X0, Y_ABLEG0, CW, Y_ABLEG1 - Y_ABLEG0])
+    ax_b_leg = fig.add_axes([X1, Y_ABLEG0, CW, Y_ABLEG1 - Y_ABLEG0])
+    ax_c = fig.add_axes([X0, Y_CD0, CW, Y_CD1 - Y_CD0])
+
+    # D: histogram + bar share the right column of the C/D band.
+    D_GAP = 0.028
+    DW = CW - D_GAP
+    DW_H = DW * 0.60
+    DW_BAR = DW * 0.40
+    ax_h = fig.add_axes([X1, Y_CD0, DW_H, Y_CD1 - Y_CD0])
+    ax_bar = fig.add_axes([X1 + DW_H + D_GAP, Y_CD0, DW_BAR, Y_CD1 - Y_CD0])
+
+    ax_c_leg = fig.add_axes([L, Y_CLASS0, R - L, Y_CLASS1 - Y_CLASS0])
 
     for ax_leg in (ax_a_leg, ax_b_leg, ax_c_leg):
         ax_leg.set_axis_off()
@@ -300,13 +297,14 @@ def main():
             ]
         ),
         frameon=False,
-        loc="upper center",
+        loc="center",
         ncol=2,
-        fontsize=7,
+        fontsize=6.8,
         handletextpad=0.35,
         borderaxespad=0.0,
-        columnspacing=1.15,
-        labelspacing=0.30,
+        columnspacing=1.0,
+        labelspacing=0.25,
+        handlelength=1.0,
     )
 
     # --- (b) zoom ---
@@ -331,13 +329,14 @@ def main():
             ]
         ),
         frameon=False,
-        loc="upper center",
+        loc="center",
         ncol=2,
-        fontsize=7,
+        fontsize=6.8,
         handletextpad=0.35,
         borderaxespad=0.0,
-        columnspacing=1.15,
-        labelspacing=0.30,
+        columnspacing=1.0,
+        labelspacing=0.25,
+        handlelength=1.0,
     )
 
     # --- (c) class mix ---
@@ -362,20 +361,22 @@ def main():
     ax_c.spines[["top", "right"]].set_visible(False)
     ax_c.set_title("Class mix across the cut (subsample)", loc="left", pad=3)
     # C/D tags placed after layout with a shared figure-y (row-aligned).
+    # Two rows × 5 cols so every handle keeps a readable label (no truncation).
     class_order_leg = list(CLASS_COLORS.keys())
     ax_c_leg.legend(
         handles=_handles_scatter(
             [(CLASS_COLORS[cls], CLASS_SHORT[cls]) for cls in class_order_leg]
         ),
         frameon=False,
-        loc="upper center",
-        ncol=10,
-        fontsize=5.8,
-        handletextpad=0.20,
-        columnspacing=0.70,
+        loc="center",
+        ncol=5,
+        fontsize=6.2,
+        handletextpad=0.30,
+        columnspacing=1.05,
         borderaxespad=0.0,
-        labelspacing=0.20,
-        markerscale=0.90,
+        labelspacing=0.55,
+        markerscale=1.0,
+        handlelength=1.0,
     )
 
     # --- (d) lon density + split sizes ---
@@ -442,28 +443,27 @@ def main():
     ax_bar.spines[["top", "right"]].set_visible(False)
     ax_bar.set_title("Split sizes", loc="left", pad=3)
 
-    # Row-aligned panel tags: A/B share one figure-y; C/D share another.
-    # Tiering: figure title (highest) → A/B tags → subplot titles → spines.
-    y_ab = ax_a.get_position().y1 + 0.055
-    y_cd = max(ax_c.get_position().y1, ax_h.get_position().y1) + 0.018
+    # Row-aligned panel tags above titles; clear of legends and the mid-row gap.
+    y_ab = Y_AB1 + 0.012
+    y_cd = Y_CD1 + 0.012
     _tag_fig_row(fig, ax_a, "A", y_ab)
     _tag_fig_row(fig, ax_b, "B", y_ab)
     _tag_fig_row(fig, ax_c, "C", y_cd)
     _tag_fig_row(fig, ax_h, "D", y_cd)
 
-    # Title in reserved top band; clear of A/B tags (y_ab) and subplot titles.
     fig.suptitle(
         "Geographic shift construction (EuroSAT-MS, frozen $P_{33}$ cut)",
         fontsize=10,
         fontfamily=PAPER_FONT,
-        y=0.995,
-        x=0.545,
+        y=0.978,
+        x=0.532,
     )
 
     pdf = OUT / "F8_geomap.pdf"
     png = ART / "F8_geomap.png"
-    fig.savefig(pdf, bbox_inches="tight", pad_inches=0.02)
-    fig.savefig(png, dpi=200, bbox_inches="tight", pad_inches=0.02)
+    # Fixed canvas (no tight crop) so left/right fill and row gaps stay as designed.
+    fig.savefig(pdf, bbox_inches=None, pad_inches=0.0)
+    fig.savefig(png, dpi=200, bbox_inches=None, pad_inches=0.0)
     plt.close(fig)
     print(
         f"wrote {pdf}; P33={P33:.3f}; source={n_src} target={n_tgt}; "

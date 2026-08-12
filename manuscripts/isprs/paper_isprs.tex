@@ -55,8 +55,8 @@ land-cover and local-climate-zone monitoring, yet practitioners lack guidance on
 encoder to trust after a regional move, or on how to restore a reliability guarantee once shift breaks
 it. We supply both through a distribution-free reliability audit (split-conformal, finite-sample
 guarantees) of frozen GFMs under real cross-European regional shift (thirteen optical Sentinel-2 encoders on GEO-Bench BigEarthNet-S2;
-five on EuroSAT-MS \citep{helber2019eurosat}; plus a non-European multi-city LCZ extension on m-so2sat), packaged as a reusable pre-deployment reliability report-card protocol
-(\S\ref{sec:reportcard}) that returns four practitioner-facing numbers before
+five on EuroSAT-MS; plus a non-European multi-city LCZ extension on m-so2sat), packaged as a reusable pre-deployment reliability report-card protocol
+that returns four practitioner-facing numbers before
 deployment: the in-distribution false-negative-rate (FNR) guarantee, the geographic debt that guarantee incurs under shift,
 the labeled-data budget curve for repairing that debt, and the worst-class coverage a
 marginal guarantee alone would hide. Every frozen encoder meets its multi-label FNR risk-control guarantee
@@ -67,8 +67,7 @@ unlabeled fix does not close the debt---covariate-shift-weighted conformal sees 
 effective sample size collapse to $0.1$--$1.6\%$ of the calibration set---so only a labeled
 target-region slice reliably restores the guarantee; target-label recalibration is the priced remedy, not a label-free method. Cross-encoder rankings remain exploratory and underpowered: a five-encoder pilot's stronger accuracy correlation regressed toward zero at $n{=}13$.
 The powered results are the 13/13 FNR debt and the worst-class gap; the audit is diagnostic, reusing existing
-conformal estimators; the preregistration outcome and exploratory-analysis disclosures are in
-\S\ref{sec:limitations}.
+conformal estimators, with preregistration outcome and exploratory-analysis disclosures stated in the main text.
 \end{abstract}
 
 \begin{keyword}
@@ -294,7 +293,7 @@ re-fit the probe with class-balanced sample weighting on the same cached embeddi
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{F8_geomap.pdf}
+\includegraphics[width=\linewidth]{F8_geomap.pdf}
 \caption{The geographic-shift construction on the map it is defined on (EuroSAT-MS centroids;
 frozen $P_{33}$ cut $=4.2^\circ$E; source $n{=}18{,}090$, target $n{=}8{,}910$).
 \textbf{(a)}~Full-Europe scatter (4{,}000/27{,}000 seeded subsample) colored by split side, with
@@ -350,7 +349,7 @@ grey~=~others); dashed line at ratio~$1$ (no prior shift).
 \textbf{C:}~shift ECE at $\alpha{=}0.05$ under the unadjusted (headline) vs.\ class-balanced probe;
 error bars are 5-seed $t$-CIs.
 \textbf{D:}~count of $\alpha\in\{0.05,0.10,0.20\}$ at which spatial-Mondrian restores coverage
-(paired restoration CI excludes~$0$)---the ``\#$\alpha$ repaired'' count, not Mondrian
+(paired restoration CI excludes~$0$)---the \#$\,\alpha$ repaired count, not Mondrian
 coverage itself.
 Shared bottom legend: frequency (B)~=~source/target; probe (C--D)~=~unadjusted/balanced
 (same blue/orange hues, distinct meanings).
@@ -763,7 +762,7 @@ independence; the SSL4EO-DINO case is the load-bearing single datum and is repor
 \begin{table}[!htbp]\centering\small
 \caption{Per-class conditional coverage of the marginally repaired EuroSAT predictor
 (spatial-Mondrian, $\alpha{=}0.05$; marginal coverage matched to $\approx0.95$--$0.96$; 5 seeds). The
-worst-class gap $G_{\mathrm{worst}}$ of Eq.~\eqref{eq:worst-class-gap} (vs.\ nominal $0.95$, not vs.\ the
+worst-class gap $G_{\mathrm{worst}}$ (coverage shortfall of the worst class vs.\ nominal $0.95$, not vs.\ the
 encoder's marginal) does not track accuracy or ECE (Spearman $+0.30/-0.30$,
 $p{=}0.62$; $6/10$ inversions). SSL4EO-DINO, mid-pack on both scalars, abandons a class at $0.850$
 ($G_{\mathrm{worst}}=0.100$; seed-stable; range $0.826$--$0.871$); the most accurate and best-calibrated encoder (Clay) has the
@@ -957,8 +956,7 @@ Prithvi $>$ DOFA $>$ SSL4EO-DINO $>$ SSL4EO-MAE $>$ Clay; repair counts are weak
 \#$\alpha$ restored at spatial cuts P25--P50.
 (D)~So2Sat LCZ cross-continent label-access check: source-split vs.\ target-global coverage
 (facets); dashed horizontal guides mark nominal $1-\alpha$ at each $\alpha$ (not error bars);
-vertical whiskers are seed-level CIs.
-Set-size cost of the same repair appears in the companion four-panel set-size figure.}\label{fig:f1}\end{figure}
+vertical whiskers are seed-level CIs.}\label{fig:f1}\end{figure}
 Set-size cost of the same repair is in Fig.~\ref{fig:f3}.
 
 
@@ -1147,7 +1145,7 @@ principled unlabeled correction is insufficient and unstable here, so a small la
 target slice remains the reliable remedy.
 
 \begin{table}[!htbp]\centering\small
-\caption{Covariate-shift-weighted conformal \citep{tibshirani2019covariate} as a post-hoc exploratory
+\caption{Covariate-shift-weighted conformal as a post-hoc exploratory
 unlabeled baseline (EuroSAT E$\to$W; 5-seed means; full $\alpha\in\{0.05,0.10,0.20\}$ sweep from the same
 frozen result record, expanding the $\alpha{=}0.05$ headline cell). Target coverage under source-only
 split, covariate-shift-weighted split (density-ratio weights from a source-vs-target discriminator on the
@@ -1302,22 +1300,22 @@ reduced to the most frequent of 12 well-populated classes under a real geographi
 (single-label LAC harness unchanged). Columns are the three frozen encoders (Prithvi-EO-2.0,
 SSL4EO-S12, Clay~v1.5). Within each panel, blue bars are source-only split-conformal and orange bars
 are target-side spatial-Mondrian at $\alpha\in\{0.05,0.10,0.20\}$. Short black dashed segments mark
-the nominal coverage level $1-\alpha$ at each $\alpha$ (legend: ``nominal $1-\alpha$''); vertical
+the nominal coverage level $1-\alpha$ at each $\alpha$ (legend: nominal $1-\alpha$); vertical
 whiskers on the bars are seed-level Student~$t$ intervals ($n{=}5$), not the same mark. Coverage debt
 and Mondrian restoration replicate across all three encoders. This proxy is a coarse, qualitative
-replication; the companion per-label multi-label analysis is the primary BigEarthNet evidence.}\label{fig:f5}\end{figure}
+replication; the per-label multi-label analysis below is the primary BigEarthNet evidence.}\label{fig:f5}\end{figure}
 
 \begin{figure}[!htbp]\centering\includegraphics[width=\linewidth,height=0.40\textheight,keepaspectratio]{F6_bigearthnet_perlabel.pdf}
-\caption{Per-label multi-label conformal on GEO-Bench \citep{lacoste2023geobench} \texttt{m-bigearthnet}
+\caption{Per-label multi-label conformal on GEO-Bench \texttt{m-bigearthnet}
 (BigEarthNet-S2; 27 active labels after per-split filtering; real geographic E$\to$W shift).
 Columns are frozen encoders; rows are (top) mean per-label recall-coverage
 $\Pr(c\in\mathcal{C}(x)\mid y_c=1)$ and (bottom) mean predicted
 label-set size per tile. Blue = source-only split-conformal; orange = target-side spatial-Mondrian;
 $\alpha\in\{0.05,0.10,0.20\}$. Short black dashed segments in the top row are nominal $1-\alpha$
-guides (legend: ``nominal $1-\alpha$''), not error bars; vertical whiskers on the points are
+guides (legend: nominal $1-\alpha$), not error bars; vertical whiskers on the points are
 seed-level Student~$t$ intervals ($n{=}5$). Mondrian restores per-label coverage at
 $\alpha\in\{0.10,0.20\}$ (paired CI across labels excludes~$0$) for all three FMs. Relative to the
-companion dominant-label proxy, this per-label analysis is primary: it supplies independent per-class recall
+dominant-label proxy above, this per-label analysis is primary: it supplies independent per-class recall
 guarantees rather than a single-label reduction.}\label{fig:f6}\end{figure}
 
 % source: frozen analysis records (n=5; box run; bootstrap FNR summaries)

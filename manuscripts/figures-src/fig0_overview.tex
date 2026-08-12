@@ -11,7 +11,10 @@
 % cards/gaps) and place the FAILURE/SURVIVING fork as a second row centered
 % under the full pipeline width -- fills the empty lower-left / upper-right
 % corners of the prior stage-5-only fork.
-\documentclass[border=2pt]{standalone}
+% 2026-08-12c body ratio: larger stage cards, tighter standalone crop, and a
+% clean rail+T fork in the gap between FAILURE|SURVIVING (no fish L-detour
+% under stage 5 into the SURVIVING card).
+\documentclass[border=1pt]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,positioning}
@@ -33,127 +36,127 @@
 \begin{document}
 \begin{tikzpicture}[
   x=1mm, y=1mm,
-  font=\rmfamily\fontsize{7.5}{8.6}\selectfont,
+  font=\rmfamily\fontsize{7.8}{9.0}\selectfont,
   line cap=round, line join=round,
   >=Latex,
-  flow/.style={draw=cMute, line width=1.15pt,
-    -{Latex[length=2.3mm,width=1.55mm]}, shorten >=0.2mm, shorten <=0.2mm},
-  flowplain/.style={draw=cMute, line width=1.15pt},
-  stage/.style={draw=cLine, line width=0.65pt, rounded corners=1.2mm,
-    fill=cSurface, minimum width=26.0mm, minimum height=20.5mm,
+  flow/.style={draw=cMute, line width=1.2pt,
+    -{Latex[length=2.4mm,width=1.6mm]}, shorten >=0.15mm, shorten <=0.15mm},
+  flowplain/.style={draw=cMute, line width=1.2pt},
+  stage/.style={draw=cLine, line width=0.65pt, rounded corners=1.25mm,
+    fill=cSurface, minimum width=28.5mm, minimum height=22.0mm,
     inner sep=0pt, outer sep=0pt, align=center},
   outbox/.style={draw, line width=0.95pt, rounded corners=1.15mm,
-    align=center, minimum width=54mm, minimum height=11.0mm,
-    inner sep=1.15mm, font=\rmfamily\fontsize{7.0}{8.0}\selectfont},
-  steplab/.style={font=\rmfamily\fontsize{5.9}{6.6}\selectfont, text=cMute},
-  rolelab/.style={font=\rmfamily\fontsize{5.3}{6.0}\selectfont\bfseries},
-  titlelab/.style={font=\rmfamily\fontsize{7.2}{8.0}\selectfont, text=cInk},
+    align=center, minimum width=56mm, minimum height=11.5mm,
+    inner sep=1.2mm, font=\rmfamily\fontsize{7.2}{8.2}\selectfont},
+  steplab/.style={font=\rmfamily\fontsize{6.1}{6.8}\selectfont, text=cMute},
+  rolelab/.style={font=\rmfamily\fontsize{5.5}{6.2}\selectfont\bfseries},
+  titlelab/.style={font=\rmfamily\fontsize{7.5}{8.4}\selectfont, text=cInk},
 ]
 
 % ---- Accent bar (left strip inside a named stage node) ----
 \newcommand{\accentbar}[2]{%
   \fill[#2] ([xshift=0.5mm,yshift=-0.8mm]#1.north west)
-    rectangle ([xshift=1.8mm,yshift=0.8mm]#1.south west);}
+    rectangle ([xshift=1.9mm,yshift=0.8mm]#1.south west);}
 
 % Soft role wash (top band) so stage type reads without relying on blue alone.
 \newcommand{\rolewash}[2]{%
-  \fill[#2, opacity=0.12] ([xshift=1.8mm,yshift=-0.5mm]#1.north west)
-    rectangle ([xshift=-0.5mm,yshift=-6.3mm]#1.north east);}
+  \fill[#2, opacity=0.12] ([xshift=1.9mm,yshift=-0.5mm]#1.north west)
+    rectangle ([xshift=-0.5mm,yshift=-6.5mm]#1.north east);}
 
 % =====================================================================
-% Row 1: five stages left → right. Centers every 31mm (26mm box + 5mm gap)
-% so arrow shafts stay visible without ballooning the frame.
+% Row 1: five stages left → right. Centers every 33mm (28.5mm box + 4.5mm
+% gap) -- larger cards, still enough shaft for readable arrows.
 % =====================================================================
 \node[stage] (tile) at (0,0) {};
 \accentbar{tile}{cData}
 \rolewash{tile}{cData}
-\node[steplab, anchor=north west] at ($(tile.north west)+(2.2mm,-1.0mm)$) {1};
+\node[steplab, anchor=north west] at ($(tile.north west)+(2.3mm,-1.0mm)$) {1};
 \node[rolelab, text=cData!80!black, anchor=north east]
   at ($(tile.north east)+(-1.0mm,-1.1mm)$) {DATA};
-\node[titlelab, align=center] at ($(tile.center)+(0.6mm,-2.7)$)
+\node[titlelab, align=center] at ($(tile.center)+(0.65mm,-2.9)$)
   {Sentinel-2\\tile};
 
-\node[stage] (enc) at (31,0) {};
+\node[stage] (enc) at (33,0) {};
 \accentbar{enc}{cModel}
 \rolewash{enc}{cModel}
-\node[steplab, anchor=north west] at ($(enc.north west)+(2.2mm,-1.0mm)$) {2};
+\node[steplab, anchor=north west] at ($(enc.north west)+(2.3mm,-1.0mm)$) {2};
 \node[rolelab, text=cModel!85!black, anchor=north east]
   at ($(enc.north east)+(-1.0mm,-1.1mm)$) {MODEL};
-\node[titlelab, align=center] at ($(enc.center)+(0.6mm,-2.7)$)
+\node[titlelab, align=center] at ($(enc.center)+(0.65mm,-2.9)$)
   {Frozen GFM\\encoder};
 
-\node[stage] (probe) at (62,0) {};
+\node[stage] (probe) at (66,0) {};
 \accentbar{probe}{cProbe}
 \rolewash{probe}{cProbe}
-\node[steplab, anchor=north west] at ($(probe.north west)+(2.2mm,-1.0mm)$) {3};
+\node[steplab, anchor=north west] at ($(probe.north west)+(2.3mm,-1.0mm)$) {3};
 \node[rolelab, text=cProbe!80!black, anchor=north east]
   at ($(probe.north east)+(-1.0mm,-1.1mm)$) {PROBE};
-\node[titlelab, align=center] at ($(probe.center)+(0.6mm,-2.7)$)
+\node[titlelab, align=center] at ($(probe.center)+(0.65mm,-2.9)$)
   {Frozen-embedding\\probe};
 
-\node[stage] (calib) at (93,0) {};
+\node[stage] (calib) at (99,0) {};
 \accentbar{calib}{cEval}
 \rolewash{calib}{cEval}
-\node[steplab, anchor=north west] at ($(calib.north west)+(2.2mm,-1.0mm)$) {4};
+\node[steplab, anchor=north west] at ($(calib.north west)+(2.3mm,-1.0mm)$) {4};
 \node[rolelab, text=cEval!80!black, anchor=north east]
   at ($(calib.north east)+(-1.0mm,-1.1mm)$) {EVAL};
-\node[titlelab, align=center] at ($(calib.center)+(0.6mm,-2.7)$)
+\node[titlelab, align=center] at ($(calib.center)+(0.65mm,-2.9)$)
   {Conformal calib.\\under shift};
 
-\node[stage] (report) at (124,0) {};
+\node[stage] (report) at (132,0) {};
 \accentbar{report}{cReport}
 \rolewash{report}{cReport}
-\node[steplab, anchor=north west] at ($(report.north west)+(2.2mm,-1.0mm)$) {5};
+\node[steplab, anchor=north west] at ($(report.north west)+(2.3mm,-1.0mm)$) {5};
 \node[rolelab, text=cReport, anchor=north east]
   at ($(report.north east)+(-1.0mm,-1.1mm)$) {REPORT};
-\node[titlelab, align=center] at ($(report.center)+(0.6mm,-2.7)$)
+\node[titlelab, align=center] at ($(report.center)+(0.65mm,-2.9)$)
   {Coverage-debt\\report card};
 
 % ---- Icons (above labels, inside each card) ----
-\begin{scope}[shift={($(tile.center)+(0.85mm,3.9mm)$)}, thick, cData!85!black]
-  \draw[line width=0.6pt] (-1.85mm,-1.0mm) rectangle (1.85mm,1.0mm);
-  \draw[line width=0.5pt] (-3.4mm,-0.75mm) rectangle (-1.85mm,0.75mm);
-  \draw[line width=0.5pt] (1.85mm,-0.75mm) rectangle (3.4mm,0.75mm);
-  \draw[line width=0.5pt] (0,1.0mm) -- (0,2.2mm);
-  \fill (0,2.2mm) circle (0.34mm);
+\begin{scope}[shift={($(tile.center)+(0.85mm,4.2mm)$)}, thick, cData!85!black]
+  \draw[line width=0.6pt] (-1.95mm,-1.05mm) rectangle (1.95mm,1.05mm);
+  \draw[line width=0.5pt] (-3.55mm,-0.8mm) rectangle (-1.95mm,0.8mm);
+  \draw[line width=0.5pt] (1.95mm,-0.8mm) rectangle (3.55mm,0.8mm);
+  \draw[line width=0.5pt] (0,1.05mm) -- (0,2.35mm);
+  \fill (0,2.35mm) circle (0.36mm);
 \end{scope}
 
-\begin{scope}[shift={($(enc.center)+(-1.25mm,4.0mm)$)}, thick, cModel]
-  \draw[line width=0.55pt] (0,0) circle (1.4mm);
-  \foreach \a in {0,45,...,315}{\draw[line width=0.5pt] (\a:1.4mm) -- (\a:2.0mm);}
-  \fill[cSurface] (0,0) circle (0.55mm);
-  \draw[line width=0.5pt] (0,0) circle (0.55mm);
+\begin{scope}[shift={($(enc.center)+(-1.3mm,4.3mm)$)}, thick, cModel]
+  \draw[line width=0.55pt] (0,0) circle (1.5mm);
+  \foreach \a in {0,45,...,315}{\draw[line width=0.5pt] (\a:1.5mm) -- (\a:2.15mm);}
+  \fill[cSurface] (0,0) circle (0.58mm);
+  \draw[line width=0.5pt] (0,0) circle (0.58mm);
 \end{scope}
-\begin{scope}[shift={($(enc.center)+(2.7mm,3.7mm)$)}, thick, cMute]
-  \foreach \dy in {0,0.95mm}{
+\begin{scope}[shift={($(enc.center)+(2.85mm,4.0mm)$)}, thick, cMute]
+  \foreach \dy in {0,1.0mm}{
     \draw[line width=0.45pt]
-      (-1.2mm,0.38mm+\dy) -- (-1.2mm,-0.38mm+\dy)
-      arc (180:360:1.2mm and 0.38mm)
-      -- (1.2mm,0.38mm+\dy)
-      arc (0:180:1.2mm and 0.38mm);
+      (-1.25mm,0.4mm+\dy) -- (-1.25mm,-0.4mm+\dy)
+      arc (180:360:1.25mm and 0.4mm)
+      -- (1.25mm,0.4mm+\dy)
+      arc (0:180:1.25mm and 0.4mm);
   }
-  \draw[line width=0.45pt] (-1.2mm,0.38mm+0.95mm) arc (180:360:1.2mm and 0.38mm);
+  \draw[line width=0.45pt] (-1.25mm,0.4mm+1.0mm) arc (180:360:1.25mm and 0.4mm);
 \end{scope}
 
-\begin{scope}[shift={($(probe.center)+(0.65mm,2.7mm)$)}, cProbe!75!black]
-  \fill (-2.1mm,0) rectangle (-1.0mm,1.45mm);
-  \fill (-0.45mm,0) rectangle (0.45mm,2.2mm);
-  \fill (1.0mm,0) rectangle (2.1mm,2.95mm);
+\begin{scope}[shift={($(probe.center)+(0.7mm,3.0mm)$)}, cProbe!75!black]
+  \fill (-2.2mm,0) rectangle (-1.05mm,1.55mm);
+  \fill (-0.5mm,0) rectangle (0.5mm,2.35mm);
+  \fill (1.05mm,0) rectangle (2.2mm,3.15mm);
 \end{scope}
 
-\begin{scope}[shift={($(calib.center)+(0.75mm,3.9mm)$)}, thick, cEval!85!black]
-  \draw[line width=0.55pt] (0,0) circle (2.05mm);
-  \draw[line width=0.5pt] (0,0) circle (1.2mm);
-  \fill (0,0) circle (0.42mm);
+\begin{scope}[shift={($(calib.center)+(0.8mm,4.2mm)$)}, thick, cEval!85!black]
+  \draw[line width=0.55pt] (0,0) circle (2.15mm);
+  \draw[line width=0.5pt] (0,0) circle (1.25mm);
+  \fill (0,0) circle (0.44mm);
 \end{scope}
 
-\begin{scope}[shift={($(report.center)+(0.75mm,3.9mm)$)}, thick, cReport]
+\begin{scope}[shift={($(report.center)+(0.8mm,4.2mm)$)}, thick, cReport]
   \draw[line width=0.55pt]
-    (-1.9mm,-2.3mm) -- (-1.9mm,2.3mm) -- (0.95mm,2.3mm) --
-    (1.9mm,1.35mm) -- (1.9mm,-2.3mm) -- cycle;
-  \draw[line width=0.5pt] (0.95mm,2.3mm) -- (0.95mm,1.35mm) -- (1.9mm,1.35mm);
-  \foreach \y in {0.55mm,-0.4mm,-1.4mm}{
-    \draw[line width=0.4pt] (-1.2mm,\y) -- (1.2mm,\y);
+    (-2.0mm,-2.4mm) -- (-2.0mm,2.4mm) -- (1.0mm,2.4mm) --
+    (2.0mm,1.4mm) -- (2.0mm,-2.4mm) -- cycle;
+  \draw[line width=0.5pt] (1.0mm,2.4mm) -- (1.0mm,1.4mm) -- (2.0mm,1.4mm);
+  \foreach \y in {0.55mm,-0.45mm,-1.45mm}{
+    \draw[line width=0.4pt] (-1.25mm,\y) -- (1.25mm,\y);
   }
 \end{scope}
 
@@ -164,37 +167,39 @@
 \draw[flow] (calib.east) -- (report.west);
 
 % =====================================================================
-% Row 2: outcome fork centered under the FULL pipeline (tile..report).
-% Outer edges of FAIL/SURVIVING align with stage-1 west / stage-5 east so
-% the frame is a filled block, not a thin strip with empty corners.
+% Row 2: outcome fork spanning the pipeline width. Junction sits in the
+% gap between FAILURE and SURVIVING (not under stage 5 inside SURVIVING).
+% Report drops to a rail above the labels, then down into a clean T.
 % =====================================================================
-% Nested calc: midpoint first, THEN offset (bare !0.5!+offset mis-parses).
-\coordinate (pipeMid) at ($(tile.south)!0.5!(report.south)$);
-\coordinate (branch) at ($(pipeMid)+(0,-18.5mm)$);
-
-% Pin outcome boxes to the pipeline outer edges.
+% Outcome boxes first so the gap midpoint is well-defined.
 \node[outbox, draw=cFail, fill=cFail!8, anchor=west] (fail)
-  at ($(tile.south west)+(0,-18.5mm)$)
+  at ($(tile.south west)+(0,-17.0mm)$)
   {\textbf{No universal restoration}\\[-0.1mm]
-   {\fontsize{5.7}{6.5}\selectfont protocol fails to restore}};
+   {\fontsize{5.9}{6.7}\selectfont protocol fails to restore}};
 \node[outbox, draw=cCond, fill=cCond!8, anchor=east] (cond)
-  at ($(report.south east)+(0,-18.5mm)$)
+  at ($(report.south east)+(0,-17.0mm)$)
   {\textbf{Conditional labeled-target}\\[-0.1mm]
-   {\fontsize{5.7}{6.5}\selectfont recalibration}};
+   {\fontsize{5.9}{6.7}\selectfont recalibration}};
 
-\node[rolelab, text=cFail, above=0.4mm of fail.north] {FAILURE};
-\node[rolelab, text=cCond!80!black, above=0.4mm of cond.north] {SURVIVING};
+\node[rolelab, text=cFail, above=0.35mm of fail.north] (faillab) {FAILURE};
+\node[rolelab, text=cCond!80!black, above=0.35mm of cond.north] (condlab) {SURVIVING};
 
-% Report is the decision source: short drop, then horizontal spine to the
-% centered branch, then colored full shafts into each outcome.
-\coordinate (drop) at ($(report.south)+(0,-4.0mm)$);
-\draw[flowplain] (report.south) -- (drop);
-\draw[flowplain] (drop) -| (branch);
-\draw[draw=cFail, line width=1.15pt,
-  -{Latex[length=2.3mm,width=1.55mm]}, shorten >=0.2mm, shorten <=0.2mm]
+% Junction: midpoint of the facing edges, at outcome mid-height.
+\coordinate (branch) at ($(fail.east)!0.5!(cond.west)$);
+
+% Rail y: just above outcome role labels (clear of card tops).
+\coordinate (railY) at ($(faillab.north)!0.5!(condlab.north)+(0,1.6mm)$);
+\coordinate (railR) at (report.south |- railY);
+\coordinate (railJ) at (branch |- railY);
+
+\draw[flowplain] (report.south) -- (railR);
+\draw[flowplain] (railR) -- (railJ);
+\draw[flowplain] (railJ) -- (branch);
+\draw[draw=cFail, line width=1.2pt,
+  -{Latex[length=2.4mm,width=1.6mm]}, shorten >=0.15mm, shorten <=0.15mm]
   (branch) -- (fail.east);
-\draw[draw=cCond, line width=1.15pt,
-  -{Latex[length=2.3mm,width=1.55mm]}, shorten >=0.2mm, shorten <=0.2mm]
+\draw[draw=cCond, line width=1.2pt,
+  -{Latex[length=2.4mm,width=1.6mm]}, shorten >=0.15mm, shorten <=0.15mm]
   (branch) -- (cond.west);
 
 \end{tikzpicture}
