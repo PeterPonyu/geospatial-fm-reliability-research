@@ -136,25 +136,21 @@ pcdf <- data.frame(
   class = factor(names(pc), levels = names(pc)),
   cov = as.numeric(unlist(pc)),
   stringsAsFactors = FALSE)
-f11b_core <- ggplot(pcdf, aes(class, cov)) +
+# Native x-title (not a cowplot strip): wrap_elements + x=0.56 placed
+# "EuroSAT class id" under classes ~4–8. ggplot's xlab grob is panel-width,
+# so hjust=0.5 centers under 0–9. free(..., side="b") keeps this band from
+# stretching to match A's angled encoder ticks.
+f11b <- ggplot(pcdf, aes(class, cov)) +
   geom_col(width = 0.72, fill = MODEL_COLOURS[["SSL4EO-DINO"]],
            colour = "grey30", linewidth = 0.2) +
   geom_hline(yintercept = as.numeric(ssl$marg_cov), linetype = 2, colour = "grey30") +
   geom_hline(yintercept = 0.95, linetype = 3, colour = "grey50") +
   coord_cartesian(ylim = c(0.80, 1.0)) +
-  labs(x = NULL, y = "per-class cov") +
+  labs(x = "EuroSAT class id", y = "per-class cov") +
   theme_f11() +
   theme(panel.grid.major.x = element_blank(),
-        plot.margin = margin(t = 12, r = 6, b = 0, l = 3))
-# Fixed-cm x-title strip: keeps "EuroSAT class id" tight under ticks even when
-# patchwork equalizes row decoration against A's angled labels.
-f11b_xlab <- cowplot::ggdraw() +
-  cowplot::draw_label(
-    "EuroSAT class id", fontfamily = PAPER_FONT, size = 7.5,
-    x = 0.56, y = 0.82, hjust = 0.5, vjust = 0.5
-  )
-f11b <- wrap_elements(full = (f11b_core / f11b_xlab) +
-  plot_layout(heights = grid::unit(c(1, 0.22), c("null", "cm"))))
+        plot.margin = margin(t = 12, r = 6, b = 2, l = 3),
+        axis.title.x = element_text(hjust = 0.5, margin = margin(t = 6)))
 prov("F11-B", file.path(EXP0, "results.json"), pcdf, "class")
 
 # Panel C: So2Sat dissociation (worst-class vs marginal)
@@ -261,7 +257,7 @@ c_stack <- cowplot::plot_grid(
   align = "none"
 )
 f11c_cell <- wrap_elements(full = c_stack)
-f11_all <- f11a + f11b + f11c_cell + f11d +
+f11_all <- f11a + free(f11b, type = "space", side = "b") + f11c_cell + f11d +
   plot_layout(design = "AB\nCD", heights = c(1, 1.02)) +
   plot_annotation(tag_levels = "A") &
   tag_f11()
