@@ -339,7 +339,8 @@ print(deb_a[, c("fm", "debt", "n_restored")])
 #   A — P33 split vs spatial-Mondrian bars; facet by α (not by encoder)
 #   B — non-P33 boundaries as arm × boundary grid; colour = encoder
 #   C/D — multi-arm contrasts at α=0.10; floor encoder colour legend (C/D only)
-# A's arm fill key stays under A; floor row is encoder colours for C/D (also B).
+# Split/Mondrian fill key sits in the AB–CD row gap (outside spines); floor
+# row is encoder colours for C/D (also B).
 # ---------------------------------------------------------------------------
 if (do_fig("F2")) {
 arm_lv <- c("split (source)", "spatial-Mondrian")
@@ -363,8 +364,7 @@ m$alpha_lab <- factor(sprintf("α = %s", format(m$alpha, nsmall = 2)),
 
 # Compact F2 chrome: smaller facets/strips, less left-axis pad so data panes
 # claim more of the half-width (esp. B's 3×2 grid). Science values unchanged.
-# Arm fill legend stays local to A (short labels; inside the pane so A can
-# stretch to the same cell height as B's 2×3 facet grid).
+# Arm fill legend is collected under AB (row-gap), not drawn inside A's pane.
 f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   geom_col(position = position_dodge(0.72), width = 0.62, colour = NA) +
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high),
@@ -389,17 +389,12 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
         axis.text.y = element_text(size = 6.5),
         axis.text.x = element_text(size = 6),
         strip.text = element_text(size = 6.5, margin = margin(t = 1.5, b = 1.5)),
-        legend.position = "inside",
-        legend.position.inside = c(0.01, 0.98),
-        legend.justification = c(0, 1),
+        legend.position = "bottom",
         legend.direction = "horizontal",
-        legend.text = element_text(size = 6),
-        legend.background = element_rect(fill = alpha("white", 0.92),
-                                         colour = NA),
-        legend.margin = margin(t = 1, r = 3, b = 1, l = 2),
-        legend.box.spacing = unit(0, "pt"),
-        legend.key.width = unit(7, "pt"),
-        legend.key.height = unit(6, "pt"),
+        legend.text = element_text(size = 6.5),
+        legend.background = element_blank(),
+        legend.key.width = unit(8, "pt"),
+        legend.key.height = unit(7, "pt"),
         plot.margin = margin(t = 2, r = 2, b = 1, l = 2))
 prov("F2-A", RES, m, "fm")
 
@@ -524,11 +519,23 @@ prov("F2-D", LSHIFT, als, "fm")
 # stay as ggplots (equal panel stretch); wrap_elements(B) was dropped because it
 # fixed B's aspect and left A visually short. B already uses strip.placement=
 # "inside" to keep P25/P40/P50 on the spines. Nest C|D with guides="collect" so
-# the floor encoder legend serves C/D only; A's arm fill key stays inside A.
-# free(C, left space): A's long encoder ticks otherwise pad C's ylab→spine gap.
-# Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
+# the floor encoder legend serves C/D only. A's fill key is collected under AB
+# (the AB–CD row gap), not inside the α=0.05 pane. Nested collect keeps the two
+# keys from merging. free(C, left space): A's long encoder ticks otherwise pad
+# C's ylab→spine gap. Caption notes DOFA appears in A only (battery records for
+# B–D lack DOFA).
+# Row-gap params: AB collect legend.box.spacing=6pt, legend.margin b=8pt;
+# heights c(1.72, 1) (was 1.55, 1); device h=4.88 (was 4.65).
 f2_ab <- (f2a | f2b) +
-  plot_layout(widths = c(0.88, 1.12))
+  plot_layout(widths = c(0.88, 1.12), guides = "collect") &
+  theme(legend.position = "bottom",
+        legend.box = "horizontal",
+        legend.box.just = "center",
+        legend.justification = "center",
+        legend.direction = "horizontal",
+        legend.spacing.x = unit(8, "pt"),
+        legend.margin = margin(t = 2, r = 0, b = 8, l = 0),
+        legend.box.spacing = unit(6, "pt"))
 f2_cd <- (free(f2c, type = "space", side = "l") | f2d) +
   plot_layout(guides = "collect", widths = c(0.88, 1.12)) &
   theme(legend.position = "bottom",
@@ -536,14 +543,14 @@ f2_cd <- (free(f2c, type = "space", side = "l") | f2d) +
         legend.box.just = "center",
         legend.spacing.x = unit(6, "pt"),
         legend.spacing.y = unit(1, "pt"),
-        legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+        legend.margin = margin(t = 2, r = 0, b = 0, l = 0),
         legend.box.spacing = unit(2, "pt"))
 f2_all <- (f2_ab / f2_cd) +
-  plot_layout(heights = c(1.55, 1)) +
+  plot_layout(heights = c(1.72, 1)) +
   plot_annotation(tag_levels = "A") &
   tag_p3() &
   theme(plot.margin = margin(t = 5, r = 4, b = 1, l = 3))
-save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.55, h = 4.65)
+save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.55, h = 4.88)
 
 chk <- function(lab, got, expect, tol = 5e-4) {
   ok <- isTRUE(abs(got - expect) < tol)
