@@ -240,23 +240,23 @@ def main():
     sub_c = m.iloc[idx_c]
 
     # Explicit figure-fraction layout (avoids GridSpec hspace collapse).
-    # Landscape canvas fills ISPRS \linewidth; large mid-gap separates A/B from C/D.
+    # Landscape canvas fills ISPRS \linewidth; mid-gap separates A/B from C/D.
     # Bands (bottom→top): class leg | C/D maps | ROW GAP | A/B leg | A/B maps | title.
     fig = plt.figure(figsize=(COL_W, 6.15))
 
     L = 0.062  # left (room for y-labels)
     R = 0.998  # right edge
-    G = 0.028  # column gap
+    G = 0.068  # column gap (was 0.028; room for B/D y-labels plus a visible gutter)
     CW = (R - L - G) / 2.0
     X0, X1 = L, L + CW + G
 
-    # Vertical bands. Mid gap ~0.16 fig-fraction (~1.0 in) between A/B legends and C/D.
+    # Vertical bands. Mid gap ~0.11 fig-fraction (~0.68 in) between A/B legends and C/D.
     Y_CLASS0, Y_CLASS1 = 0.008, 0.078
-    Y_CD0, Y_CD1 = 0.160, 0.405
-    Y_ABLEG0, Y_ABLEG1 = 0.565, 0.620
-    Y_AB0, Y_AB1 = 0.675, 0.905
-    # Implicit row gap: Y_CD1 (0.405) → Y_ABLEG0 (0.565) ≈ 0.16.
-    # Bottom clearance: Y_CD0 (0.160) → Y_CLASS1 (0.078) ≈ 0.08 for C/D x-labels.
+    Y_CD0, Y_CD1 = 0.186, 0.431
+    Y_ABLEG0, Y_ABLEG1 = 0.541, 0.596
+    Y_AB0, Y_AB1 = 0.651, 0.881
+    # Implicit row gap: Y_CD1 (0.431) → Y_ABLEG0 (0.541) ≈ 0.110.
+    # Bottom clearance: Y_CD0 (0.186) → Y_CLASS1 (0.078) ≈ 0.108 for C/D x-labels.
 
     ax_a = fig.add_axes([X0, Y_AB0, CW, Y_AB1 - Y_AB0])
     ax_b = fig.add_axes([X1, Y_AB0, CW, Y_AB1 - Y_AB0])
