@@ -119,16 +119,34 @@ def _style():
     )
 
 
-def _tag(ax, letter: str):
+def _tag(ax, letter: str, y: float = 1.08):
     """Panel letter outside the drawing area: above-left of top-left spine."""
     # Axes-fraction offsets place the glyph in the reserved figure margin
     # (cf. ggtheme paper_tag_theme plot.tag.location = "margin").
     letter = str(letter).upper()
     ax.text(
         -0.14,
-        1.14,
+        y,
         letter,
         transform=ax.transAxes,
+        fontsize=11,
+        fontweight="bold",
+        fontfamily=PAPER_FONT,
+        va="bottom",
+        ha="right",
+        color=C_INK,
+        clip_on=False,
+        zorder=20,
+    )
+
+
+def _tag_fig_row(fig, ax, letter: str, y_fig: float):
+    """Place a panel letter at a shared figure-y (row-aligned tags)."""
+    bbox = ax.get_position()
+    fig.text(
+        bbox.x0 - 0.018,
+        y_fig,
+        str(letter).upper(),
         fontsize=11,
         fontweight="bold",
         fontfamily=PAPER_FONT,
@@ -221,20 +239,22 @@ def main():
     idx_c = rng.choice(len(m), size=6000, replace=False)
     sub_c = m.iloc[idx_c]
 
-    # 4-row grid: map / legend / map / legend.
-    # Generous left/top margins keep a–d tags clear of spines.
-    fig = plt.figure(figsize=(COL_W, 7.15))
+    # Layout tiers (top → bottom):
+    #   figure title  →  A/B tags  →  A/B subplot titles  →  maps
+    #   A/B legends (1 horizontal row each)  →  C/D tags (shared y)  →  C/D titles  →  maps
+    #   class legend under both C and D (tight floor)
+    fig = plt.figure(figsize=(COL_W, 6.30))
     gs = GridSpec(
         4,
         2,
         figure=fig,
-        height_ratios=[1.20, 0.28, 1.20, 0.42],
+        height_ratios=[1.20, 0.11, 1.20, 0.10],
         wspace=0.30,
-        hspace=0.18,
+        hspace=0.05,
         left=0.11,
         right=0.98,
-        top=0.915,
-        bottom=0.04,
+        top=0.870,
+        bottom=0.015,
     )
 
     ax_a = fig.add_subplot(gs[0, 0])
@@ -242,12 +262,14 @@ def main():
     ax_b = fig.add_subplot(gs[0, 1])
     ax_b_leg = fig.add_subplot(gs[1, 1])
     ax_c = fig.add_subplot(gs[2, 0])
-    ax_c_leg = fig.add_subplot(gs[3, 0])
+    # Class legend spans both columns to remove empty floor under D.
+    ax_c_leg = fig.add_subplot(gs[3, :])
 
+    # D matches C map row only.
     d_inner = GridSpecFromSubplotSpec(
         1,
         2,
-        subplot_spec=gs[2:, 1],
+        subplot_spec=gs[2, 1],
         wspace=0.40,
         width_ratios=[1.55, 1.0],
     )
@@ -266,11 +288,10 @@ def main():
     ax_a.text(P50 + 0.35, LAT0 + 0.5, "P50", fontsize=6, ha="left", color=C_MUTED)
     ax_a.set_xlim(LON0, LON1)
     ax_a.set_ylim(LAT0, LAT1)
-    ax_a.set_xlabel(r"longitude ($^\circ$E)")
-    ax_a.set_ylabel(r"latitude ($^\circ$N)")
+    ax_a.set_xlabel(r"longitude ($^\circ$E)", labelpad=1)
+    ax_a.set_ylabel(r"latitude ($^\circ$N)", labelpad=1)
     ax_a.spines[["top", "right"]].set_visible(False)
-    ax_a.set_title("Full Europe, $P_{33}$ cut", loc="left", pad=18)
-    _tag(ax_a, "A")
+    ax_a.set_title("Full Europe, $P_{33}$ cut", loc="left", pad=3)
     ax_a_leg.legend(
         handles=_handles_scatter(
             [
@@ -279,12 +300,13 @@ def main():
             ]
         ),
         frameon=False,
-        loc="center",
-        ncol=1,
+        loc="upper center",
+        ncol=2,
         fontsize=7,
         handletextpad=0.35,
         borderaxespad=0.0,
-        labelspacing=0.45,
+        columnspacing=1.15,
+        labelspacing=0.30,
     )
 
     # --- (b) zoom ---
@@ -297,11 +319,10 @@ def main():
     _cut_lines(ax_b, P25, P33, P50)
     ax_b.set_xlim(ZLON0, ZLON1)
     ax_b.set_ylim(ZLAT0, ZLAT1)
-    ax_b.set_xlabel(r"longitude ($^\circ$E)")
-    ax_b.set_ylabel(r"latitude ($^\circ$N)")
+    ax_b.set_xlabel(r"longitude ($^\circ$E)", labelpad=1)
+    ax_b.set_ylabel(r"latitude ($^\circ$N)", labelpad=1)
     ax_b.spines[["top", "right"]].set_visible(False)
-    ax_b.set_title("Zoom: Iberia/Atlantic vs Central Europe", loc="left", pad=18)
-    _tag(ax_b, "B")
+    ax_b.set_title("Zoom: Iberia/Atlantic vs Central Europe", loc="left", pad=3)
     ax_b_leg.legend(
         handles=_handles_scatter(
             [
@@ -310,12 +331,13 @@ def main():
             ]
         ),
         frameon=False,
-        loc="center",
-        ncol=1,
+        loc="upper center",
+        ncol=2,
         fontsize=7,
         handletextpad=0.35,
         borderaxespad=0.0,
-        labelspacing=0.45,
+        columnspacing=1.15,
+        labelspacing=0.30,
     )
 
     # --- (c) class mix ---
@@ -338,22 +360,22 @@ def main():
     ax_c.set_xlabel(r"longitude ($^\circ$E)")
     ax_c.set_ylabel(r"latitude ($^\circ$N)")
     ax_c.spines[["top", "right"]].set_visible(False)
-    ax_c.set_title("Class mix across the cut (subsample)", loc="left", pad=18)
-    _tag(ax_c, "C")
+    ax_c.set_title("Class mix across the cut (subsample)", loc="left", pad=3)
+    # C/D tags placed after layout with a shared figure-y (row-aligned).
     class_order_leg = list(CLASS_COLORS.keys())
     ax_c_leg.legend(
         handles=_handles_scatter(
             [(CLASS_COLORS[cls], CLASS_SHORT[cls]) for cls in class_order_leg]
         ),
         frameon=False,
-        loc="center",
-        ncol=5,
-        fontsize=6.2,
-        handletextpad=0.25,
-        columnspacing=0.85,
+        loc="upper center",
+        ncol=10,
+        fontsize=5.8,
+        handletextpad=0.20,
+        columnspacing=0.70,
         borderaxespad=0.0,
-        labelspacing=0.55,
-        markerscale=0.95,
+        labelspacing=0.20,
+        markerscale=0.90,
     )
 
     # --- (d) lon density + split sizes ---
@@ -394,16 +416,14 @@ def main():
     ax_h.spines[["top", "right"]].set_visible(False)
     ax_h.legend(
         frameon=False,
-        loc="lower left",
-        bbox_to_anchor=(0.0, 1.04),
-        borderaxespad=0.0,
+        loc="upper right",
+        borderaxespad=0.2,
         ncol=2,
         fontsize=6.5,
         handletextpad=0.3,
         columnspacing=0.8,
     )
-    ax_h.set_title("Lon density + cut sweep", loc="left", pad=22)
-    _tag(ax_h, "D")
+    ax_h.set_title("Lon density + cut sweep", loc="left", pad=3)
 
     ax_bar.bar(
         [0, 1],
@@ -420,19 +440,30 @@ def main():
         ax_bar.text(i, n + 200, f"{n:,}", ha="center", va="bottom", fontsize=7)
     ax_bar.set_ylim(0, max(n_src, n_tgt) * 1.18)
     ax_bar.spines[["top", "right"]].set_visible(False)
-    ax_bar.set_title("Split sizes", loc="left", pad=14)
+    ax_bar.set_title("Split sizes", loc="left", pad=3)
 
+    # Row-aligned panel tags: A/B share one figure-y; C/D share another.
+    # Tiering: figure title (highest) → A/B tags → subplot titles → spines.
+    y_ab = ax_a.get_position().y1 + 0.055
+    y_cd = max(ax_c.get_position().y1, ax_h.get_position().y1) + 0.018
+    _tag_fig_row(fig, ax_a, "A", y_ab)
+    _tag_fig_row(fig, ax_b, "B", y_ab)
+    _tag_fig_row(fig, ax_c, "C", y_cd)
+    _tag_fig_row(fig, ax_h, "D", y_cd)
+
+    # Title in reserved top band; clear of A/B tags (y_ab) and subplot titles.
     fig.suptitle(
         "Geographic shift construction (EuroSAT-MS, frozen $P_{33}$ cut)",
         fontsize=10,
         fontfamily=PAPER_FONT,
-        y=0.985,
+        y=0.995,
+        x=0.545,
     )
 
     pdf = OUT / "F8_geomap.pdf"
     png = ART / "F8_geomap.png"
-    fig.savefig(pdf, bbox_inches="tight", pad_inches=0.12)
-    fig.savefig(png, dpi=200, bbox_inches="tight", pad_inches=0.12)
+    fig.savefig(pdf, bbox_inches="tight", pad_inches=0.02)
+    fig.savefig(png, dpi=200, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
     print(
         f"wrote {pdf}; P33={P33:.3f}; source={n_src} target={n_tgt}; "
