@@ -543,8 +543,11 @@ $\lambda$; bounded by $1$) is
 \label{eq:fnr-loss}
 L_i(\lambda)
 =\frac{\#\{\text{positives of }i\text{ missed by }\mathcal{C}_\lambda(X_i)\}}
-{\#\{\text{positives of }i\}},
-\qquad
+{\#\{\text{positives of }i\}}.
+\end{equation}
+The $B{=}1$ empirical risk on examples with at least one positive is
+\begin{equation}
+\label{eq:crc-risk}
 % Circumflex hats (estimators), not \check/\checkmark: Angelopoulos CRC empirical risk / threshold.
 \widehat{R}(\lambda)
 =\frac{1}{n_{\mathrm{eff}}}\sum_{i:P_i\ge 1}L_i(\lambda),

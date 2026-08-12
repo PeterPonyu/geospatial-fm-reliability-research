@@ -274,13 +274,80 @@ shifts broader than the fixed geographic partition studied here, and the conform
 below \citep{angelopoulos2024crc} is itself an instance of the general distribution-free risk-controlling
 framework of Bates et al.~\citep{bates2021distributionfree}. We sweep
 $\alpha\in\{0.05,0.10,0.20\}$, $5$ seeds, and bootstrap the paired per-seed restoration statistic
-$|\text{cov}_{\text{split}}-\text{nom}|-|\text{cov}_{\text{Mondrian}}-\text{nom}|$ (CI${}>0\Rightarrow$ restored).
+\begin{equation}
+\label{eq:restoration}
+\Delta_{\mathrm{rest}}
+=\bigl|\mathrm{cov}_{\mathrm{split}}-\mathrm{nom}\bigr|
+-\bigl|\mathrm{cov}_{\mathrm{Mondrian}}-\mathrm{nom}\bigr|.
+\end{equation}
+A bootstrap CI strictly above zero is the restoration call.
+Coverage debt is the integrated positive gap
+\begin{equation}
+\label{eq:debt}
+D=\int \max\bigl(0,\mathrm{nom}-\mathrm{cov}_{\mathrm{split}}(\alpha)\bigr)\,d\alpha.
+\end{equation}
 The set-size cost of that restoration---and the EuroSAT singleton floor it rises above---is reported in
 Fig.~\ref{fig:f3}.
 A post-hoc boundary-sensitivity sweep repeats the full protocol at $P_{25}/P_{33}/P_{40}/P_{50}$ longitude
 cuts on the same cached embeddings, and adds a third, \emph{label-access ablation} arm: non-spatial split
-conformal whose single LAC quantile is drawn from the same labeled target-region calibration slice
-the Mondrian arm uses (isolating target-label access from spatial conditioning).
+conformal whose single LAC quantile $\hat q_{\mathrm{tgt}}$ is drawn from the same labeled target-region
+calibration slice the Mondrian arm uses (isolating target-label access from spatial conditioning),
+\begin{equation}
+\label{eq:target-cal}
+\mathcal{C}_{\mathrm{tgt}}(x)
+=\bigl\{y:s(x,y)\le\hat q_{\mathrm{tgt}}\bigr\}.
+\end{equation}
+Class-conditional Mondrian, covariate-shift-weighted, and label-shift controls use
+\begin{equation}
+\label{eq:class-mondrian}
+\mathcal{C}_{\mathrm{class}}(x)=\bigl\{k:s(x,k)\le\hat q_k\bigr\},
+\end{equation}
+\begin{equation}
+\label{eq:weighted-cp}
+\hat q(x)
+=\min\Bigl\{s_{(m)}:\sum_{i\le m}w_{(i)}\ge(1{-}\alpha)\bigl(W+w(x)\bigr)\Bigr\},
+\end{equation}
+and the class-prior ratio
+\begin{equation}
+\label{eq:labelshift-w}
+w(y)=\hat\pi_{\mathrm{target}}(y)/\hat\pi_{\mathrm{source}}(y).
+\end{equation}
+The finite-sample quantile level
+\begin{equation}
+\label{eq:fs-quantile}
+\ell_n=\frac{\lceil(n{+}1)(1{-}\alpha)\rceil}{n}
+\end{equation}
+inflates above $1{-}\alpha$ at small $n$. The fraction of coverage debt repaired at budget $n$ is
+\begin{equation}
+\label{eq:debt-repaired}
+\rho(n)
+=\frac{\mathrm{cov}_{\mathrm{tgt}}(n)-\mathrm{cov}_{\mathrm{split}}}{\mathrm{nom}-\mathrm{cov}_{\mathrm{split}}}.
+\end{equation}
+On BigEarthNet, CRC \citep{angelopoulos2024crc} uses the per-example FNR loss
+\begin{equation}
+\label{eq:fnr-loss}
+L_i(\lambda)
+=\frac{\#\{\text{positives of }i\text{ missed by }\mathcal{C}_\lambda(X_i)\}}
+{\#\{\text{positives of }i\}}
+\end{equation}
+and the $B{=}1$ empirical risk on examples with at least one positive,
+\begin{equation}
+\label{eq:crc-risk}
+\widehat{R}(\lambda)
+=\frac{1}{n_{\mathrm{eff}}}\sum_{i:P_i\ge 1}L_i(\lambda),
+\end{equation}
+\begin{equation}
+\label{eq:crc-lambda}
+\widehat{\lambda}
+=\inf\Bigl\{\lambda:
+\tfrac{n_{\mathrm{eff}}}{n_{\mathrm{eff}}{+}1}\,\widehat{R}(\lambda)+\tfrac{1}{n_{\mathrm{eff}}{+}1}\le\alpha\Bigr\},
+\end{equation}
+attained only when
+\begin{equation}
+\label{eq:crc-attain}
+\alpha\ge\frac{1}{n_{\mathrm{eff}}{+}1},
+\end{equation}
+with $n_{\mathrm{eff}}$ the number of calibration examples carrying at least one positive.
 All figures (Fig.~\ref{fig:f1}--\ref{fig:f3}, \ref{fig:f5}, \ref{fig:f6},
 \ref{fig:geomap}, \ref{fig:geopatches}, \ref{fig:f10}, \ref{fig:condcov},
 \ref{fig:singleton}, \ref{fig:crcfnr}, \ref{fig:classprior}) are generated directly from the
@@ -335,7 +402,7 @@ below is post-hoc and exploratory (added after the preregistered gate; \S\ref{se
 % ECE per-seed spread: exp0_2026-07-13/worstclass_uncertainty_2026-07-14.json item3 (prithvi ece 0.0823 std 0.0019, clay 0.0783 std 0.0032; paired delta 0.004, per-seed std 0.0019, delta>seed-noise TRUE, prithvi worse-calibrated in every seed; FNR gap 0.046)
 On GEO-Bench BigEarthNet-S2 ( $7{,}669$ tiles, $39$ active labels; real E$\to$W
 geographic shift), a conformal-risk-control (CRC) predictor \citep{angelopoulos2024crc} bounds the
-example-averaged FNR---a set-valued guarantee with \emph{no top-1-accuracy analog by construction}.
+example-averaged FNR of Eqs.~\eqref{eq:fnr-loss}--\eqref{eq:crc-lambda}---a set-valued guarantee with \emph{no top-1-accuracy analog by construction}.
 We audit \emph{thirteen} frozen encoders here (the five-encoder battery plus eight added at pull
 expressly to power the cross-encoder comparison; roster in \S\ref{sec:methods}).
 The within-encoder finding is unambiguous and requires no cross-encoder statistics: for \emph{every one}
@@ -1065,9 +1132,10 @@ DOFA                & 0.608 & 0.214 & 0.877 & 0.733 & 0.253 \\
 \begin{figure*}[htbp]\centering\includegraphics[width=0.95\textwidth]{F1_debt_vs_robustness.pdf}
 \caption{Four-panel coverage-debt diagnostic across five frozen encoders (shared colour legend:
 Clay, SSL4EO-MAE, SSL4EO-DINO, DOFA, Prithvi).
-(A)~Mean in-shift ECE (coverage debt) vs.\ the number of risk levels
+(A)~Mean in-shift ECE vs.\ the number of risk levels
 $\alpha\in\{0.05,0.10,0.20\}$ where spatial-Mondrian \emph{restores} target coverage---i.e.\ the
-paired gap CI excludes~$0$ in the positive direction. Debt orders
+paired gap CI excludes~$0$ in the positive direction. ECE (the ranking diagnostic; the integrated
+coverage-gap $D$ is reported in the text) orders
 Prithvi $>$ DOFA $>$ SSL4EO-DINO $>$ SSL4EO-MAE $>$ Clay; repair counts are weakly monotone
 (Prithvi $=$ DOFA~$2$, others~$1$).
 (B)~Shifted top-1 accuracy vs.\ $\alpha$ (flat across risk levels; ranking matches debt).
