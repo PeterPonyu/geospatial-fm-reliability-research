@@ -40,17 +40,53 @@ m <- rbind(
   data.frame(fm=df$fm, alpha=df$alpha, nominal=df$nominal, arm="spatial-Mondrian",
              coverage=df$mond_cov,  ci_low=df$mond_cov_lo,  ci_high=df$mond_cov_hi))
 m$arm <- factor(m$arm, levels=c("split-conformal (source)","spatial-Mondrian"))
-# Error bars = n=5 seed-level CI; vertical (categorical-α) gridlines blanked as decoration.
-f <- ggplot(m, aes(factor(alpha), coverage, fill=arm)) +
-  geom_col(position=position_dodge(0.8), width=0.7) +
-  geom_errorbar(aes(ymin=ci_low, ymax=ci_high),
-                position=position_dodge(0.8), width=0.25,
-                linewidth=0.35, colour="grey25") +
-  geom_hline(aes(yintercept=nominal), linetype=2, colour="grey30") +
-  facet_wrap(~fm) + scale_fill_paper() + coord_cartesian(ylim=c(0.45,1.0)) +
-  labs(x="α", y="target coverage under real geographic shift") +
-  theme_paper() + theme(panel.grid.major.x = element_blank())
-# Render size set so effective text at \includegraphics[width=0.95\linewidth]
-# lands at ~8.5pt, matching the other figures (typography re-audit, 2026-07-16).
-save_fig(f, "figures/F5_bigearthnet_domlabel", w=4.75, h=2.28)
+
+# Per-α dashed black segments = nominal coverage 1−α (legend-named).
+# Vertical whiskers on bars = seed-level t-CIs (n=5) — a different mark.
+nom <- unique(df[, c("fm", "alpha", "nominal")])
+nom$x_num <- as.numeric(factor(nom$alpha))
+
+f <- ggplot(m, aes(factor(alpha), coverage, fill = arm)) +
+  geom_col(position = position_dodge(0.82), width = 0.74) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high),
+                position = position_dodge(0.82), width = 0.20,
+                linewidth = 0.35, colour = "grey25") +
+  geom_segment(
+    data = nom,
+    aes(x = x_num - 0.38, xend = x_num + 0.38,
+        y = nominal, yend = nominal,
+        linetype = "nominal 1−α"),
+    inherit.aes = FALSE,
+    colour = "grey20", linewidth = 0.55
+  ) +
+  facet_wrap(~fm, nrow = 1) +
+  scale_fill_paper(name = NULL) +
+  scale_linetype_manual(name = NULL, values = c("nominal 1−α" = "dashed")) +
+  coord_cartesian(ylim = c(0.45, 1.0)) +
+  labs(x = "α", y = "target coverage under real geographic shift") +
+  guides(
+    fill = guide_legend(order = 1, nrow = 1, title = NULL),
+    linetype = guide_legend(
+      order = 2, nrow = 1, title = NULL,
+      override.aes = list(colour = "grey20", linewidth = 0.55,
+                          fill = NA, shape = NA))
+  ) +
+  theme_paper() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.spacing.x = unit(4, "pt"),
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.direction = "horizontal",
+    legend.margin = margin(t = 0, r = 2, b = 0, l = 2),
+    legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    legend.box.spacing = unit(1, "pt"),
+    legend.spacing.x = unit(8, "pt"),
+    axis.title.x = element_text(margin = margin(t = 1)),
+    axis.title.y = element_text(margin = margin(r = 1)),
+    plot.margin = margin(t = 2, r = 2, b = 0, l = 2)
+  )
+# Previous 4.75×2.28 read as a thin ribbon with excess side margin once scaled
+# to \linewidth; nudge width and raise height so three encoder panels fill the column.
+save_fig(f, "figures/F5_bigearthnet_domlabel", w = 5.05, h = 3.15)
 cat("BigEarthNet dominant-label figure written. Table:\n"); print(df)

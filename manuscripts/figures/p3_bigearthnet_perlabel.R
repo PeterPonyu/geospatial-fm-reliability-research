@@ -36,27 +36,55 @@ df$metric <- factor(df$metric,
 df$arm <- factor(df$arm, levels = c("split-conformal (source)", "spatial-Mondrian"))
 write.csv(df, "figures/p3_bigearthnet_perlabel_table.csv", row.names = FALSE)
 
+# Nominal 1−α guides only on the recall-coverage row (coverage has a nominal;
+# set-size does not). Short black dashed segments — named in the legend so they
+# cannot be mistaken for horizontal error bars / CI whiskers on the points.
 nom <- unique(df[df$metric == "Recall-coverage",
                  c("fm", "alpha", "nominal", "metric")])
-
-# Nominal (1-alpha) reference marker. Typesetter note (2026-07-16 reader
-# pass): the previous grey20 shape-95 dash read as a squint-test item at
-# normal print size. Replaced with an explicit short dashed segment spanning
-# each facet's x-tick width, in solid black with a heavier linewidth, so it
-# reads unambiguously as "the nominal reference line" rather than a stray
-# mark -- still black-only (no colour channel spent on it).
 nom$x_num <- as.numeric(factor(nom$alpha))
+
 f6 <- ggplot(df, aes(factor(alpha), mean, colour = arm, group = arm)) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.15, linewidth = 0.5) +
-  geom_line(linewidth = 0.6) + geom_point(size = 2.2) +
-  geom_segment(data = nom, aes(x = x_num - 0.32, xend = x_num + 0.32,
-                               y = nominal, yend = nominal), inherit.aes = FALSE,
-               colour = "black", linewidth = 1.0, linetype = "dashed") +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.14, linewidth = 0.4) +
+  geom_line(linewidth = 0.7) +
+  geom_point(size = 2.4) +
+  geom_segment(
+    data = nom,
+    aes(x = x_num - 0.34, xend = x_num + 0.34,
+        y = nominal, yend = nominal,
+        linetype = "nominal 1−α"),
+    inherit.aes = FALSE,
+    colour = "black", linewidth = 0.7
+  ) +
   facet_grid(metric ~ fm, scales = "free_y", switch = "y") +
-  scale_color_paper() +
-  labs(x = "α", y = NULL, colour = "arm") +
-  theme_paper() + theme(strip.placement = "outside")
-# Render size set so effective text at \includegraphics[width=0.95\linewidth]
-# lands at ~8.5pt, matching the other figures (typography re-audit, 2026-07-16).
-save_fig(f6, "figures/F6_bigearthnet_perlabel", w = 4.75, h = 2.64)
+  scale_color_paper(name = NULL) +
+  scale_linetype_manual(name = NULL, values = c("nominal 1−α" = "dashed")) +
+  labs(x = "α", y = NULL, colour = NULL) +
+  guides(
+    colour = guide_legend(order = 1, nrow = 1, title = NULL),
+    linetype = guide_legend(
+      order = 2, nrow = 1, title = NULL,
+      override.aes = list(
+        colour = "black", linewidth = 0.7,
+        shape = NA, fill = NA
+      ))
+  ) +
+  theme_paper() +
+  theme(
+    strip.placement = "outside",
+    panel.spacing.x = unit(4, "pt"),
+    panel.spacing.y = unit(4, "pt"),
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.direction = "horizontal",
+    legend.margin = margin(t = 0, r = 2, b = 0, l = 2),
+    legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    legend.box.spacing = unit(1, "pt"),
+    legend.spacing.x = unit(8, "pt"),
+    axis.title.x = element_text(margin = margin(t = 1)),
+    # Extra left margin so outside y-strips ("Recall-coverage", …) are not clipped.
+    plot.margin = margin(t = 2, r = 2, b = 0, l = 5)
+  )
+# Previous 4.75×2.64 left a thin 2×3 grid with clipped y-strips and a legend
+# floating in whitespace; raise height and nudge width so panels fill the column.
+save_fig(f6, "figures/F6_bigearthnet_perlabel", w = 5.05, h = 3.70)
 cat("BigEarthNet per-label figure written. Table:\n"); print(df)

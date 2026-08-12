@@ -1,9 +1,13 @@
 # n=13 BEN cross-encoder inversion scatter (FNR shift vs in-distribution mAP).
 # Reads the frozen roster analysis CSV emitted by roster_analysis_2026-07-16
 # (traced to bigearthnet_crc_arm_roster + ben_map_roster). House style: black
-# text labels, colored marks reserved for architecture family; ~8.5pt effective
-# at \includegraphics[width=0.62\linewidth].
+# text labels, colored marks reserved for architecture family.
 # Run: cd manuscripts && Rscript figures/p3_roster_inversion.R
+#
+# Visual-fix pass (2026-08-12): denser mid/right cluster was overlapping at
+# the prior 5.22x3.55in / size=3.5 layout. Larger device, smaller labels,
+# Spearman as caption (no banner collision), and fixed geom_text + geom_segment
+# anchors so leaders do not cross in the mid/right pack.
 source("figures/ggtheme.R")
 suppressPackageStartupMessages(library(ggplot2))
 CSV <- Sys.getenv("ROSTER_CSV", "figures/roster_inversion_n13.csv")
@@ -17,61 +21,76 @@ d$roster <- ifelse(d$in_n5 == "yes", "original 5", "added (roster)")
 d$roster <- factor(d$roster, levels = c("original 5", "added (roster)"))
 d$arch   <- factor(d$arch, levels = c("ViT", "CNN"))
 
-# SSL4EO-DINO sits within 0.0015 fnr of the OLS line (of a ~0.10 y-range), so
-# auto-repel places its label directly across the dashed line regardless of
-# seed. Route it through a separate repel layer nudged straight up, clear of
-# the line and of the SoftCon-ViT-S label above it (2026-07-16 visual-fix pass).
-#
-# Typesetter note (2026-07-16 reader pass): the mid-mAP cluster around
-# SoftCon-ViT-B / CROMA-L / SSL4EO-MAE (mAP ~0.52-0.55, fnr_sh ~0.17-0.19) is
-# the densest group of points in the plot. Each gets its own single-point
-# repel layer with a distinct fixed nudge (a different clock position) so
-# their leader lines fan out instead of stacking on top of each other.
-manual_nudges <- list(
-  "SSL4EO-DINO"   = list(nudge_x =  0.004, nudge_y =  0.017, direction = "y"),
-  "SoftCon-ViT-B" = list(nudge_x = -0.016, nudge_y = -0.022, direction = "both"),
-  "CROMA-L"       = list(nudge_x =  0.016, nudge_y =  0.020, direction = "both"),
-  # SSL4EO-MAE and SSL4EO-MAE-L (vit_large_mae) share almost the identical
-  # in-distribution mAP (0.5496 vs 0.5496), so they are pushed to opposite
-  # corners -- MAE down-left, MAE-L up-right -- rather than left to collide.
-  "SSL4EO-MAE"    = list(nudge_x = -0.024, nudge_y = -0.040, direction = "both"),
-  "SSL4EO-MAE-L"  = list(nudge_x =  0.020, nudge_y =  0.018, direction = "both")
+lbl_size <- 2.5
+
+# Absolute label anchors chosen so each leader stays in its own sector of a
+# clock around the mid/right cloud (no X-crossings):
+#   W SoftCon-B | SW SoftCon left-down reserved | S CROMA-L / MAE / MAE-L
+#   SE MAE-L | E MoCo | NE DINO | N CNN pair | NW SoftCon-S | WNW Clay/DOFA
+lab_pos <- data.frame(
+  label = c(
+    "Prithvi", "DOFA", "Clay", "SoftCon-ViT-B", "SoftCon-ViT-S",
+    "CROMA-B", "CROMA-L", "SSL4EO-MAE", "SSL4EO-MAE-L", "SSL4EO-DINO",
+    "SSL4EO-MoCo", "ResNet50-MoCo", "ResNet50-DINO"
+  ),
+  # MAE sits directly above MAE-L, so its leader must go sideways (right),
+  # never straight down through the MAE-L mark. CROMA-L takes the SW sector;
+  # MAE-L takes SE; SoftCon-B takes W/SW.
+  lx = c(
+    0.432, 0.445, 0.488, 0.485, 0.505,
+    0.528, 0.522, 0.575, 0.598, 0.598,
+    0.625, 0.518, 0.588
+  ),
+  ly = c(
+    0.114, 0.188, 0.195, 0.155, 0.238,
+    0.205, 0.122, 0.135, 0.105, 0.218,
+    0.190, 0.258, 0.258
+  ),
+  hjust = c(
+    0.5, 1, 1, 1, 1,
+    1, 1, 0, 0, 0,
+    0, 1, 0
+  ),
+  vjust = c(
+    1, 0, 0, 1, 0,
+    0, 1, 1, 1, 0,
+    0, 0, 0
+  ),
+  stringsAsFactors = FALSE
 )
-crowded <- names(manual_nudges)
-d_auto  <- d[!(d$label %in% crowded), ]
-manual_layers <- lapply(crowded, function(lbl) {
-  cfg <- manual_nudges[[lbl]]
-  ggrepel::geom_text_repel(data = d[d$label == lbl, ], aes(label = label), size = 3.5,
-                           colour = "black", family = PAPER_FONT,
-                           nudge_x = cfg$nudge_x, nudge_y = cfg$nudge_y,
-                           direction = cfg$direction, box.padding = 0.3,
-                           point.padding = 0.25, min.segment.length = 0,
-                           segment.size = 0.3, seed = 7)
-})
+d_lab <- merge(d, lab_pos, by = "label")
+# Stop the leader short of the glyph so ink does not run under the letters.
+shrink <- 0.78
+d_lab$xend <- d_lab$mAP_in + shrink * (d_lab$lx - d_lab$mAP_in)
+d_lab$yend <- d_lab$fnr_sh + shrink * (d_lab$ly - d_lab$fnr_sh)
 
 f <- ggplot(d, aes(mAP_in, fnr_sh)) +
   # No OLS/trend line: the correlation is non-significant (p=0.28, n=13) and a fitted
   # line was judged to visually imply a trend the statistics do not support
   # (fixwave 2026-07-16, tutor review note 2). Points and the reported Spearman rho
   # are the only load-bearing content of this panel.
-  geom_point(aes(colour = arch, shape = roster), size = 3.1) +
-  ggrepel::geom_text_repel(data = d_auto, aes(label = label), size = 3.5,
-                           colour = "black",
-                           family = PAPER_FONT, box.padding = 0.5,
-                           point.padding = 0.3, min.segment.length = 0,
-                           max.overlaps = 20, seed = 7) +
-  manual_layers +
+  geom_segment(data = d_lab,
+               aes(x = mAP_in, y = fnr_sh, xend = xend, yend = yend),
+               colour = "grey50", linewidth = 0.22, lineend = "round") +
+  geom_point(aes(colour = arch, shape = roster), size = 2.6) +
+  geom_text(data = d_lab,
+            aes(x = lx, y = ly, label = label, hjust = hjust, vjust = vjust),
+            size = lbl_size, colour = "black", family = PAPER_FONT) +
   scale_color_paper() +
   scale_shape_manual(values = c("original 5" = 16, "added (roster)" = 17)) +
-  annotate("text", x = min(d$mAP_in), y = max(d$fnr_sh),
-           label = lab_stat, hjust = 0, vjust = 1, size = 3.5,
-           colour = "black", family = PAPER_FONT) +
+  scale_x_continuous(limits = c(0.400, 0.650), expand = expansion(mult = 0)) +
+  scale_y_continuous(limits = c(0.090, 0.275), expand = expansion(mult = 0)) +
   labs(x = "In-distribution mAP",
        y = expression(paste("FNR under shift (CRC, ", alpha, " = 0.05)")),
-       colour = "backbone", shape = "roster") +
+       colour = "backbone", shape = "roster",
+       caption = lab_stat) +
   theme_paper() +
   theme(legend.position = "bottom", legend.box = "horizontal",
-        legend.margin = margin(0, 0, 0, 0))
+        legend.margin = margin(0, 0, 0, 0),
+        plot.caption = element_text(size = 9, colour = "black", hjust = 0,
+                                    family = PAPER_FONT, margin = margin(t = 4)))
 
-save_fig(f, "figures/F7_ben_inversion_n13", w = 5.22, h = 3.55)
+# Larger device than the prior 5.22x3.55in so 13 labels have room at print width
+# 0.82\\linewidth; smaller lbl_size keeps type readable after downscale.
+save_fig(f, "figures/F7_ben_inversion_n13", w = 7.0, h = 5.0)
 cat(sprintf("F7 written. n=%d, Spearman(FNR_sh, mAP) = %+.4f\n", nrow(d), rho))

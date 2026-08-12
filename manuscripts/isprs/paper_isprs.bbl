@@ -1,0 +1,675 @@
+\begin{thebibliography}{78}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Al-Emadi et~al.(2025)Al-Emadi, Yang, and Ofli]{alemadi2025dsgr}
+Sara~A. Al-Emadi, Yin Yang, and Ferda Ofli.
+\newblock Analysing satellite imagery classification under spatial domain shift
+  across geographic regions.
+\newblock \emph{International Journal of Computer Vision}, 2025.
+\newblock \doi{10.1007/s11263-025-02518-z}.
+
+\bibitem[Angelopoulos and Bates(2023)]{angelopoulos2023conformal}
+Anastasios~N. Angelopoulos and Stephen Bates.
+\newblock Conformal prediction: A gentle introduction.
+\newblock \emph{Foundations and Trends in Machine Learning}, 16\penalty0
+  (4):\penalty0 494--591, 2023.
+\newblock \doi{10.1561/2200000101}.
+
+\bibitem[Angelopoulos et~al.(2021)Angelopoulos, Bates, Malik, and
+  Jordan]{angelopoulos2021sets}
+Anastasios~N. Angelopoulos, Stephen Bates, Jitendra Malik, and Michael~I.
+  Jordan.
+\newblock Uncertainty sets for image classifiers using conformal prediction.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2021.
+\newblock arXiv:2009.14193.
+
+\bibitem[Angelopoulos et~al.(2024)Angelopoulos, Bates, Fisch, Lei, and
+  Schuster]{angelopoulos2024crc}
+Anastasios~N. Angelopoulos, Stephen Bates, Adam Fisch, Lihua Lei, and Tal
+  Schuster.
+\newblock Conformal risk control.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2208.02814.
+
+\bibitem[Aolaritei et~al.(2025)Aolaritei, Wang, Zhu, Jordan, and
+  Marzouk]{aolaritei2025levyprokhorov}
+Liviu Aolaritei, Zheyu~Oliver Wang, Julie Zhu, Michael~I. Jordan, and Youssef
+  Marzouk.
+\newblock Conformal prediction under {L\'{e}vy}--{Prokhorov} distribution
+  shifts: Robustness to local and global perturbations.
+\newblock \emph{arXiv preprint arXiv:2502.14105}, 2025.
+
+\bibitem[Astruc et~al.(2025)Astruc, Gonthier, Mallet, and
+  Landrieu]{astruc2025anysat}
+Guillaume Astruc, Nicolas Gonthier, Clement Mallet, and Loic Landrieu.
+\newblock {AnySat}: One {Earth} observation model for many resolutions, scales,
+  and modalities.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2025.
+\newblock arXiv:2412.14123.
+
+\bibitem[Barber et~al.(2023)Barber, Cand{\`e}s, Ramdas, and
+  Tibshirani]{barber2023conformal}
+Rina~Foygel Barber, Emmanuel~J. Cand{\`e}s, Aaditya Ramdas, and Ryan~J.
+  Tibshirani.
+\newblock Conformal prediction beyond exchangeability.
+\newblock \emph{Annals of Statistics}, 51\penalty0 (2):\penalty0 816--845,
+  2023.
+\newblock \doi{10.1214/23-AOS2276}.
+
+\bibitem[Bastani et~al.(2023)Bastani, Wolters, Gupta, Ferdinando, and
+  Kembhavi]{bastani2023satlas}
+Favyen Bastani, Piper Wolters, Ritwik Gupta, Joe Ferdinando, and Aniruddha
+  Kembhavi.
+\newblock {SatlasPretrain}: A large-scale dataset for remote sensing image
+  understanding.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pages 16772--16782, 2023.
+
+\bibitem[Bates et~al.(2021)Bates, Angelopoulos, Lei, Malik, and
+  Jordan]{bates2021distributionfree}
+Stephen Bates, Anastasios Angelopoulos, Lihua Lei, Jitendra Malik, and
+  Michael~I. Jordan.
+\newblock Distribution-free, risk-controlling prediction sets.
+\newblock \emph{Journal of the ACM}, 68\penalty0 (6), 2021.
+\newblock \doi{10.1145/3478535}.
+\newblock arXiv:2101.02703.
+
+\bibitem[Braham et~al.(2024)Braham, Albrecht, Mairal, Chanussot, Wang, and
+  Zhu]{braham2024spectralearth}
+Nassim Ait~Ali Braham, Conrad~M. Albrecht, Julien Mairal, Jocelyn Chanussot,
+  Yi~Wang, and Xiao~Xiang Zhu.
+\newblock {SpectralEarth}: Training hyperspectral foundation models at scale,
+  2024.
+\newblock arXiv:2408.08447.
+
+\bibitem[Brown et~al.(2022)Brown, Brumby, Guzder-Williams, Birch, Hyde,
+  Mazzariello, Czerwinski, Pasquarella, Haugland, Olsson,
+  et~al.]{brown2022dynamicworld}
+Christopher~F. Brown, Steven~P. Brumby, Brook Guzder-Williams, Tanya Birch,
+  Samantha~Brooks Hyde, Joseph Mazzariello, Wanda Czerwinski, Valerie~J.
+  Pasquarella, Robert Haugland, Nataniel Olsson, et~al.
+\newblock Dynamic world, near real-time global 10\,m land use land cover
+  mapping.
+\newblock \emph{Scientific Data}, 9:\penalty0 251, 2022.
+\newblock \doi{10.1038/s41597-022-01307-4}.
+
+\bibitem[Cauchois et~al.(2021)Cauchois, Gupta, and Duchi]{cauchois2021knowing}
+Maxime Cauchois, Suyash Gupta, and John~C. Duchi.
+\newblock Knowing what you know: Valid and validated confidence sets in
+  multiclass and multilabel prediction.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0
+  (81):\penalty0 1--42, 2021.
+
+\bibitem[Christie et~al.(2018)Christie, Fendley, Wilson, and
+  Mukherjee]{christie2018fmow}
+Gordon Christie, Neil Fendley, James Wilson, and Ryan Mukherjee.
+\newblock Functional map of the world.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, pages 6172--6180, 2018.
+\newblock arXiv:1711.07846.
+
+\bibitem[{Clay Foundation}(2024)]{clay2024model}
+{Clay Foundation}.
+\newblock Clay foundation model v1.5.
+\newblock Open model weights and documentation,
+  \url{https://clay-foundation.github.io/model/}, 2024.
+
+\bibitem[Cohrs et~al.(2025)Cohrs, Osika, Gonzalez-Calabuig, Nedungadi,
+  Cartuyvels, Knoblauch, Massant, Nath, Ebel, and
+  Sitokonstantinou]{cohrs2025shrugfm}
+Kai-Hendrik Cohrs, Zuzanna Osika, Maria Gonzalez-Calabuig, Vishal Nedungadi,
+  Ruben Cartuyvels, Steffen Knoblauch, Joppe Massant, Shruti Nath, Patrick
+  Ebel, and Vasileios Sitokonstantinou.
+\newblock {SHRUG-FM}: Reliability-aware foundation models for {Earth}
+  observation, 2025.
+\newblock arXiv:2511.10370.
+
+\bibitem[Cong et~al.(2022)Cong, Khanna, Meng, Liu, Rozi, He, Burke, Lobell, and
+  Ermon]{cong2022satmae}
+Yezhen Cong, Samar Khanna, Chenlin Meng, Patrick Liu, Erik Rozi, Yutong He,
+  Marshall Burke, David~B. Lobell, and Stefano Ermon.
+\newblock {SatMAE}: Pre-training transformers for temporal and multi-spectral
+  satellite imagery.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
+\newblock arXiv:2207.08051.
+
+\bibitem[Crasto and Rolf(2025)]{crasto2025geoshift}
+Ruth Crasto and Esther Rolf.
+\newblock Latent domain modeling improves robustness to geographic shifts,
+  2025.
+\newblock arXiv:2503.02036.
+
+\bibitem[Danish et~al.(2025)Danish, Munir, Shah, Khan, Anwer, Laaksonen, Khan,
+  and Khan]{danish2025terrafm}
+Muhammad~Sohail Danish, Muhammad~Akhtar Munir, Syed Roshaan~Ali Shah,
+  Muhammad~Haris Khan, Rao~Muhammad Anwer, Jorma Laaksonen, Fahad~Shahbaz Khan,
+  and Salman Khan.
+\newblock {TerraFM}: A scalable foundation model for unified multisensor
+  {Earth} observation, 2025.
+\newblock arXiv:2506.06281.
+
+\bibitem[Doerksen and Kerner(2026)]{doerksen2026earthshift}
+Kelsey Doerksen and Hannah Kerner.
+\newblock {EarthShift}: A benchmark for measuring robustness to real-world
+  distribution shifts in {Earth} observation, 2026.
+\newblock arXiv:2605.29330.
+
+\bibitem[Fillioux et~al.(2024)Fillioux, Silva-Rodr\'{i}guez, Ben~Ayed,
+  Courn\`{e}de, Vakalopoulou, Christodoulidis, and
+  Dolz]{fillioux2024fmconformal}
+Leo Fillioux, Julio Silva-Rodr\'{i}guez, Ismail Ben~Ayed, Paul-Henry
+  Courn\`{e}de, Maria Vakalopoulou, Stergios Christodoulidis, and Jose Dolz.
+\newblock Are foundation models for computer vision good conformal predictors?
+\newblock \emph{arXiv preprint arXiv:2412.06082}, 2024.
+
+\bibitem[Fuller et~al.(2023)Fuller, Millard, and Green]{fuller2023croma}
+Anthony Fuller, Koreen Millard, and James~R. Green.
+\newblock {CROMA}: Remote sensing representations with contrastive
+  radar-optical masked autoencoders.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~36, 2023.
+\newblock arXiv:2311.00566.
+
+\bibitem[Gawlikowski et~al.(2023)Gawlikowski, Tassi, Ali, Lee, Humt, Feng,
+  Kruspe, Triebel, Jung, Roscher, Shahzad, Yang, Bamler, and
+  Zhu]{gawlikowski2023survey}
+Jakob Gawlikowski, Cedrique Rovile~Njieutcheu Tassi, Mohsin Ali, Jongseok Lee,
+  Matthias Humt, Jianxiang Feng, Anna Kruspe, Rudolph Triebel, Peter Jung,
+  Ribana Roscher, Muhammad Shahzad, Wen Yang, Richard Bamler, and Xiao~Xiang
+  Zhu.
+\newblock A survey of uncertainty in deep neural networks.
+\newblock \emph{Artificial Intelligence Review}, 56:\penalty0 1513--1589, 2023.
+\newblock \doi{10.1007/s10462-023-10562-9}.
+\newblock arXiv:2107.03342.
+
+\bibitem[Ghamisi et~al.(2025)Ghamisi, Yu, Zhang, Rizaldy, Wang, Zhou, Gloaguen,
+  and Camps-Valls]{ghamisi2025sustainfm}
+Pedram Ghamisi, Weikang Yu, Xiaokang Zhang, Aldino Rizaldy, Jian Wang, Chufeng
+  Zhou, Richard Gloaguen, and Gustau Camps-Valls.
+\newblock Geospatial foundation models to enable progress on sustainable
+  development goals.
+\newblock \emph{arXiv preprint arXiv:2505.24528}, 2025.
+\newblock arXiv:2505.24528.
+
+\bibitem[Gibbs and Cand{\`e}s(2021)]{gibbs2021adaptive}
+Isaac Gibbs and Emmanuel~J. Cand{\`e}s.
+\newblock Adaptive conformal inference under distribution shift.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~34, 2021.
+\newblock arXiv:2106.00170.
+
+\bibitem[Gibbs and Cand{\`e}s(2024)]{gibbs2024online}
+Isaac Gibbs and Emmanuel~J. Cand{\`e}s.
+\newblock Conformal inference for online prediction with arbitrary distribution
+  shifts.
+\newblock \emph{Journal of Machine Learning Research}, 25\penalty0
+  (162):\penalty0 1--36, 2024.
+
+\bibitem[Guo et~al.(2017)Guo, Pleiss, Sun, and Weinberger]{guo2017calibration}
+Chuan Guo, Geoff Pleiss, Yu~Sun, and Kilian~Q. Weinberger.
+\newblock On calibration of modern neural networks.
+\newblock In \emph{Proceedings of the 34th International Conference on Machine
+  Learning (ICML)}, volume~70 of \emph{Proceedings of Machine Learning
+  Research}, pages 1321--1330, 2017.
+
+\bibitem[Guo et~al.(2024)Guo, Lao, Dang, Zhang, Yu, Ru, Zhong, Huang, Wu, Hu,
+  He, Wang, Chen, Yang, Zhang, and Li]{guo2024skysense}
+Xin Guo, Jiangwei Lao, Bo~Dang, Yingying Zhang, Lei Yu, Lixiang Ru, Liheng
+  Zhong, Ziyuan Huang, Kang Wu, Dingxiang Hu, Huimei He, Jian Wang, Jingdong
+  Chen, Ming Yang, Yongjun Zhang, and Yansheng Li.
+\newblock {SkySense}: A multi-modal remote sensing foundation model towards
+  universal interpretation for {Earth} observation imagery.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2024.
+\newblock arXiv:2312.10115.
+
+\bibitem[Helber et~al.(2019)Helber, Bischke, Dengel, and
+  Borth]{helber2019eurosat}
+Patrick Helber, Benjamin Bischke, Andreas Dengel, and Damian Borth.
+\newblock {EuroSAT}: A novel dataset and deep learning benchmark for land use
+  and land cover classification.
+\newblock \emph{IEEE Journal of Selected Topics in Applied Earth Observations
+  and Remote Sensing}, 12\penalty0 (7):\penalty0 2217--2226, 2019.
+\newblock \doi{10.1109/JSTARS.2019.2918242}.
+
+\bibitem[Hong et~al.(2023)Hong, Zhang, Li, Li, Yao, Li, Werner, Chanussot,
+  Zipf, and Zhu]{hong2023crosscity}
+Danfeng Hong, Bing Zhang, Hao Li, Yuxuan Li, Jing Yao, Chenyu Li, Martin
+  Werner, Jocelyn Chanussot, Alexander Zipf, and Xiao~Xiang Zhu.
+\newblock Cross-city matters: A multimodal remote sensing benchmark dataset for
+  cross-city semantic segmentation using high-resolution domain adaptation
+  networks.
+\newblock \emph{Remote Sensing of Environment}, 299:\penalty0 113856, 2023.
+\newblock \doi{10.1016/j.rse.2023.113856}.
+
+\bibitem[Hong et~al.(2024)Hong, Zhang, Li, Li, Li, Yao, Yokoya, Li, Ghamisi,
+  Jia, Plaza, Gamba, Benediktsson, and Chanussot]{hong2024spectralgpt}
+Danfeng Hong, Bing Zhang, Xuyang Li, Yuxuan Li, Chenyu Li, Jing Yao, Naoto
+  Yokoya, Hao Li, Pedram Ghamisi, Xiuping Jia, Antonio Plaza, Paolo Gamba,
+  Jon~Atli Benediktsson, and Jocelyn Chanussot.
+\newblock {SpectralGPT}: Spectral remote sensing foundation model.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 46\penalty0 (8):\penalty0 5227--5244, 2024.
+\newblock \doi{10.1109/TPAMI.2024.3362475}.
+
+\bibitem[Huo et~al.(2025)Huo, Chen, Zhang, Wang, Yan, Shen, Hong, Qi, Fang, and
+  Wang]{huo2025whenrs}
+Chunlei Huo, Keming Chen, Shuaihao Zhang, Zeyu Wang, Heyu Yan, Jing Shen,
+  Yuyang Hong, Geqi Qi, Hongmei Fang, and Zihan Wang.
+\newblock When remote sensing meets foundation model: A survey and beyond.
+\newblock \emph{Remote Sensing}, 17\penalty0 (2):\penalty0 179, 2025.
+\newblock \doi{10.3390/rs17020179}.
+
+\bibitem[Jakubik et~al.(2023)Jakubik, Roy, Phillips, Fraccaro, Godwin,
+  Zadrozny, et~al.]{jakubik2023prithvi}
+Johannes Jakubik, Sujit Roy, C.~E. Phillips, Paolo Fraccaro, Denys Godwin,
+  Bianca Zadrozny, et~al.
+\newblock Foundation models for generalist geospatial artificial intelligence,
+  2023.
+\newblock arXiv:2310.18660.
+
+\bibitem[Jean et~al.(2016)Jean, Burke, Xie, Davis, Lobell, and
+  Ermon]{jean2016combining}
+Neal Jean, Marshall Burke, Michael Xie, W.~Matthew Davis, David~B. Lobell, and
+  Stefano Ermon.
+\newblock Combining satellite imagery and machine learning to predict poverty.
+\newblock \emph{Science}, 353\penalty0 (6301):\penalty0 790--794, 2016.
+\newblock \doi{10.1126/science.aaf7894}.
+
+\bibitem[Kakhani et~al.(2024)Kakhani, Alamdar, Kebonye, Amani, and
+  Scholten]{kakhani2024socconformal}
+Nafiseh Kakhani, Setareh Alamdar, Ndiye~Michael Kebonye, Meisam Amani, and
+  Thomas Scholten.
+\newblock Uncertainty quantification of soil organic carbon estimation from
+  remote sensing data with conformal prediction.
+\newblock \emph{Remote Sensing}, 16\penalty0 (3):\penalty0 438, 2024.
+\newblock \doi{10.3390/rs16030438}.
+
+\bibitem[Koh et~al.(2021)Koh, Sagawa, Marklund, Xie, Zhang, Balsubramani, Hu,
+  Yasunaga, Phillips, Gao, Lee, David, Stavness, Guo, Earnshaw, Haque, Beery,
+  Leskovec, Kundaje, Pierson, Levine, Finn, and Liang]{koh2021wilds}
+Pang~Wei Koh, Shiori Sagawa, Henrik Marklund, Sang~Michael Xie, Marvin Zhang,
+  Akshay Balsubramani, Weihua Hu, Michihiro Yasunaga, Richard~Lanas Phillips,
+  Irena Gao, Tony Lee, Etienne David, Ian Stavness, Wei Guo, Berton~A.
+  Earnshaw, Imran~S. Haque, Sara Beery, Jure Leskovec, Anshul Kundaje, Emma
+  Pierson, Sergey Levine, Chelsea Finn, and Percy Liang.
+\newblock {WILDS}: A benchmark of in-the-wild distribution shifts.
+\newblock In \emph{Proceedings of the 38th International Conference on Machine
+  Learning (ICML)}, volume 139 of \emph{Proceedings of Machine Learning
+  Research}, pages 5637--5664, 2021.
+
+\bibitem[Kumar et~al.(2019)Kumar, Liang, and Ma]{kumar2019verified}
+Ananya Kumar, Percy Liang, and Tengyu Ma.
+\newblock Verified uncertainty calibration.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~32, 2019.
+\newblock arXiv:1909.10155.
+
+\bibitem[Lacoste et~al.(2023)Lacoste, Lehmann, Rodriguez, Sherwin, Kerner,
+  L{\"u}tjens, et~al.]{lacoste2023geobench}
+Alexandre Lacoste, Nils Lehmann, Pau Rodriguez, Evan~D. Sherwin, Hannah Kerner,
+  Bj{\"o}rn L{\"u}tjens, et~al.
+\newblock {GEO-Bench}: Toward foundation models for {Earth} monitoring.
+\newblock In \emph{Advances in Neural Information Processing Systems (Datasets
+  and Benchmarks)}, volume~36, 2023.
+
+\bibitem[Lei et~al.(2018)Lei, G'Sell, Rinaldo, Tibshirani, and
+  Wasserman]{lei2018distributionfree}
+Jing Lei, Max G'Sell, Alessandro Rinaldo, Ryan~J. Tibshirani, and Larry
+  Wasserman.
+\newblock Distribution-free predictive inference for regression.
+\newblock \emph{Journal of the American Statistical Association}, 113\penalty0
+  (523):\penalty0 1094--1111, 2018.
+\newblock \doi{10.1080/01621459.2017.1307116}.
+
+\bibitem[Lipton et~al.(2018)Lipton, Wang, and Smola]{lipton2018bbse}
+Zachary~C. Lipton, Yu-Xiang Wang, and Alexander Smola.
+\newblock Detecting and correcting for label shift with black box predictors.
+\newblock In \emph{Proc. 35th Int. Conf. Machine Learning (ICML)}, 2018.
+\newblock arXiv:1802.03916.
+
+\bibitem[Liu et~al.(2024)Liu, Chen, Guan, Zhou, Zhu, Ye, Fu, and
+  Zhou]{liu2024remoteclip}
+Fan Liu, Delong Chen, Zhangqingyun Guan, Xiaocong Zhou, Jiale Zhu, Qiaolin Ye,
+  Liyong Fu, and Jun Zhou.
+\newblock {RemoteCLIP}: A vision language foundation model for remote sensing.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  62:\penalty0 1--16, 2024.
+\newblock \doi{10.1109/TGRS.2024.3390838}.
+\newblock arXiv:2306.11029.
+
+\bibitem[Lou et~al.(2025)Lou, Luo, and Meng]{lou2024geoconformal}
+Xiayin Lou, Peng Luo, and Liqiu Meng.
+\newblock {GeoConformal} prediction: A model-agnostic framework for measuring
+  the uncertainty of spatial prediction.
+\newblock \emph{Annals of the American Association of Geographers},
+  115\penalty0 (8):\penalty0 1971--1998, 2025.
+\newblock \doi{10.1080/24694452.2025.2516091}.
+\newblock originally released as arXiv:2412.08661 (2024).
+
+\bibitem[Lu et~al.(2025)Lu, Guo, Zimmer-Dauphinee, Nieusma, Wang,
+  VanValkenburgh, Wernke, and Huo]{lu2025visionfm}
+Siqi Lu, Junlin Guo, James Zimmer-Dauphinee, Jordan~M. Nieusma, Xiao Wang,
+  Parker VanValkenburgh, Steven~A. Wernke, and Yuankai Huo.
+\newblock Vision foundation models in remote sensing: A survey.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 13\penalty0 (3),
+  2025.
+\newblock arXiv:2408.03464.
+
+\bibitem[Ma{\~n}as et~al.(2021)Ma{\~n}as, Lacoste, Giro-i Nieto, Vazquez, and
+  Rodriguez]{manas2021seasonal}
+Oscar Ma{\~n}as, Alexandre Lacoste, Xavier Giro-i Nieto, David Vazquez, and Pau
+  Rodriguez.
+\newblock Seasonal contrast: Unsupervised pre-training from uncurated remote
+  sensing data.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2021.
+\newblock arXiv:2103.16607.
+
+\bibitem[Mao et~al.(2024)Mao, Martin, and Reich]{mao2024spatial}
+Huiying Mao, Ryan Martin, and Brian~J. Reich.
+\newblock Valid model-free spatial prediction.
+\newblock \emph{Journal of the American Statistical Association}, 119\penalty0
+  (546):\penalty0 904--914, 2024.
+\newblock \doi{10.1080/01621459.2022.2147531}.
+\newblock arXiv:2006.15640.
+
+\bibitem[Mendieta et~al.(2023)Mendieta, Han, Shi, Zhu, and
+  Chen]{mendieta2023gfm}
+Matias Mendieta, Boran Han, Xingjian Shi, Yi~Zhu, and Chen Chen.
+\newblock Towards geospatial foundation models via continual pretraining.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2023.
+\newblock arXiv:2302.04476.
+
+\bibitem[Meyer and Pebesma(2021)]{meyer2021aoa}
+Hanna Meyer and Edzer Pebesma.
+\newblock Predicting into unknown space? estimating the area of applicability
+  of spatial prediction models.
+\newblock \emph{Methods in Ecology and Evolution}, 12\penalty0 (9):\penalty0
+  1620--1633, 2021.
+\newblock \doi{10.1111/2041-210X.13650}.
+
+\bibitem[Minderer et~al.(2021)Minderer, Djolonga, Romijnders, Hubis, Zhai,
+  Houlsby, Tran, and Lucic]{minderer2021revisiting}
+Matthias Minderer, Josip Djolonga, Rob Romijnders, Frances Hubis, Xiaohua Zhai,
+  Neil Houlsby, Dustin Tran, and Mario Lucic.
+\newblock Revisiting the calibration of modern neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~34, 2021.
+\newblock arXiv:2106.07998.
+
+\bibitem[Mukhoti et~al.(2020)Mukhoti, Kulharia, Sanyal, Golodetz, Torr, and
+  Dokania]{mukhoti2020calibrating}
+Jishnu Mukhoti, Viveka Kulharia, Amartya Sanyal, Stuart Golodetz, Philip H.~S.
+  Torr, and Puneet~K. Dokania.
+\newblock Calibrating deep neural networks using focal loss.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, 2020.
+\newblock arXiv:2002.09437.
+
+\bibitem[Nixon et~al.(2019)Nixon, Dusenberry, Zhang, Jerfel, and
+  Tran]{nixon2019measuring}
+Jeremy Nixon, Michael~W. Dusenberry, Linchuan Zhang, Ghassen Jerfel, and Dustin
+  Tran.
+\newblock Measuring calibration in deep learning.
+\newblock \emph{arXiv preprint arXiv:1904.01685}, 2019.
+\newblock CVPR 2019 Workshop on Uncertainty and Robustness in Deep Visual
+  Learning.
+
+\bibitem[Ovadia et~al.(2019)Ovadia, Fertig, Ren, Nado, Sculley, Nowozin,
+  Dillon, Lakshminarayanan, and Snoek]{ovadia2019uncertainty}
+Yaniv Ovadia, Emily Fertig, Jie Ren, Zachary Nado, D.~Sculley, Sebastian
+  Nowozin, Joshua Dillon, Balaji Lakshminarayanan, and Jasper Snoek.
+\newblock Can you trust your model's uncertainty? evaluating predictive
+  uncertainty under dataset shift.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~32, 2019.
+\newblock arXiv:1906.02530.
+
+\bibitem[Podkopaev and Ramdas(2021)]{podkopaev2021labelshift}
+Aleksandr Podkopaev and Aaditya Ramdas.
+\newblock Distribution-free uncertainty quantification for classification under
+  label shift.
+\newblock In \emph{Proc. 37th Conf. Uncertainty in Artificial Intelligence
+  (UAI)}, pages 844--853, 2021.
+\newblock arXiv:2007.08107.
+
+\bibitem[Reed et~al.(2023)Reed, Gupta, Li, Brockman, Funk, Clipp, Keutzer,
+  Candido, Uyttendaele, and Darrell]{reed2023scalemae}
+Colorado~J. Reed, Ritwik Gupta, Shufan Li, Sarah Brockman, Christopher Funk,
+  Brian Clipp, Kurt Keutzer, Salvatore Candido, Matt Uyttendaele, and Trevor
+  Darrell.
+\newblock {Scale-MAE}: A scale-aware masked autoencoder for multiscale
+  geospatial representation learning.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2023.
+\newblock arXiv:2212.14532.
+
+\bibitem[Rolf et~al.(2021)Rolf, Proctor, Carleton, Bolliger, Shankar, Ishihara,
+  Recht, and Hsiang]{rolf2021mosaiks}
+Esther Rolf, Jonathan Proctor, Tamma Carleton, Ian Bolliger, Vaishaal Shankar,
+  Miyabi Ishihara, Benjamin Recht, and Solomon Hsiang.
+\newblock A generalizable and accessible approach to machine learning with
+  global satellite imagery.
+\newblock \emph{Nature Communications}, 12:\penalty0 4392, 2021.
+\newblock \doi{10.1038/s41467-021-24638-z}.
+
+\bibitem[Romano et~al.(2019)Romano, Patterson, and Cand{\`e}s]{romano2019cqr}
+Yaniv Romano, Evan Patterson, and Emmanuel~J. Cand{\`e}s.
+\newblock Conformalized quantile regression.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~32, 2019.
+\newblock arXiv:1905.03222.
+
+\bibitem[Romano et~al.(2020)Romano, Sesia, and
+  Cand{\`e}s]{romano2020classification}
+Yaniv Romano, Matteo Sesia, and Emmanuel Cand{\`e}s.
+\newblock Classification with valid and adaptive coverage.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, pages 3581--3591, 2020.
+
+\bibitem[Sadinle et~al.(2019)Sadinle, Lei, and Wasserman]{sadinle2019lac}
+Mauricio Sadinle, Jing Lei, and Larry Wasserman.
+\newblock Least ambiguous set-valued classifiers with bounded error levels.
+\newblock \emph{Journal of the American Statistical Association}, 114\penalty0
+  (525):\penalty0 223--234, 2019.
+\newblock \doi{10.1080/01621459.2017.1395341}.
+
+\bibitem[Scheibenreif et~al.(2024)Scheibenreif, Mommert, and
+  Borth]{scheibenreif2024domainadapt}
+Linus Scheibenreif, Michael Mommert, and Damian Borth.
+\newblock Parameter efficient self-supervised geospatial domain adaptation.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, pages 27841--27851, 2024.
+
+\bibitem[Shafer and Vovk(2008)]{shafer2008tutorial}
+Glenn Shafer and Vladimir Vovk.
+\newblock A tutorial on conformal prediction.
+\newblock \emph{Journal of Machine Learning Research}, 9:\penalty0 371--421,
+  2008.
+
+\bibitem[Singh et~al.(2024)Singh, Moncrieff, Venter, Cawse-Nicholson, Slingsby,
+  and Robinson]{singh2024uncertainty}
+Geethen Singh, Glenn Moncrieff, Zander Venter, Kerry Cawse-Nicholson, Jasper
+  Slingsby, and Tamara~B. Robinson.
+\newblock Uncertainty quantification for probabilistic machine learning in
+  earth observation using conformal prediction.
+\newblock \emph{Scientific Reports}, 14:\penalty0 16166, 2024.
+\newblock \doi{10.1038/s41598-024-65954-w}.
+
+\bibitem[Stewart et~al.(2023)Stewart, Lehmann, Corley, Wang, Chang, Braham,
+  Sehgal, Robinson, and Banerjee]{stewart2023ssl4eol}
+Adam~J. Stewart, Nils Lehmann, Isaac~A. Corley, Yi~Wang, Yi-Chia Chang, Nassim
+  Ait~Ali Braham, Shradha Sehgal, Caleb Robinson, and Arindam Banerjee.
+\newblock {SSL4EO-L}: Datasets and foundation models for {Landsat} imagery,
+  2023.
+\newblock arXiv:2306.09424.
+
+\bibitem[Sumbul et~al.(2019)Sumbul, Charfuelan, Demir, and
+  Markl]{sumbul2019bigearthnet}
+Gencer Sumbul, Marcela Charfuelan, Beg{\"u}m Demir, and Volker Markl.
+\newblock {BigEarthNet}: A large-scale benchmark archive for remote sensing
+  image understanding.
+\newblock In \emph{IEEE International Geoscience and Remote Sensing Symposium
+  (IGARSS)}, pages 5901--5904, 2019.
+\newblock \doi{10.1109/IGARSS.2019.8900532}.
+\newblock arXiv:1902.06148.
+
+\bibitem[Sun et~al.(2023)Sun, Wang, Lu, Zhu, Lu, He, Li, Rong, Yang, Chang, He,
+  Yang, Wang, Lu, and Fu]{sun2023ringmo}
+Xian Sun, Peijin Wang, Wanxuan Lu, Zicong Zhu, Xiaonan Lu, Qibin He, Junxi Li,
+  Xuee Rong, Zhujun Yang, Hao Chang, Qinglin He, Guang Yang, Ruiping Wang,
+  Jiwen Lu, and Kun Fu.
+\newblock {RingMo}: A remote sensing foundation model with masked image
+  modeling.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  61:\penalty0 1--22, 2023.
+\newblock \doi{10.1109/TGRS.2022.3194732}.
+
+\bibitem[Szwarcman et~al.(2024)Szwarcman, Roy, Fraccaro, G{\'i}slason,
+  Blumenstiel, Ghosal, et~al.]{szwarcman2024prithvi}
+Daniela Szwarcman, Sujit Roy, Paolo Fraccaro, {\TH}orsteinn~El{\'i}
+  G{\'i}slason, Benedikt Blumenstiel, Rinki Ghosal, et~al.
+\newblock {Prithvi-EO-2.0}: A versatile multi-temporal foundation model for
+  {Earth} observation applications, 2024.
+\newblock arXiv:2412.02732.
+
+\bibitem[Tamazyan et~al.(2025)Tamazyan, Vanyan, Barseghyan, Khosrovyan,
+  Shelhamer, and Khachatrian]{tamazyan2025geocrossbench}
+Hakob Tamazyan, Ani Vanyan, Alvard Barseghyan, Anna Khosrovyan, Evan Shelhamer,
+  and Hrant Khachatrian.
+\newblock {GeoCrossBench}: Cross-band generalization for remote sensing, 2025.
+\newblock arXiv:2511.02831.
+
+\bibitem[Tibshirani et~al.(2019)Tibshirani, Barber, Cand{\`e}s, and
+  Ramdas]{tibshirani2019covariate}
+Ryan~J. Tibshirani, Rina~Foygel Barber, Emmanuel~J. Cand{\`e}s, and Aaditya
+  Ramdas.
+\newblock Conformal prediction under covariate shift.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~32, pages 2526--2536, 2019.
+
+\bibitem[Tseng et~al.(2023)Tseng, Cartuyvels, Zvonkov, Purohit, Rolnick, and
+  Kerner]{tseng2023presto}
+Gabriel Tseng, Ruben Cartuyvels, Ivan Zvonkov, Mirali Purohit, David Rolnick,
+  and Hannah Kerner.
+\newblock Lightweight, pre-trained transformers for remote sensing timeseries,
+  2023.
+\newblock arXiv:2304.14065; NeurIPS 2023 Workshop on Tackling Climate Change
+  with Machine Learning.
+
+\bibitem[Tseng et~al.(2025)Tseng, Fuller, Reil, Herzog, Beukema, Bastani,
+  Green, Shelhamer, Kerner, and Rolnick]{tseng2025galileo}
+Gabriel Tseng, Anthony Fuller, Marlena Reil, Henry Herzog, Patrick Beukema,
+  Favyen Bastani, James~R. Green, Evan Shelhamer, Hannah Kerner, and David
+  Rolnick.
+\newblock {Galileo}: Learning global \& local features of many remote sensing
+  modalities.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2025.
+\newblock arXiv:2502.09356.
+
+\bibitem[Tuia et~al.(2016)Tuia, Persello, and Bruzzone]{tuia2016domain}
+Devis Tuia, Claudio Persello, and Lorenzo Bruzzone.
+\newblock Domain adaptation for the classification of remote sensing data: An
+  overview of recent advances.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 4\penalty0
+  (2):\penalty0 41--57, 2016.
+\newblock \doi{10.1109/MGRS.2016.2548504}.
+
+\bibitem[Vovk et~al.(2003)Vovk, Lindsay, Nouretdinov, and
+  Gammerman]{vovk2003mondrian}
+Vladimir Vovk, David Lindsay, Ilia Nouretdinov, and Alex Gammerman.
+\newblock Mondrian confidence machine.
+\newblock Technical Report Working Paper 4, On-line Compression Modelling
+  Project, Royal Holloway University of London, 2003.
+
+\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{vovk2005algorithmic}
+Vladimir Vovk, Alexander Gammerman, and Glenn Shafer.
+\newblock \emph{Algorithmic Learning in a Random World}.
+\newblock Springer, New York, 2005.
+\newblock \doi{10.1007/b106715}.
+
+\bibitem[Wang et~al.(2023)Wang, Braham, Xiong, Liu, Albrecht, and
+  Zhu]{wang2023ssl4eo}
+Yi~Wang, Nassim Ait~Ali Braham, Zhitong Xiong, Chenying Liu, Conrad~M.
+  Albrecht, and Xiao~Xiang Zhu.
+\newblock {SSL4EO-S12}: A large-scale multimodal, multitemporal dataset for
+  self-supervised learning in {Earth} observation.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 11\penalty0
+  (3):\penalty0 98--106, 2023.
+\newblock \doi{10.1109/MGRS.2023.3281651}.
+
+\bibitem[Wang et~al.(2024)Wang, Albrecht, and Zhu]{wang2024softcon}
+Yi~Wang, Conrad~M. Albrecht, and Xiao~Xiang Zhu.
+\newblock Multi-label guided soft contrastive learning for efficient earth
+  observation pretraining.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing}, 62, 2024.
+\newblock arXiv:2405.20462; IEEE TGRS (in press / early access at citation
+  time).
+
+\bibitem[Xiao et~al.(2025)Xiao, Xuan, Wang, Huang, Tao, Lu, and
+  Yokoya]{xiao2025rsfm}
+Aoran Xiao, Weihao Xuan, Junjue Wang, Jiaxing Huang, Dacheng Tao, Shijian Lu,
+  and Naoto Yokoya.
+\newblock Foundation models for remote sensing and {Earth} observation: A
+  survey.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 2025.
+\newblock arXiv:2410.16602; accepted to IEEE GRSM.
+
+\bibitem[Xiong et~al.(2024)Xiong, Wang, Zhang, Stewart, Hanna, Borth,
+  Papoutsis, Le~Saux, Camps-Valls, and Zhu]{xiong2024dofa}
+Zhitong Xiong, Yi~Wang, Fahong Zhang, Adam~J. Stewart, Jo{\"e}lle Hanna, Damian
+  Borth, Ioannis Papoutsis, Bertrand Le~Saux, Gustau Camps-Valls, and
+  Xiao~Xiang Zhu.
+\newblock Neural plasticity-inspired multimodal foundation model for {Earth}
+  observation ({DOFA}), 2024.
+\newblock arXiv:2403.15356.
+
+\bibitem[Yang et~al.(2025)Yang, Chen, Yue, Liu, Ma, Ghamisi, Plaza, and
+  Fang]{yang2025multimodalgfm}
+Liling Yang, Ning Chen, Jun Yue, Yidan Liu, Jiayi Ma, Pedram Ghamisi, Antonio
+  Plaza, and Leyuan Fang.
+\newblock Survey of multimodal geospatial foundation models: Techniques,
+  applications, and challenges, 2025.
+\newblock arXiv:2510.22964.
+
+\bibitem[Zhou et~al.(2026)Zhou, Fathony, Nguyen, and Sesia]{zhou2026acp}
+Yanfei Zhou, Rizal Fathony, Nam~H. Nguyen, and Matteo Sesia.
+\newblock Audited conformal prediction for classification under unknown
+  distribution shift.
+\newblock \emph{arXiv preprint arXiv:2606.14909}, 2026.
+\newblock arXiv:2606.14909.
+
+\bibitem[Zhu et~al.(2017)Zhu, Tuia, Mou, Xia, Zhang, Xu, and
+  Fraundorfer]{zhu2017deep}
+Xiao~Xiang Zhu, Devis Tuia, Lichao Mou, Gui-Song Xia, Liangpei Zhang, Feng Xu,
+  and Friedrich Fraundorfer.
+\newblock Deep learning in remote sensing: A comprehensive review and list of
+  resources.
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 5\penalty0
+  (4):\penalty0 8--36, 2017.
+\newblock \doi{10.1109/MGRS.2017.2762307}.
+
+\bibitem[Zhu et~al.(2020)Zhu, Hu, Qiu, Shi, Kang, Mou, Bagheri, H{\"a}berle,
+  Hua, Huang, Hughes, Li, Sun, Zhang, Han, Schmitt, and Wang]{zhu2020so2sat}
+Xiao~Xiang Zhu, Jingliang Hu, Chunping Qiu, Yilei Shi, Jian Kang, Lichao Mou,
+  Hossein Bagheri, Matthias H{\"a}berle, Yuansheng Hua, Rong Huang, Lloyd
+  Hughes, Hao Li, Yao Sun, Guichen Zhang, Shiyao Han, Michael Schmitt, and
+  Yuanyuan Wang.
+\newblock {So2Sat} {LCZ42}: A benchmark data set for the classification of
+  global local climate zones [software and data sets].
+\newblock \emph{IEEE Geoscience and Remote Sensing Magazine}, 8\penalty0
+  (3):\penalty0 76--89, 2020.
+\newblock \doi{10.1109/MGRS.2020.2964708}.
+\newblock arXiv:1912.12171.
+
+\end{thebibliography}
