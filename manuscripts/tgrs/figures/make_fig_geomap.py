@@ -123,6 +123,7 @@ def _tag(ax, letter: str):
     """Panel letter outside the drawing area: above-left of top-left spine."""
     # Axes-fraction offsets place the glyph in the reserved figure margin
     # (cf. ggtheme paper_tag_theme plot.tag.location = "margin").
+    letter = str(letter).upper()
     ax.text(
         -0.14,
         1.14,
