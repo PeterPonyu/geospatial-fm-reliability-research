@@ -229,8 +229,8 @@ armsls <- read_arms(LSHIFT,
 #   A — mean shift ECE vs #α restored; colour+legend only (no on-point names)
 #   B — shifted top-1 accuracy vs α
 #   C — boundary-sweep #α restored vs cut (battery encoders; DOFA unused)
-#   D — So2Sat split vs target-global in ONE panel (colour=encoder, shape=arm)
-# One shared encoder colour legend; D adds a small shape/linetype arm legend.
+#   D — So2Sat split vs target-global facets (colour=encoder)
+# One shared A–D encoder colour legend under the grid (no nominal/α legend box).
 # ---------------------------------------------------------------------------
 if (do_fig("F1")) {
 # Debt-ordered short labels for A (left→right = low→high ECE)
@@ -279,6 +279,9 @@ f1c <- ggplot(nres, aes(boundary, n_restored, colour = fm, group = fm)) +
 prov("F1-C", BSWEEP, nres, "fm")
 
 # F1-D: So2Sat — two arm facets (readable); encoder colour matches A–C.
+# Nominal 1−α: one dashed segment per α×facet (F5/F6 style). Do NOT use
+# geom_point(shape=95) — those short bars read as error-bar caps and vanish
+# under target-global points that sit on the nominal.
 s2m <- rbind(
   data.frame(fm = s2df$fm, alpha = s2df$alpha, nominal = s2df$nominal,
              arm = "split (source)", coverage = s2df$split_cov,
@@ -290,14 +293,25 @@ s2m$arm <- factor(s2m$arm, levels = c("split (source)", "target-global"))
 s2m$fm <- factor(shorten_fm(s2m$fm), levels = levels(deb_a$fm))
 s2m$alpha_x <- factor(sprintf("%.2f", s2m$alpha),
                       levels = sprintf("%.2f", sort(unique(s2m$alpha))))
-f1d <- ggplot(s2m, aes(alpha_x, coverage, colour = fm, group = fm)) +
-  geom_point(aes(y = nominal), shape = 95, size = 3.6, colour = "grey30",
-             show.legend = FALSE) +
+# Numeric x so dashed nominal segments and discrete α labels share one scale
+# (mixing factor α with numeric segment offsets forces a continuous scale).
+s2m$x <- as.numeric(s2m$alpha_x)
+nom_d <- unique(s2m[, c("x", "nominal", "arm", "alpha_x")])
+f1d <- ggplot(s2m, aes(x, coverage, colour = fm, group = fm)) +
+  geom_segment(
+    data = nom_d,
+    aes(x = x - 0.32, xend = x + 0.32, y = nominal, yend = nominal),
+    inherit.aes = FALSE,
+    colour = "grey20", linewidth = 0.45, linetype = "dashed",
+    show.legend = FALSE
+  ) +
   geom_line(linewidth = 0.4) +
   geom_point(size = 1.8) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.12,
                 linewidth = 0.25, show.legend = FALSE) +
   facet_wrap(~arm, nrow = 1) +
+  scale_x_continuous(breaks = seq_along(levels(s2m$alpha_x)),
+                     labels = levels(s2m$alpha_x)) +
   scale_color_model(name = NULL, drop = FALSE) +
   coord_cartesian(ylim = c(0.60, 1.0)) +
   labs(x = "α", y = "So2Sat coverage") +
@@ -347,6 +361,8 @@ m$fm  <- factor(shorten_fm(m$fm), levels = unname(fm_short))
 m$alpha_lab <- factor(sprintf("α = %s", format(m$alpha, nsmall = 2)),
                       levels = sprintf("α = %s", format(sort(unique(m$alpha)), nsmall = 2)))
 
+# Compact F2 chrome: smaller facets/strips, less left-axis pad so data panes
+# claim more of the half-width (esp. B's 3×2 grid). Science values unchanged.
 f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   geom_col(position = position_dodge(0.72), width = 0.62, colour = NA) +
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high),
@@ -365,9 +381,12 @@ f2a <- ggplot(m, aes(coverage, fm, fill = arm)) +
   guides(fill = guide_legend(nrow = 1, order = 1)) +
   theme_p3_panel() +
   theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 7),
-        axis.text.x = element_text(size = 6.5),
-        strip.text = element_text(size = 8))
+        panel.spacing.x = unit(3, "pt"),
+        axis.title.x = element_text(size = 7, margin = margin(t = 1)),
+        axis.text.y = element_text(size = 6.5),
+        axis.text.x = element_text(size = 6),
+        strip.text = element_text(size = 6.5, margin = margin(t = 1.5, b = 1.5)),
+        legend.text = element_text(size = 6.5))
 prov("F2-A", RES, m, "fm")
 
 # F2-B: same split-vs-Mondrian contrast at non-P33 cuts. Row facet = arm so the
@@ -407,10 +426,20 @@ f2b <- ggplot(bm_off, aes(factor(alpha), coverage, colour = fm, group = fm)) +
                                override.aes = list(linewidth = 0.6))) +
   theme_p3_panel() +
   theme(panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(size = 6.5),
-        strip.text.x = element_text(size = 8),
-        strip.text.y.left = element_text(size = 7.5, angle = 0),
-        strip.placement = "outside")
+        # Shrink strip chrome vs tiny panes; park P25/P40/P50 on the spines.
+        panel.spacing.x = unit(2.5, "pt"),
+        panel.spacing.y = unit(2.5, "pt"),
+        strip.placement = "outside",
+        strip.switch.pad.grid = unit(0, "pt"),
+        strip.text.x = element_text(size = 6, margin = margin(t = 1, b = 0.5)),
+        strip.text.y.left = element_text(size = 6, angle = 0,
+                                         margin = margin(r = 1, l = 0.5)),
+        axis.title = element_text(size = 7),
+        axis.title.y = element_text(margin = margin(r = 1)),
+        axis.title.x = element_text(margin = margin(t = 1)),
+        axis.text.x = element_text(size = 6),
+        axis.text.y = element_text(size = 6),
+        legend.text = element_text(size = 6.5))
 prov("F2-B", BSWEEP, bm_off, "fm")
 
 # F2-C: five conformal arms at α=0.10 (battery encoders; no DOFA in this record).
@@ -437,7 +466,10 @@ f2c <- ggplot(a5, aes(arm_x, coverage, colour = fm, group = fm)) +
   guides(colour = "none") +
   theme_p3_panel() +
   theme(panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle = 28, hjust = 1, size = 6.5))
+        # Pull categorical points toward the y-spine (less ylab / left pad).
+        axis.title.y = element_text(size = 7, margin = margin(r = 0)),
+        axis.text.y = element_text(size = 6),
+        axis.text.x = element_text(angle = 28, hjust = 1, size = 6))
 prov("F2-C", BASE5, a5, "fm")
 
 # F2-D: label-shift arms at α=0.10 (oracle ceiling vs BBSE estimate).
@@ -450,7 +482,7 @@ als_arm_short <- c("split (source)" = "split",
                    "label-shift oracle" = "LS-oracle",
                    "label-shift BBSE" = "LS-BBSE")
 als$arm_x <- factor(unname(als_arm_short[as.character(als$arm)]),
-                    levels = unname(als_arm_short))
+                   levels = unname(als_arm_short))
 f2d <- ggplot(als, aes(arm_x, coverage, colour = fm, group = fm)) +
   geom_hline(yintercept = 0.90, linetype = 2, colour = "grey35", linewidth = 0.35) +
   geom_point(size = 1.7, position = position_dodge(0.45)) +
@@ -463,21 +495,26 @@ f2d <- ggplot(als, aes(arm_x, coverage, colour = fm, group = fm)) +
   guides(colour = "none") +
   theme_p3_panel() +
   theme(panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle = 28, hjust = 1, size = 6.5))
+        axis.title.y = element_text(size = 7, margin = margin(r = 0)),
+        axis.text.y = element_text(size = 6),
+        axis.text.x = element_text(angle = 28, hjust = 1, size = 6))
 prov("F2-D", LSHIFT, als, "fm")
 
-# Equal 2×2; A supplies the arm legend, B the encoder legend; C/D guides dropped.
+# 2×2 with a slight right bias so B's facet grid gets more data width than A.
+# A supplies the arm legend, B the encoder legend; C/D guides dropped.
 # Caption notes DOFA appears in A only (battery records for B–D lack DOFA).
 f2_all <- (f2a | f2b) / (f2c | f2d) +
-  plot_layout(guides = "collect", heights = c(1, 1), widths = c(1, 1)) +
+  plot_layout(guides = "collect", heights = c(1.05, 1), widths = c(0.92, 1.08)) +
   plot_annotation(tag_levels = "A") &
   tag_p3() &
   theme(legend.position = "bottom",
         legend.box = "horizontal",
         legend.box.just = "left",
         legend.spacing.x = unit(8, "pt"),
-        legend.spacing.y = unit(1, "pt"))
-save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.2, h = 4.1)
+        legend.spacing.y = unit(1, "pt"),
+        # Slightly less left chrome so plot content sits farther right.
+        plot.margin = margin(t = 5, r = 4, b = 1, l = 3))
+save_fig(f2_all, "figures/F2_coverage_restoration", w = 5.45, h = 4.15)
 
 chk <- function(lab, got, expect, tol = 5e-4) {
   ok <- isTRUE(abs(got - expect) < tol)
