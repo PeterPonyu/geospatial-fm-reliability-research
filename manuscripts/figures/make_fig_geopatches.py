@@ -58,7 +58,7 @@ BOUNDARY_W = 1.5
 # Match ~ISPRS single-column \linewidth so fonts are not shrunk at include time.
 FIG_W = 7.15
 FIG_H = 5.85
-UPSAMPLE = 320  # native EuroSAT is 64×64; Lanczos upsample for print DPI
+UPSAMPLE = 480  # native EuroSAT is 64×64; Lanczos upsample for print DPI (raised 2026-08-12 for print legibility)
 C_INK = "#111111"
 ROW_FACE = {
     "source": "#EEF4FA",
@@ -283,8 +283,10 @@ def main():
 
     pdf = OUT / "F9_geopatches.pdf"
     png = ART / "F9_geopatches.png"
-    fig.savefig(pdf, dpi=300, bbox_inches="tight", pad_inches=0.04)
-    fig.savefig(png, dpi=300, bbox_inches="tight", pad_inches=0.04)
+    # dpi=400 (raised 2026-08-12) for print-grade raster fallback when the
+    # PDF is rasterised downstream; vector PDF is the authoritative output.
+    fig.savefig(pdf, dpi=400, bbox_inches="tight", pad_inches=0.04)
+    fig.savefig(png, dpi=400, bbox_inches="tight", pad_inches=0.04)
     plt.close(fig)
     mode = "+".join(sorted(src_tags)) if src_tags else "none"
     print(f"wrote {pdf}; missing={missing or 'none'}; mode={mode}; P33={P33:.3f}")
