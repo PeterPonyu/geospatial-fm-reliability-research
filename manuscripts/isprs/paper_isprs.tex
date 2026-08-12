@@ -172,20 +172,22 @@ report-card entry non-obvious and worth running the protocol for.
 \centering
 \includegraphics[width=0.92\linewidth]{fig0_overview.pdf}
 \caption{Overview of the pre-deployment reliability report-card protocol.
-Stages~1--5 (left to right): (1)~optical Sentinel-2 tile (EuroSAT-MS / GEO-Bench
-BigEarthNet-S2 / m-so2sat); (2)~one frozen, interchangeable optical GFM encoder under
-audit on EuroSAT/BigEarthNet (Prithvi, Clay, SSL4EO-DINO, SSL4EO-MAE, DOFA; on m-so2sat the
-ViT-S slot substitutes SSL4EO ViT-S/16 MAE for DINO---same five-encoder \emph{size}, not an
-identical checkpoint roster); (3)~frozen-embedding probe
-(logistic for single-label tasks, multi-label otherwise); (4)~conformal calibration under
-real geographic region-transfer shift (source split-conformal vs.\ spatial-Mondrian
-target-region calibration; source = E/Central Europe, target = W/Iberian-Atlantic Europe),
-yielding per-class conformal sets; (5)~coverage-debt report card with four
-practitioner-facing numbers---in-distribution FNR guarantee, geographic debt under shift,
-target-slice repair cost, and worst-class coverage a marginal guarantee alone would miss.
+Stages~1--5 (left to right), role-tagged DATA / MODEL / PROBE / EVAL / REPORT:
+(1)~optical Sentinel-2 tile (EuroSAT-MS / GEO-Bench BigEarthNet-S2 / m-so2sat);
+(2)~one frozen, interchangeable optical GFM encoder under audit on EuroSAT/BigEarthNet
+(Prithvi, Clay, SSL4EO-DINO, SSL4EO-MAE, DOFA; on m-so2sat the ViT-S slot substitutes
+SSL4EO ViT-S/16 MAE for DINO---same five-encoder \emph{size}, not an identical checkpoint roster);
+(3)~frozen-embedding probe (logistic for single-label tasks, multi-label otherwise);
+(4)~conformal calibration under real geographic region-transfer shift (source split-conformal
+vs.\ spatial-Mondrian target-region calibration; source = E/Central Europe,
+target = W/Iberian-Atlantic Europe), yielding per-class conformal sets;
+(5)~coverage-debt report card with four practitioner-facing numbers---in-distribution FNR
+guarantee, geographic debt under shift, target-slice repair cost, and worst-class coverage a
+marginal guarantee alone would miss.
 Cross-sensor transfer (Sentinel-1) failed in-distribution control and is withheld.
-Fork from the report card: the protocol fails to restore coverage universally;
-the surviving path is conditional, encoder-dependent labeled-target recalibration.}
+Fork from the report card: vermillion marks the failure path (no universal restoration);
+bluish green marks the surviving path (conditional, encoder-dependent labeled-target
+recalibration).}
 \label{fig:overview}
 \end{figure}
 
@@ -326,15 +328,15 @@ Class & Source \% & Target \% & Target/Source ratio \\
 \centering
 \includegraphics[width=0.95\linewidth]{F14_classprior.pdf}
 \caption{Class-prior / balanced-probe control at the frozen $P_{33}$ cut (no new runs).
-\textbf{A:}~target/source class-prior ratio by EuroSAT class id (orange~=~five tabled extremes;
+\textbf{A:}~target/source class-prior ratio by EuroSAT class id (orange~=~five extreme classes;
 grey~=~others); dashed line at ratio~$1$ (no prior shift).
 \textbf{B:}~source vs.\ target class frequency (\%) for those five classes.
 \textbf{C:}~shift ECE at $\alpha{=}0.05$ under the unadjusted (headline) vs.\ class-balanced probe;
 error bars are 5-seed $t$-CIs.
 \textbf{D:}~count of $\alpha\in\{0.05,0.10,0.20\}$ at which spatial-Mondrian restores coverage
-(CI excludes~$0$)---the ``\#$\alpha$ repaired'' count, not Mondrian coverage itself.
-Shared bottom legend: frequency (B)~=~source/target; probe (C--D)~=~unadjusted/balanced
-(same blue/orange hues, distinct meanings).
+(paired restoration CI excludes~$0$)---the ``\#$\alpha$ repaired'' count, not Mondrian
+coverage itself.
+Shared bottom legend for C--D: blue~=~unadjusted, orange~=~balanced.
 Principle: the balanced probe is a \emph{control}---encoder ranking by shift-ECE and repair counts
 should be stable if the $P_{33}$ class-prior mismatch is not driving the finding.}
 \label{fig:classprior}
@@ -930,7 +932,9 @@ Prithvi $>$ DOFA $>$ SSL4EO-DINO $>$ SSL4EO-MAE $>$ Clay; repair counts are weak
 \#$\alpha$ restored at spatial cuts P25--P50.
 (D)~So2Sat LCZ cross-continent label-access check: source-split vs.\ target-global coverage
 (facets), with grey ticks marking nominal $1-\alpha$ and error bars seed-level CIs.
-Set-size cost of repair is reported with the companion set-size panel.}\label{fig:f1}\end{figure}
+Set-size cost of the same repair appears in the companion four-panel set-size figure.}\label{fig:f1}\end{figure}
+Set-size cost of the same repair is in Fig.~\ref{fig:f3}.
+
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F2_coverage_restoration.pdf}
 \caption{Coverage restoration under real geographic shift (error bars = seed-level $t$-CIs, $n{=}5$;
@@ -1086,7 +1090,7 @@ That shape is finite-sample conformal correction---the effective quantile
 $\lceil(n{+}1)(1{-}\alpha)\rceil/n$ inflates above $1{-}\alpha$ at small $n$ (e.g.\ $0.932$ vs.\
 $0.900$ at $n{=}44$, $\alpha{=}0.10$), over-covering and paying for the slack in larger sets---so
 extra labels buy tightness to nominal, not validity of the guarantee.
-Descriptive secondary analysis (\S\ref{sec:limitations}); So2Sat excluded (no local features).
+Descriptive secondary analysis; So2Sat excluded (no local features).
 }\label{fig:f10}
 \end{figure}
 \FloatBarrier
@@ -1277,21 +1281,20 @@ are target-side spatial-Mondrian at $\alpha\in\{0.05,0.10,0.20\}$. Short black d
 the nominal coverage level $1-\alpha$ at each $\alpha$ (legend: ``nominal $1-\alpha$''); vertical
 whiskers on the bars are seed-level Student~$t$ intervals ($n{=}5$), not the same mark. Coverage debt
 and Mondrian restoration replicate across all three encoders. This proxy is a coarse, qualitative
-replication; the per-label multi-label analysis in Fig.~\ref{fig:f6} is the primary BigEarthNet
-evidence.}\label{fig:f5}\end{figure}
+replication; the companion per-label multi-label analysis is the primary BigEarthNet evidence.}\label{fig:f5}\end{figure}
 
 \begin{figure}[htbp]\centering\includegraphics[width=\linewidth]{F6_bigearthnet_perlabel.pdf}
 \caption{Per-label multi-label conformal on GEO-Bench \citep{lacoste2023geobench} \texttt{m-bigearthnet}
 (BigEarthNet-S2; 27 active labels after per-split filtering; real geographic E$\to$W shift).
 Columns are frozen encoders; rows are (top) mean per-label recall-coverage
-$\Pr(c\in\mathcal{C}(x)\mid y_c=1)$ (Eq.~\eqref{eq:recall-coverage}) and (bottom) mean predicted
+$\Pr(c\in\mathcal{C}(x)\mid y_c=1)$ and (bottom) mean predicted
 label-set size per tile. Blue = source-only split-conformal; orange = target-side spatial-Mondrian;
 $\alpha\in\{0.05,0.10,0.20\}$. Short black dashed segments in the top row are nominal $1-\alpha$
 guides (legend: ``nominal $1-\alpha$''), not error bars; vertical whiskers on the points are
 seed-level Student~$t$ intervals ($n{=}5$). Mondrian restores per-label coverage at
 $\alpha\in\{0.10,0.20\}$ (paired CI across labels excludes~$0$) for all three FMs. Relative to the
-dominant-label proxy of Fig.~\ref{fig:f5}, this per-label analysis is primary: it supplies
-independent per-class recall guarantees rather than a single-label reduction.}\label{fig:f6}\end{figure}
+companion dominant-label proxy, this per-label analysis is primary: it supplies independent per-class recall
+guarantees rather than a single-label reduction.}\label{fig:f6}\end{figure}
 \FloatBarrier
 
 % source: frozen analysis records (n=5; box run; bootstrap FNR summaries)
@@ -1352,13 +1355,12 @@ $\alpha$ & Encoder & \shortstack{FNR\\in-dist} & \shortstack{FNR\\shift} & \shor
 \end{table}
 
 \begin{figure}[htbp]\centering\includegraphics[width=0.95\linewidth]{F13_crc_fnr.pdf}
-\caption{CRC on BigEarthNet (Table~\ref{tab:crc}; frozen multi-seed bootstrap means with 95\% CIs; no new runs).
-All panels use example-averaged FNR (or set size) of Eqs.~\eqref{eq:fnr-loss}--\eqref{eq:crc-lambda}
-pooled over five seeds; error bars are percentile bootstrap intervals ($B{=}2000$).
+\caption{CRC on BigEarthNet (frozen multi-seed bootstrap means with 95\% CIs; no new runs).
+All panels use example-averaged FNR (or set size) pooled over five seeds; error bars are percentile bootstrap intervals ($B{=}2000$).
 Encoder ticks and the panel-(d) colour key abbreviate SSL4EO-DINO/MAE as DINO/MAE.
 (a)~Source-calibrated CRC FNR in-distribution vs.\ under the E$\to$W geographic shift at $\alpha{=}0.05$ (blue $=$ in-dist, vermillion $=$ shift; dashed $=$ nominal FNR level $\alpha$). In-distribution meets the risk level; the same $\hat\lambda$ incurs large FNR debt under shift.
 (b)~Shift FNR at $\alpha{=}0.10$: source-calibrated CRC vs.\ target-side Mondrian-CRC (blue/green; dashed $=$ nominal $\alpha$). Mondrian-CRC restores FNR to at-or-below nominal for every encoder.
-(c)~Mean set-size cost under shift at the same $\alpha{=}0.10$ (labels/tile of ${\sim}27$ active; Eq.~\eqref{eq:coverage}): Mondrian-CRC's restore comes with larger sets than source-calibrated CRC (shared method colours with (b)).
+(c)~Mean set-size cost under shift at the same $\alpha{=}0.10$ (labels/tile of ${\sim}27$ active): Mondrian-CRC's restore comes with larger sets than source-calibrated CRC (shared method colours with (b)).
 (d)~Source-calibrated CRC FNR under shift across $\alpha\in\{0.05,0.10,0.20\}$ by encoder (coloured lines; dotted horizontals $=$ nominal $\alpha$ at each risk level).
 }\label{fig:crcfnr}\end{figure}
 \FloatBarrier
