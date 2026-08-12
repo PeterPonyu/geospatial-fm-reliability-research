@@ -78,6 +78,9 @@ Frozen optical geospatial foundation models (GFMs) are increasingly deployed as 
 =====================================================================
 Earth observation; geospatial foundation models; conformal prediction; distribution shift; uncertainty quantification; reliability
 
+EM registration also asks for Personal Classifications + Personal Keywords (5+).
+Those are a different form from this manuscript keyword block. Use section 13.
+
 =====================================================================
 5. HIGHLIGHTS  (3–5 bullets; Elsevier ≤85 characters including spaces)
 =====================================================================
@@ -290,3 +293,202 @@ Revision / acceptance: editable elsarticle source (already prepared).
 Bibliography: BibTeX via shared.bib + refs.bib; authoryear / plainnat.
 Individual figure files >10 MB must be uploaded separately — not applicable
 (largest manuscript figure is F9_geopatches.pdf, under 2 MB).
+
+=====================================================================
+13. EM PROFILE — PERSONAL CLASSIFICATIONS + PERSONAL KEYWORDS
+     (Update my Information / Areas of Interest or Expertise)
+     Retrieved 2026-08-12. This is NOT the manuscript keyword block (section 4).
+=====================================================================
+Where: Editorial Manager for PHOTO
+  https://www.editorialmanager.com/PHOTO/default.aspx
+  Name (top right) → Update my Information → Areas of Interest or Expertise
+  → Select Personal Classifications  |  Personal Keywords
+
+Elsevier help (how the picker works; list is journal-specific):
+  https://www.elsevier.support/publishing/answer/how-do-i-change-my-personal-information-in-editorial-manager
+  Journals may require a minimum number of classifications and/or keywords
+  before the profile can be saved. PHOTO currently asks: Enter 5+ Keywords.
+  Classifications may be ranked. Expand the tree with + ; check boxes; Add;
+  Submit on the pop-up, then Save on the profile page.
+
+Official PHOTO topic list (same wording as the journal Aims & Scope
+“Topics of interest”, Elsevier Shop / ScienceDirect, accessed 2026-08-12):
+  https://shop.elsevier.com/journals/isprs-journal-of-photogrammetry-and-remote-sensing/0924-2716
+  https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing
+Three top-level folders in the picker (select by NAME; expand each):
+  Sensors
+  Methods and procedures
+  Applications and products
+The full numbered tree is not published outside the EM pop-up. Only two
+child codes are confirmed from the registration screenshot:
+  100.010 Aerial cameras
+  100.020 Terrestrial cameras
+Those two sit under Sensors (the 100.xxx block). Do not treat other 100.xxx
+/ 200.xxx / 300.xxx numbers below as guaranteed; pick the matching NAMES.
+
+This manuscript (title / abstract / \keyword / Methods): frozen optical
+geospatial foundation models; split-conformal coverage / FNR risk control;
+cross-European Sentinel-2 shift; land-cover and local-climate-zone
+classification; BigEarthNet, EuroSAT-MS, So2Sat LCZ42. It is not a camera,
+UAV, LiDAR, SAR, close-range, or medical-imaging paper.
+
+---------------------------------------------------------------------
+13a. UNCHECK (wrong for this paper)
+---------------------------------------------------------------------
+[ ] 100.010  Aerial cameras
+[ ] 100.020  Terrestrial cameras
+
+Why they are wrong: those labels are the Sensors split of “Airborne and
+terrestrial cameras” (mapping / UAV / close-range cameras). This paper
+uses spaceborne Sentinel-2 optical tiles, not aerial or terrestrial cameras.
+
+Also skip if they appear (same Aims & Scope list; not this paper):
+  Airborne, terrestrial and mobile laser scanning
+  Range imaging
+  Sensor calibration and standardisation
+  Geosensor and environmental networks
+  Internet of Things
+  Point cloud processing
+  Extraction of geometric and semantic information from SAR
+  SAR Interferometry
+  Image segmentation and GEOBIA
+  Image time series analysis
+  Hyperspectral data analysis
+  Crowd sourcing
+  Close-range imaging and metrology
+  Medical image analysis and biometry
+  DTM and orthoimage generation
+  Location based services
+  Visualisation, virtual reality, and digital twins
+  Database systems
+  Urban modeling and analysis          (LCZ is present, but not a 3D-city paper)
+  Determination of forest metrics
+
+---------------------------------------------------------------------
+13b. SELECT — ranked Personal Classifications (pick these NAMES)
+---------------------------------------------------------------------
+Select 6–8. Rank in this order if EM asks you to rank. Search/filter the
+picker for the words in quotes if the tree is long.
+
+Rank  Name to tick in the EM picker
+  (folder)
+----  ---------------------------------------------------------------
+  1   "Machine and deep learning for Earth observations data analysis
+      and interpretation"
+      (Methods and procedures)
+      Closest match to frozen GFMs + probes. Same family as Dimitrovski
+      et al., ISPRS J. Photogramm. Remote Sens. 197 (2023) 18–35
+      (keywords: Deep learning; Earth observation; Image classification).
+
+  2   "Image classification algorithms"
+      (Methods and procedures)
+      Land-cover / LCZ scene classification is the downstream task.
+      Same family as Ma et al., ISPRS J. Photogramm. Remote Sens. 130
+      (2017) 277–293 (object-based land-cover image classification).
+
+  3   "Airborne, spaceborne and terrestrial imaging systems"
+      (Sensors)
+      Sentinel-2 is spaceborne optical. This is the correct Sensors
+      tick — not Aerial cameras / Terrestrial cameras.
+
+  4   "Mapping from imagery"
+      (Methods and procedures)
+      Land-cover / LCZ maps from optical tiles.
+
+  5   "Global monitoring and assessment"
+      (Applications and products)
+      Cross-European (plus multi-city LCZ) transfer audit.
+
+  6   "Thematic applications"
+      (Applications and products)
+      Land-cover and local climate zone are thematic products.
+
+  7   "Feature extraction"
+      (Methods and procedures)
+      Frozen encoder embeddings; optional if you already have 1–6.
+
+  8   "Big image data analysis"
+      (Methods and procedures)
+      Optional. BigEarthNet-scale multi-label audit.
+
+Stop at 6 unless the portal still complains. 7–8 are extras, not substitutes
+for 1–3.
+
+If a name is missing from the picker, tick the nearest sibling in the same
+folder (e.g. a shorter “Machine learning” / “Deep learning” / “Image
+classification” label). Do not substitute camera, LiDAR, or SAR items.
+
+---------------------------------------------------------------------
+13c. PERSONAL KEYWORDS — copy-paste (English; 5+ required)
+---------------------------------------------------------------------
+Paste into Personal Keywords. One phrase per line (or comma-separated if
+the box is a single field). These are for editor/reviewer matching.
+They may be more specific than the manuscript’s 6 \keyword (section 4).
+Do not paste repo names, checkpoint ids, or internal run tags
+(no m-bigearthnet, no hostnames).
+
+COPY FROM HERE
+conformal prediction
+geospatial foundation models
+land-cover classification
+distribution shift
+Sentinel-2
+uncertainty quantification
+coverage guarantee
+Earth observation
+image classification
+reliability
+BigEarthNet
+local climate zone
+COPY TO HERE
+
+Count: 12 (portal asks for 5+). Prefer the first 8 if the box is short.
+
+Alignment with existing papers (not invented jargon):
+  Manuscript \keyword: Earth observation; geospatial foundation models;
+    conformal prediction; distribution shift; uncertainty quantification;
+    reliability.
+  Dimitrovski et al. 2023 (this journal): Deep learning; Earth observation;
+    Image classification.
+  Wiratama et al. 2025 (ISPRS Archives, same topic family): Foundation Model;
+    Land Cover Classification; Sentinel-2.
+  Extra phrases that are in this abstract but not in those papers:
+    conformal prediction, distribution shift, coverage guarantee,
+    BigEarthNet, local climate zone.
+
+---------------------------------------------------------------------
+13d. INSTITUTION / POSITION (only what is already in the TeX)
+---------------------------------------------------------------------
+Reuse section 2. Do not invent a job title, department street, or postal
+code. The title block has:
+
+  Given name:     Zeyu
+  Family name:    Fu
+  ORCID:          0009-0001-8329-0108
+  Email:          fuzeyu09@gmail.com
+  Affiliation:    State Key Laboratory of Trauma and Chemical Poisoning,
+                  Institute of Combined Injury, Army Medical University,
+                  Chongqing, China
+
+Position / academic rank: not in the manuscript. Leave blank or use
+whatever the portal offers as optional (e.g. Author) — do not invent
+Professor / Student / Engineer here.
+TODO-USER: street, building, postal code, telephone — still not in TeX.
+
+---------------------------------------------------------------------
+13e. OPTIONAL — only if you later register at Pattern Recognition (RotCert)
+---------------------------------------------------------------------
+Different journal, different EM site (https://www.editorialmanager.com/PR/).
+Do not paste the PHOTO camera/classification tree into PR, and do not paste
+PR keywords into PHOTO.
+
+If you open a PR profile later, manuscript keywords already in
+submissions/rotcert/pr/COPY_READY_SUBMISSION.txt section 4:
+  conformal prediction
+  oriented object detection
+  uncertainty quantification
+  distribution-free guarantees
+  aerial imagery
+  remote sensing
+That paper IS aerial-imagery detection; PHOTO camera ticks would still be
+the wrong journal. Keep the two registrations separate.
