@@ -1,5 +1,6 @@
 COPY-READY SUBMISSION PACK — GEO / ISPRS Journal
 Prepared: 2026-08-12
+Submitted 2026-08-13 to ISPRS Journal of Photogrammetry and Remote Sensing.
 paper=GEO
 SSOT=geospatial-fm-reliability-research/manuscripts/isprs/
 Kit=submissions/geo/isprs/
