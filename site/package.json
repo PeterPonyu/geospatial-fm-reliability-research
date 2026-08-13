@@ -1,0 +1,24 @@
+{
+  "name": "geo-coverage-debt-companion",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "extract": "python3 scripts/extract_frozen.py",
+    "plot": "node scripts/plot_build.mjs",
+    "dev": "npm run plot && astro dev",
+    "build": "python3 scripts/extract_frozen.py && node scripts/plot_build.mjs && astro build && node scripts/leak-scan.mjs && node scripts/check-links.mjs",
+    "preview": "astro preview --host"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@fontsource/source-serif-4": "^5.2.8",
+    "astro": "^5.12.9"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

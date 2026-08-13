@@ -1,0 +1,175 @@
+---
+import card from "../data/report_card.json";
+
+const illustration = card.illustration;
+const rows = illustration.cells;
+const encoders = card.by_encoder_crc_alpha05;
+
+function ci(pair: number[] | null | undefined): string {
+  if (!pair || pair.length < 2) return "";
+  return `[${pair[0]}, ${pair[1]}]`;
+}
+---
+
+<section class="report-card" aria-labelledby="card-title">
+  <div class="encoder-switch">
+    <label for="encoder-select">Encoder (α = 0.05)</label>
+    <select id="encoder-select" data-default="clay">
+      {
+        encoders.map((e) => (
+          <option value={e.id} selected={e.id === "clay"}>
+            {e.short}
+          </option>
+        ))
+      }
+    </select>
+  </div>
+  <table id="report-table">
+    <caption id="card-title">
+      Four-number report card · Clay v1.5 illustration at α = 0.05. Other encoders
+      swap frozen cells where present; missing cells stay an em-dash.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Question</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((cell) => (
+          <tr id={cell.id}>
+            <td>{cell.question}</td>
+            <td>
+              <span class="value num" data-field={cell.id}>{cell.value}</span>
+              {
+                cell.ci ? (
+                  <span class="num"> {ci(cell.ci)}</span>
+                ) : null
+              }
+              {
+                "relative" in cell && cell.relative ? (
+                  <div class="muted-note">{cell.relative}</div>
+                ) : null
+              }
+              {
+                "cost" in cell && cell.cost ? (
+                  <div class="muted-note">set size {cell.cost}</div>
+                ) : null
+              }
+              {
+                "marginal" in cell && cell.marginal ? (
+                  <div class="muted-note">marginal {cell.marginal}</div>
+                ) : null
+              }
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</section>
+
+<script
+  type="application/json"
+  id="card-data"
+  set:html={JSON.stringify({ illustration, encoders })}
+/>
+
+<script is:inline>
+  (function () {
+    var sel = document.getElementById("encoder-select");
+    var blob = document.getElementById("card-data");
+    if (!sel || !blob) return;
+    var data = JSON.parse(blob.textContent || "{}");
+    var caption = document.querySelector("#report-table caption");
+
+    function fmtCi(pair) {
+      if (!pair || pair.length < 2) return "";
+      return " [" + pair[0] + ", " + pair[1] + "]";
+    }
+
+    function setCell(id, value, extra) {
+      var field = document.querySelector('[data-field="' + id + '"]');
+      if (!field) return;
+      field.textContent = value;
+      var td = field.parentElement;
+      var notes = td.querySelectorAll(".muted-note, .ci-dyn");
+      notes.forEach(function (n) {
+        n.remove();
+      });
+      if (extra) {
+        var span = document.createElement("span");
+        span.className = "num ci-dyn";
+        span.textContent = extra.ci || "";
+        field.after(span);
+        (extra.notes || []).forEach(function (text) {
+          var div = document.createElement("div");
+          div.className = "muted-note";
+          div.textContent = text;
+          td.appendChild(div);
+        });
+      }
+    }
+
+    function paintIllustration() {
+      var cells = data.illustration.cells;
+      cells.forEach(function (c) {
+        var notes = [];
+        if (c.relative) notes.push(c.relative);
+        if (c.cost) notes.push("set size " + c.cost);
+        if (c.marginal) notes.push("marginal " + c.marginal);
+        setCell(c.id, c.value, { ci: fmtCi(c.ci), notes: notes });
+      });
+      if (caption) {
+        caption.textContent =
+          "Four-number report card · Clay v1.5 illustration at α = 0.05. Other encoders swap frozen cells where present; missing cells stay an em-dash.";
+      }
+    }
+
+    function paintEncoder(id) {
+      if (id === "clay") {
+        paintIllustration();
+        return;
+      }
+      var row = (data.encoders || []).find(function (e) {
+        return e.id === id;
+      });
+      if (!row) return;
+      setCell("fnr-in", row.fnr_in, { ci: fmtCi(row.fnr_in_ci), notes: [] });
+      setCell("fnr-13", row.fnr_shift, { ci: fmtCi(row.fnr_shift_ci), notes: [] });
+      setCell("repair", row.fnr_repair, {
+        ci: fmtCi(row.fnr_repair_ci),
+        notes: ["set size " + row.set_crc + "→" + row.set_mond],
+      });
+      var worst = row.so2sat_worst === "—" ? "—" : row.so2sat_worst;
+      var notes = [];
+      if (row.so2sat_marginal && row.so2sat_marginal !== "—") {
+        notes.push("marginal " + row.so2sat_marginal);
+      }
+      if (row.missing) notes.push("not in frozen table");
+      setCell("worst-class", worst, {
+        ci: worst === "—" ? "" : fmtCi(row.so2sat_worst_ci),
+        notes: notes,
+      });
+      if (caption) {
+        caption.textContent =
+          "Four-number report card · " +
+          row.short +
+          " at α = 0.05 from the frozen CRC / So2Sat tables. Missing cells stay an em-dash.";
+      }
+    }
+
+    sel.addEventListener("change", function () {
+      paintEncoder(sel.value);
+    });
+  })();
+</script>
+
+<style>
+  .muted-note {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+</style>

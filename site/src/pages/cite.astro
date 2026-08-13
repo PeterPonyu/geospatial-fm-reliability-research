@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import CiteBox from "../components/CiteBox.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+---
+
+<Base
+  title="Cite — preprint, BibTeX, reserved DOI"
+  description="Citation, reserved Zenodo DOI, and MIT code archive for the coverage-debt report card."
+  path="cite/"
+>
+  <p class="kicker">Cite</p>
+  <h1>Preprint, BibTeX, code archive</h1>
+  <div class="chips">
+    <HonestyChip>Submitted</HonestyChip>
+    <HonestyChip>Reserved DOI</HonestyChip>
+    <HonestyChip>Frozen science</HonestyChip>
+  </div>
+
+  <h2 id="preprint">Preprint</h2>
+  <p>
+    Author preprint of the manuscript submitted to ISPRS Journal of Photogrammetry and Remote
+    Sensing (2026-08-13). A PDF is not hosted here pending journal preprint policy.
+  </p>
+
+  <h2>BibTeX</h2>
+  <CiteBox />
+
+  <h2>Code and data</h2>
+  <ul>
+    <li>
+      Code archive (MIT):
+      <a href="https://github.com/PeterPonyu/geospatial-fm-reliability-research"
+        >github.com/PeterPonyu/geospatial-fm-reliability-research</a
+      >
+    </li>
+    <li>
+      Reserved DOI (draft until publish):
+      <a href="https://doi.org/10.5281/zenodo.21130299">10.5281/zenodo.21130299</a>
+    </li>
+    <li>EuroSAT-MS, GEO-Bench BigEarthNet-S2, and So2Sat LCZ42 under their upstream licenses.</li>
+  </ul>
+</Base>

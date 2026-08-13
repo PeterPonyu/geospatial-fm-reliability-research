@@ -1,0 +1,129 @@
+---
+import Base from "../layouts/Base.astro";
+import CoverageChart from "../components/CoverageChart.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+import ben from "../data/bigearthnet.json";
+import so2 from "../data/so2sat.json";
+
+const crc = ben.crc;
+const so2cov = so2.coverage.filter((r) => r.alpha === 0.05);
+---
+
+<Base
+  title="Roster — thirteen encoders and So2Sat LCZ"
+  description="BigEarthNet thirteen-encoder roster and the non-European So2Sat LCZ extension. Not a leaderboard."
+  path="roster/"
+>
+  <p class="kicker">Roster</p>
+  <h1>Thirteen-encoder BigEarthNet and So2Sat LCZ</h1>
+  <p>
+    The five-encoder EuroSAT story is not the ranking. At n = 13 the accuracy–FNR inversion
+    (Spearman ρ = +0.90 in the pilot) regresses toward zero (ρ = +0.32, p = 0.28). Filled
+    markers are the original five; hollow triangles are the added eight. Do not sort this as
+    a leaderboard.
+  </p>
+  <div class="chips">
+    <HonestyChip>Exploratory reframe</HonestyChip>
+    <HonestyChip kind="survive">Powered: 13/13 FNR debt</HonestyChip>
+  </div>
+
+  <CoverageChart
+    src="figures/inversion_n13.svg"
+    alt="Scatter of FNR under shift versus in-distribution mAP for thirteen encoders. Filled circles original five, hollow triangles added eight."
+    caption="Figure-module: BigEarthNet α = 0.05 FNR under shift versus in-distribution mAP. Spearman ρ = +0.32 (p = 0.28). The five-encoder inversion regresses. No trend line: the correlation is not significant."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">mAP in-dist.</th>
+          <th scope="col">FNR shift</th>
+          <th scope="col">FNR repaired</th>
+          <th scope="col">Original five</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          ben.fnr_decouple_alpha05.map((r) => (
+            <tr>
+              <td>{r.encoder}</td>
+              <td class="num">{r.map_in}</td>
+              <td class="num">{r.fnr_shift}</td>
+              <td class="num">{r.fnr_repaired}</td>
+              <td>{r.original5 ? "yes" : "added"}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>CRC at three risk levels</h2>
+  <p>
+    Dominant-label BigEarthNet scores are a proxy only and are not the primary multi-label
+    evidence. The CRC / FNR table is.
+  </p>
+  <table>
+    <caption>CRC FNR in-distribution, shift, and Mondrian repair at α = 0.05, 0.10, and 0.20.</caption>
+    <thead>
+      <tr>
+        <th scope="col">α</th>
+        <th scope="col">Encoder</th>
+        <th scope="col">FNR in-dist.</th>
+        <th scope="col">FNR shift</th>
+        <th scope="col">FNR Mondrian</th>
+        <th scope="col">Set</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        crc.map((r) => (
+          <tr>
+            <td class="num">{r.alpha}</td>
+            <td>{r.encoder}</td>
+            <td class="num">{r.fnr_in} [{r.fnr_in_ci[0]}, {r.fnr_in_ci[1]}]</td>
+            <td class="num">{r.fnr_shift} [{r.fnr_shift_ci[0]}, {r.fnr_shift_ci[1]}]</td>
+            <td class="num">{r.fnr_mond} [{r.fnr_mond_ci[0]}, {r.fnr_mond_ci[1]}]</td>
+            <td class="num">{r.set}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2>So2Sat LCZ42 (non-European extension)</h2>
+  <p>
+    {so2.partition} Paired-seed restoration interval excludes 0 in all 15 encoder × risk-level
+    cells. There is no spatial-Mondrian arm (no per-tile lat/lon).
+  </p>
+  <table>
+    <caption>So2Sat split versus target-global coverage at α = 0.05.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Encoder</th>
+        <th scope="col">Split</th>
+        <th scope="col">Target-global</th>
+        <th scope="col">Acc. in / shift</th>
+        <th scope="col">Worst class</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        so2cov.map((r) => {
+          const cond = so2.condcov_alpha05.find((c) => c.encoder === r.encoder);
+          return (
+            <tr>
+              <td>{r.encoder}</td>
+              <td class="num">{r.split}</td>
+              <td class="num">{r.tgt}</td>
+              <td class="num">
+                {r.acc_in} / {r.acc_shift}
+              </td>
+              <td class="num">{cond ? cond.worst : "—"}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</Base>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" width="720" height="340" role="img" aria-labelledby="t">
+<title id="t">Singleton and low-shot boundary for Prithvi</title>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<text x="24" y="28" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#57534e">Prithvi singleton / low-shot boundary at α = 0.05 (log n). The audit is informative only while sets are non-degenerate.</text>
+<line x1="80" y1="280" x2="680" y2="280" stroke="#d6d3d1"/>
+<line x1="80" y1="40" x2="80" y2="280" stroke="#d6d3d1"/>
+<circle cx="644.9825744140841" cy="80.32000000000002" r="4" fill="#009E73"/><circle cx="602.8383750211267" cy="86.79999999999998" r="4" fill="#009E73"/><circle cx="560.6829711266234" cy="92.07999999999998" r="4" fill="#009E73"/><circle cx="504.96016334583675" cy="96.4" r="4" fill="#009E73"/><circle cx="462.7599001153742" cy="106.96000000000001" r="4" fill="#009E73"/><circle cx="407.1043627387941" cy="125.19999999999999" r="4" fill="#009E73"/><circle cx="364.679325768173" cy="124" r="4" fill="#009E73"/>
+<text x="80" y="300" font-family="IBM Plex Mono, monospace" font-size="11" fill="#57534e">n = 108</text>
+<text x="560" y="300" font-family="IBM Plex Mono, monospace" font-size="11" fill="#57534e">n = 10,854</text>
+<text x="24" y="328" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#57534e">Accuracy falls and set size leaves the singleton floor as the labeled slice shrinks.</text>
+</svg>

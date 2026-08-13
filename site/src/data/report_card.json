@@ -1,0 +1,119 @@
+{
+  "illustration": {
+    "encoder": "Clay v1.5",
+    "encoder_id": "clay",
+    "alpha": 0.05,
+    "role": "median-accuracy encoder on the five-encoder EuroSAT battery; mAP 0.502, rank 3 of 5",
+    "cells": [
+      {
+        "id": "fnr-in",
+        "question": "In-distribution multi-label FNR (CRC, BigEarthNet-S2)",
+        "value": "0.053",
+        "ci": [0.049, 0.056],
+        "note": "Tracks the α = 0.05 risk level in expectation."
+      },
+      {
+        "id": "fnr-13",
+        "question": "Geographic debt if deployed uncalibrated (same CRC arm, E→W)",
+        "value": "0.175",
+        "ci": [0.143, 0.208],
+        "relative": "≈3.5× over the 0.05 target",
+        "note": "Seed-mean 0.175; bootstrap mean 0.176 [0.171, 0.182]."
+      },
+      {
+        "id": "repair",
+        "question": "FNR after a 30% labeled target slice (Mondrian-CRC)",
+        "value": "0.022",
+        "ci": [0.015, 0.029],
+        "cost": "13.3→23.8 of 27 labels",
+        "note": "30% is a sufficient budget, not a necessary one."
+      },
+      {
+        "id": "worst-class",
+        "question": "Worst class under a healthy marginal (So2Sat LCZ42, LCZ-17, split)",
+        "value": "0.732",
+        "ci": [0.692, 0.772],
+        "marginal": "0.891",
+        "note": "A marginal guarantee alone would hide this class."
+      }
+    ]
+  },
+  "by_encoder_crc_alpha05": [
+    {
+      "id": "clay",
+      "short": "Clay",
+      "fnr_in": "0.053",
+      "fnr_in_ci": [0.049, 0.056],
+      "fnr_shift": "0.176",
+      "fnr_shift_ci": [0.171, 0.182],
+      "fnr_repair": "0.022",
+      "fnr_repair_ci": [0.020, 0.024],
+      "set_crc": "13.3",
+      "set_mond": "23.8",
+      "so2sat_worst": "0.732",
+      "so2sat_worst_ci": [0.692, 0.772],
+      "so2sat_marginal": "0.891"
+    },
+    {
+      "id": "prithvi",
+      "short": "Prithvi",
+      "fnr_in": "0.055",
+      "fnr_in_ci": [0.051, 0.058],
+      "fnr_shift": "0.130",
+      "fnr_shift_ci": [0.125, 0.135],
+      "fnr_repair": "0.031",
+      "fnr_repair_ci": [0.029, 0.034],
+      "set_crc": "15.5",
+      "set_mond": "22.3",
+      "so2sat_worst": "0.731",
+      "so2sat_worst_ci": null,
+      "so2sat_marginal": "0.904"
+    },
+    {
+      "id": "ssl4eo_dino",
+      "short": "SSL4EO-DINO",
+      "fnr_in": "0.053",
+      "fnr_in_ci": [0.050, 0.057],
+      "fnr_shift": "0.191",
+      "fnr_shift_ci": [0.185, 0.196],
+      "fnr_repair": "0.032",
+      "fnr_repair_ci": [0.029, 0.034],
+      "set_crc": "10.6",
+      "set_mond": "22.3",
+      "so2sat_worst": "—",
+      "so2sat_worst_ci": null,
+      "so2sat_marginal": "—",
+      "missing": "So2Sat ViT-S slot substitutes SSL4EO ViT-S/16 MAE; DINO worst-class cell is not in the frozen So2Sat table."
+    },
+    {
+      "id": "ssl4eo_mae",
+      "short": "SSL4EO-MAE",
+      "fnr_in": "0.052",
+      "fnr_in_ci": [0.048, 0.055],
+      "fnr_shift": "0.170",
+      "fnr_shift_ci": [0.164, 0.175],
+      "fnr_repair": "0.030",
+      "fnr_repair_ci": [0.028, 0.033],
+      "set_crc": "11.8",
+      "set_mond": "22.1",
+      "so2sat_worst": "0.702",
+      "so2sat_worst_ci": null,
+      "so2sat_marginal": "0.882"
+    },
+    {
+      "id": "dofa",
+      "short": "DOFA",
+      "fnr_in": "0.056",
+      "fnr_in_ci": [0.052, 0.059],
+      "fnr_shift": "0.169",
+      "fnr_shift_ci": [0.164, 0.175],
+      "fnr_repair": "0.021",
+      "fnr_repair_ci": [0.019, 0.024],
+      "set_crc": "13.0",
+      "set_mond": "24.1",
+      "so2sat_worst": "0.733",
+      "so2sat_worst_ci": null,
+      "so2sat_marginal": "0.877"
+    }
+  ]
+}

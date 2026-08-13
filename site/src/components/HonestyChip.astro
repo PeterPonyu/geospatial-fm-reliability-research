@@ -1,0 +1,8 @@
+---
+interface Props {
+  kind?: "fail" | "survive" | "plain";
+}
+const { kind = "plain" } = Astro.props;
+---
+
+<span class:list={["chip", kind]}><slot /></span>

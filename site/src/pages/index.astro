@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import ReportCard from "../components/ReportCard.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+import FigureMod from "../components/FigureMod.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Coverage debt report card — frozen optical Earth-observation foundation models"
+  description="Four-number pre-deployment report card for frozen optical geospatial foundation models under a cross-European geographic split."
+  path=""
+>
+  <p class="kicker">Submitted · ISPRS Journal of Photogrammetry and Remote Sensing</p>
+  <h1 class="display">
+    Cross-European coverage debt of frozen optical Earth-observation foundation models:
+    a pre-deployment reliability report card and a conditional target-recalibration remedy
+  </h1>
+  <p class="lede">
+    Freeze the encoder, fit a probe, run conformal prediction under a geographic split, then
+    read four numbers before a regional move.
+  </p>
+  <div class="chips">
+    <HonestyChip>Submitted</HonestyChip>
+    <HonestyChip>Frozen science</HonestyChip>
+    <HonestyChip kind="fail">Stage-2 universal-restoration gate: not met (exploratory reframe)</HonestyChip>
+  </div>
+
+  <ReportCard />
+
+  <p>
+    Protocol: freeze encoder → probe → conformal under geographic split → card.
+  </p>
+
+  <FigureMod
+    src="figures/protocol.svg"
+    alt="Five-stage protocol DATA, MODEL, PROBE, EVAL, REPORT, forking into FAILURE no universal restoration versus SURVIVING conditional labeled-target recalibration."
+    caption="Figure-module: report-card protocol. FAILURE is the preregistered universal-restoration gate. SURVIVING is labeled-target recalibration, not a label-free fix."
+  />
+
+  <nav class="deep-links" aria-label="Read next">
+    <a href={`${base}geography/`}>Geography — the longitude cut</a>
+    <a href={`${base}debt/`}>Debt — coverage and FNR under shift</a>
+    <a href={`${base}repair/`}>Repair — labeled target budget</a>
+  </nav>
+</Base>

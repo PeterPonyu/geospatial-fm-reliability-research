@@ -1,0 +1,17 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption: string;
+}
+const { src, alt, caption } = Astro.props;
+---
+
+<figure>
+  <img src={`${import.meta.env.BASE_URL}${src}`} alt={alt} />
+  <figcaption>{caption}</figcaption>
+  <details>
+    <summary>Data table twin</summary>
+    <slot />
+  </details>
+</figure>

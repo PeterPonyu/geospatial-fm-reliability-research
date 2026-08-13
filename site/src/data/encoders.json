@@ -1,0 +1,60 @@
+{
+  "palette": {
+    "Clay": "#0072B2",
+    "Clay v1.5": "#0072B2",
+    "DOFA": "#E69F00",
+    "Prithvi": "#009E73",
+    "Prithvi-EO-2.0": "#009E73",
+    "SSL4EO-DINO": "#D55E00",
+    "SSL4EO-MAE": "#CC79A7",
+    "source": "#009E73",
+    "target": "#D55E00",
+    "nominal": "#44403c"
+  },
+  "eurosat": [
+    {
+      "id": "clay",
+      "short": "Clay",
+      "full": "Clay v1.5",
+      "colour": "#0072B2"
+    },
+    {
+      "id": "prithvi",
+      "short": "Prithvi",
+      "full": "Prithvi-EO-2.0-300M",
+      "colour": "#009E73"
+    },
+    {
+      "id": "ssl4eo_dino",
+      "short": "SSL4EO-DINO",
+      "full": "SSL4EO-S12 ViT-S/16 DINO",
+      "colour": "#D55E00"
+    },
+    {
+      "id": "ssl4eo_mae",
+      "short": "SSL4EO-MAE",
+      "full": "SSL4EO-S12 ViT-B/16 MAE",
+      "colour": "#CC79A7"
+    },
+    {
+      "id": "dofa",
+      "short": "DOFA",
+      "full": "DOFA ViT-B/16",
+      "colour": "#E69F00"
+    }
+  ],
+  "roster13": {
+    "original5": ["Prithvi", "Clay", "SSL4EO-DINO", "SSL4EO-MAE", "DOFA"],
+    "added": [
+      "SoftCon-ViT-B",
+      "SoftCon-ViT-S",
+      "CROMA-L",
+      "CROMA-B",
+      "ResNet50-MoCo",
+      "SSL4EO-MAE (ViT-L)",
+      "ResNet50-DINO",
+      "SSL4EO-MoCo"
+    ]
+  },
+  "notes": "Encoder hues locked to the manuscript Okabe–Ito map. Roster extras use shape, not a new rainbow."
+}

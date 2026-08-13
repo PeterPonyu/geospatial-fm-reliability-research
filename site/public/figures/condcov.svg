@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" width="1100" height="360" role="img" aria-labelledby="t">
+<title id="t">EuroSAT worst-class gap after marginal repair (α = 0.05). SSL4EO-DINO is the load-bearing datum.</title>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<text x="24" y="28" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#57534e">EuroSAT worst-class gap after marginal repair (α = 0.05). SSL4EO-DINO is the load-bearing datum.</text>
+<line x1="72" y1="300" x2="1000" y2="300" stroke="#d6d3d1"/>
+<line x1="72" y1="48" x2="72" y2="300" stroke="#d6d3d1"/>
+<text x="24" y="180" transform="rotate(-90 24 180)" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#57534e">G_worst</text>
+<rect x="80" y="234.89999999999998" width="144" height="65.10000000000001" fill="#E69F00"/>
+<text x="152" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">DOFA</text>
+<text x="152" y="228.89999999999998" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">0.031</text>
+<rect x="240" y="220.2" width="144" height="79.8" fill="#CC79A7"/>
+<text x="312" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">MAE</text>
+<text x="312" y="214.2" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">0.038</text>
+<rect x="400" y="205.5" width="144" height="94.5" fill="#009E73"/>
+<text x="472" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">Prithvi</text>
+<text x="472" y="199.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">0.045</text>
+<rect x="560" y="199.2" width="144" height="100.80000000000001" fill="#0072B2"/>
+<text x="632" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">Clay</text>
+<text x="632" y="193.2" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">0.048</text>
+<rect x="720" y="90" width="144" height="210" fill="#D55E00"/>
+<text x="792" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">DINO</text>
+<text x="792" y="84" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">0.1</text>
+</svg>

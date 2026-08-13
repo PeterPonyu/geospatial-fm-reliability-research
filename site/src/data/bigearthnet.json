@@ -1,0 +1,38 @@
+{
+  "powered_claim": "13/13 encoders meet in-distribution CRC FNR and incur geographic debt under shift (FNR 0.130–0.234, 2.6–4.7× nominal).",
+  "spearman_fnr_vs_map": {"rho": 0.32, "p": 0.28, "n": 13, "inversions": "48/78"},
+  "spearman_fnr_vs_setsize_alpha10": {"rho": -0.66, "p": 0.017, "n": 13},
+  "five_encoder_pilot_rho": 0.9,
+  "fnr_decouple_alpha05": [
+    {"encoder": "Prithvi", "map_in": 0.432, "ece_in": 0.082, "fnr_shift": 0.13, "fnr_repaired": 0.031, "set_size": 15.5, "original5": true},
+    {"encoder": "DOFA", "map_in": 0.459, "ece_in": 0.057, "fnr_shift": 0.169, "fnr_repaired": 0.021, "set_size": 13.0, "original5": true},
+    {"encoder": "Clay", "map_in": 0.502, "ece_in": 0.078, "fnr_shift": 0.176, "fnr_repaired": 0.022, "set_size": 13.3, "original5": true},
+    {"encoder": "SoftCon-ViT-B", "map_in": 0.525, "ece_in": 0.033, "fnr_shift": 0.174, "fnr_repaired": 0.031, "set_size": 11.9, "original5": false},
+    {"encoder": "SoftCon-ViT-S", "map_in": 0.525, "ece_in": 0.02, "fnr_shift": 0.213, "fnr_repaired": 0.036, "set_size": 10.7, "original5": false},
+    {"encoder": "CROMA-L", "map_in": 0.541, "ece_in": 0.037, "fnr_shift": 0.169, "fnr_repaired": 0.024, "set_size": 11.6, "original5": false},
+    {"encoder": "CROMA-B", "map_in": 0.544, "ece_in": 0.046, "fnr_shift": 0.182, "fnr_repaired": 0.03, "set_size": 12.1, "original5": false},
+    {"encoder": "ResNet50-MoCo", "map_in": 0.548, "ece_in": 0.073, "fnr_shift": 0.234, "fnr_repaired": 0.002, "set_size": 12.5, "original5": false},
+    {"encoder": "SSL4EO-MAE", "map_in": 0.55, "ece_in": 0.037, "fnr_shift": 0.17, "fnr_repaired": 0.03, "set_size": 11.8, "original5": true},
+    {"encoder": "SSL4EO-MAE (ViT-L)", "map_in": 0.55, "ece_in": 0.038, "fnr_shift": 0.155, "fnr_repaired": 0.029, "set_size": 11.9, "original5": false},
+    {"encoder": "ResNet50-DINO", "map_in": 0.551, "ece_in": 0.055, "fnr_shift": 0.232, "fnr_repaired": 0.014, "set_size": 10.8, "original5": false},
+    {"encoder": "SSL4EO-DINO", "map_in": 0.559, "ece_in": 0.028, "fnr_shift": 0.191, "fnr_repaired": 0.032, "set_size": 10.6, "original5": true},
+    {"encoder": "SSL4EO-MoCo", "map_in": 0.582, "ece_in": 0.032, "fnr_shift": 0.171, "fnr_repaired": 0.028, "set_size": 10.7, "original5": false}
+  ],
+  "crc": [
+    {"alpha": 0.05, "encoder": "Prithvi", "fnr_in": "0.055", "fnr_in_ci": [0.051, 0.058], "fnr_shift": "0.130", "fnr_shift_ci": [0.125, 0.135], "fnr_mond": "0.031", "fnr_mond_ci": [0.029, 0.034], "set": "15.5/22.3"},
+    {"alpha": 0.05, "encoder": "Clay", "fnr_in": "0.053", "fnr_in_ci": [0.049, 0.056], "fnr_shift": "0.176", "fnr_shift_ci": [0.171, 0.182], "fnr_mond": "0.022", "fnr_mond_ci": [0.020, 0.024], "set": "13.3/23.8"},
+    {"alpha": 0.05, "encoder": "SSL4EO-DINO", "fnr_in": "0.053", "fnr_in_ci": [0.050, 0.057], "fnr_shift": "0.191", "fnr_shift_ci": [0.185, 0.196], "fnr_mond": "0.032", "fnr_mond_ci": [0.029, 0.034], "set": "10.6/22.3"},
+    {"alpha": 0.05, "encoder": "SSL4EO-MAE", "fnr_in": "0.052", "fnr_in_ci": [0.048, 0.055], "fnr_shift": "0.170", "fnr_shift_ci": [0.164, 0.175], "fnr_mond": "0.030", "fnr_mond_ci": [0.028, 0.033], "set": "11.8/22.1"},
+    {"alpha": 0.05, "encoder": "DOFA", "fnr_in": "0.056", "fnr_in_ci": [0.052, 0.059], "fnr_shift": "0.169", "fnr_shift_ci": [0.164, 0.175], "fnr_mond": "0.021", "fnr_mond_ci": [0.019, 0.024], "set": "13.0/24.1"},
+    {"alpha": 0.1, "encoder": "Prithvi", "fnr_in": "0.105", "fnr_in_ci": [0.101, 0.110], "fnr_shift": "0.206", "fnr_shift_ci": [0.200, 0.212], "fnr_mond": "0.083", "fnr_mond_ci": [0.079, 0.086], "set": "11.9/18.2"},
+    {"alpha": 0.1, "encoder": "Clay", "fnr_in": "0.108", "fnr_in_ci": [0.103, 0.113], "fnr_shift": "0.277", "fnr_shift_ci": [0.271, 0.283], "fnr_mond": "0.082", "fnr_mond_ci": [0.078, 0.086], "set": "9.7/18.2"},
+    {"alpha": 0.1, "encoder": "SSL4EO-DINO", "fnr_in": "0.107", "fnr_in_ci": [0.102, 0.112], "fnr_shift": "0.277", "fnr_shift_ci": [0.271, 0.283], "fnr_mond": "0.082", "fnr_mond_ci": [0.078, 0.086], "set": "7.9/17.4"},
+    {"alpha": 0.1, "encoder": "SSL4EO-MAE", "fnr_in": "0.108", "fnr_in_ci": [0.103, 0.113], "fnr_shift": "0.262", "fnr_shift_ci": [0.256, 0.268], "fnr_mond": "0.084", "fnr_mond_ci": [0.080, 0.088], "set": "8.6/17.1"},
+    {"alpha": 0.1, "encoder": "DOFA", "fnr_in": "0.107", "fnr_in_ci": [0.103, 0.112], "fnr_shift": "0.249", "fnr_shift_ci": [0.243, 0.256], "fnr_mond": "0.080", "fnr_mond_ci": [0.076, 0.084], "set": "9.9/18.1"},
+    {"alpha": 0.2, "encoder": "Prithvi", "fnr_in": "0.205", "fnr_in_ci": [0.199, 0.211], "fnr_shift": "0.346", "fnr_shift_ci": [0.339, 0.353], "fnr_mond": "0.184", "fnr_mond_ci": [0.179, 0.190], "set": "8.0/12.9"},
+    {"alpha": 0.2, "encoder": "Clay", "fnr_in": "0.203", "fnr_in_ci": [0.197, 0.209], "fnr_shift": "0.426", "fnr_shift_ci": [0.419, 0.433], "fnr_mond": "0.185", "fnr_mond_ci": [0.179, 0.190], "set": "6.4/12.9"},
+    {"alpha": 0.2, "encoder": "SSL4EO-DINO", "fnr_in": "0.206", "fnr_in_ci": [0.200, 0.212], "fnr_shift": "0.401", "fnr_shift_ci": [0.394, 0.408], "fnr_mond": "0.191", "fnr_mond_ci": [0.185, 0.197], "set": "5.3/11.1"},
+    {"alpha": 0.2, "encoder": "SSL4EO-MAE", "fnr_in": "0.209", "fnr_in_ci": [0.202, 0.215], "fnr_shift": "0.408", "fnr_shift_ci": [0.401, 0.415], "fnr_mond": "0.189", "fnr_mond_ci": [0.184, 0.195], "set": "5.5/11.3"},
+    {"alpha": 0.2, "encoder": "DOFA", "fnr_in": "0.203", "fnr_in_ci": [0.196, 0.209], "fnr_shift": "0.384", "fnr_shift_ci": [0.377, 0.391], "fnr_mond": "0.187", "fnr_mond_ci": [0.181, 0.193], "set": "6.7/12.4"}
+  ]
+}

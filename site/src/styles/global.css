@@ -1,0 +1,404 @@
+@import "@fontsource/source-serif-4/400.css";
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "./tokens.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 17.5px;
+  line-height: 1.5;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: "Source Serif 4", "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 1.85rem;
+  font-weight: 400;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin: 2.5rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 1.75rem 0 0.5rem;
+}
+
+p {
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--survive);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  background: var(--card);
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.wrap {
+  max-width: var(--stage);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+header.site {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.85rem 0;
+}
+
+header.site .bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.brand img {
+  display: block;
+}
+
+nav.primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+
+.header-links {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  gap: 0.65rem;
+}
+
+.kicker {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.chip {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.15rem 0.45rem;
+  color: var(--muted);
+}
+
+.chip.fail {
+  color: var(--fail);
+  border-color: var(--fail);
+}
+
+.chip.survive {
+  color: var(--survive);
+  border-color: var(--survive);
+}
+
+main {
+  padding: 2.5rem 0 4rem;
+}
+
+hr.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: var(--gap) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.88rem;
+  background: var(--card);
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.report-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.report-card table {
+  margin: 0;
+}
+
+.report-card caption,
+figcaption {
+  caption-side: bottom;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.65rem 0.2rem 0;
+}
+
+figure {
+  margin: 1.5rem 0 2rem;
+  max-width: var(--stage);
+}
+
+figure img,
+figure svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--rule);
+}
+
+details {
+  margin: 0.5rem 0 1.25rem;
+  max-width: var(--stage);
+}
+
+details summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+select,
+button {
+  font: inherit;
+  min-height: 44px;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0.25rem 0.5rem;
+}
+
+.encoder-switch {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0.75rem 0;
+}
+
+.num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.split-glyph::before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.35rem;
+  vertical-align: -0.05rem;
+  background: linear-gradient(90deg, var(--target) 50%, var(--source) 50%);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  padding: 1.25rem 0 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.lede {
+  font-size: 1.05rem;
+}
+
+.report-card table th:first-child,
+.report-card table td:first-child {
+  width: 58%;
+}
+
+.report-card .value {
+  font-size: 1.15rem;
+}
+
+.muted-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.deep-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 1.25rem 0;
+  font-weight: 500;
+}
+
+.cite-box pre {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+}
+
+.patch-scroll {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.two-col {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .report-card tbody {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .report-card tr {
+    display: grid;
+    border-bottom: 1px solid var(--rule);
+  }
+  .report-card td {
+    border-bottom: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .two-col {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  nav.primary {
+    width: 100%;
+  }
+  h1 {
+    font-size: 1.45rem;
+  }
+  .report-card tbody {
+    display: table-row-group;
+  }
+  .report-card tr {
+    display: table-row;
+  }
+}
+
+@media print {
+  header.site nav.primary,
+  .header-links,
+  footer.site,
+  .encoder-switch {
+    display: none;
+  }
+  body {
+    background: white;
+  }
+  .report-card {
+    break-inside: avoid;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

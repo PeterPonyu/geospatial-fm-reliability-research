@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" width="720" height="340" role="img" aria-labelledby="t">
+<title id="t">Planning-curve endpoints for labeled target budget</title>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<text x="24" y="28" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#57534e">EuroSAT target-calibrated coverage endpoints at α = 0.10 (0.5% → 30% labeled slice)</text>
+<line x1="120" y1="280" x2="560" y2="280" stroke="#d6d3d1"/>
+<line x1="120" y1="219.99999999999994" x2="560" y2="219.99999999999994" stroke="#44403c" stroke-dasharray="5 4"/>
+<line x1="120" y1="149.32" x2="520" y2="221.55999999999992" stroke="#009E73" stroke-width="1.6"/>
+<circle cx="120" cy="149.32" r="4" fill="#009E73"/>
+<circle cx="520" cy="221.55999999999992" r="4" fill="#009E73"/><line x1="120" y1="164.43999999999994" x2="520" y2="218.44" stroke="#D55E00" stroke-width="1.6"/>
+<circle cx="120" cy="164.43999999999994" r="4" fill="#D55E00"/>
+<circle cx="520" cy="218.44" r="4" fill="#D55E00"/><line x1="120" y1="164.55999999999992" x2="520" y2="198.39999999999992" stroke="#0072B2" stroke-width="1.6"/>
+<circle cx="120" cy="164.55999999999992" r="4" fill="#0072B2"/>
+<circle cx="520" cy="198.39999999999992" r="4" fill="#0072B2"/><line x1="120" y1="159.63999999999993" x2="520" y2="216.88000000000002" stroke="#CC79A7" stroke-width="1.6"/>
+<circle cx="120" cy="159.63999999999993" r="4" fill="#CC79A7"/>
+<circle cx="520" cy="216.88000000000002" r="4" fill="#CC79A7"/>
+<text x="120" y="300" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#57534e">0.5% (n = 44)</text>
+<text x="520" y="300" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#57534e">30% (n = 2,673)</text>
+<text x="24" y="328" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#57534e">Only frozen endpoints are drawn. Intermediate budgets are not tabulated here. Coverage starts conservative and tightens toward nominal.</text>
+</svg>
