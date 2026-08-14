@@ -26,6 +26,16 @@ const patterns = [
   { name: "jcp-oxide", re: /\bJCP\b|oxide DAF/ },
   { name: "asr-gate", re: /asr-gate/ },
   { name: "paper-pdf", re: /paper_isprs\.pdf|paper_.*\.pdf/ },
+  { name: "venue-isprs", re: /ISPRS/ },
+  { name: "venue-tgrs", re: /TGRS/ },
+  { name: "manuscript-word", re: /manuscript/i },
+  { name: "submitted-word", re: /\b[Ss]ubmitted\b/ },
+  { name: "preprint-word", re: /preprint/i },
+  { name: "journal-word", re: /journal/i },
+  { name: "this-paper", re: /this paper/i },
+  { name: "companion-paper", re: /companion paper/i },
+  { name: "copy-ready", re: /COPY_READY/ },
+  { name: "pdf-word", re: /\bPDF\b/ },
 ];
 
 function walk(dir, acc = []) {

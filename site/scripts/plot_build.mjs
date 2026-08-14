@@ -109,7 +109,7 @@ rows.forEach((row, ri) => {
     tiles += `<rect x="${x}" y="${y}" width="120" height="88" fill="#f7f4ee" stroke="${row.fill}"/>
 <text x="${x + 8}" y="${y + 28}" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="${ink}">${c}</text>
 <text x="${x + 8}" y="${y + 48}" font-family="IBM Plex Mono, monospace" font-size="10" fill="${muted}">schematic tile</text>
-<text x="${x + 8}" y="${y + 68}" font-family="IBM Plex Mono, monospace" font-size="10" fill="${muted}">not a PDF raster</text>`;
+<text x="${x + 8}" y="${y + 68}" font-family="IBM Plex Mono, monospace" font-size="10" fill="${muted}">schematic cell</text>`;
   });
 });
 write(
@@ -117,7 +117,7 @@ write(
   svg(
     1100,
     380,
-    `<text x="16" y="24" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="${muted}">Patch construction (six classes × source / boundary / target). True-color Sentinel-2 tiles remain in the manuscript; this module is the labeled grid, not a screenshot.</text>${tiles}`,
+    `<text x="16" y="24" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="${muted}">Patch construction (six classes × source / boundary / target) at the P33 longitude cut. Schematic labeled grid.</text>${tiles}`,
     "Geographic patch-strip construction",
   ),
 );
