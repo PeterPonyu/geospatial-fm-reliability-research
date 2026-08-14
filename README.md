@@ -1,130 +1,126 @@
-# geospatial-fm-reliability-research
+# Geographic coverage debt of frozen Earth-observation foundation models
 
-Code archive: Zenodo DOI 10.5281/zenodo.21130299 (reserved; draft record, activates on publish).
+Code and frozen-feature archive for a **coverage-debt** audit of frozen optical
+geospatial foundation models, with a **conditional** target-side conformal
+repair. The audit is diagnostic: it prices a labeled target-region slice. It is
+not a label-free universal fix.
 
-Geographic coverage debt of frozen Earth-observation foundation models, and a
-conditional target-side conformal repair.
+Reserved DOI: [10.5281/zenodo.21130299](https://doi.org/10.5281/zenodo.21130299)
+(draft record; activates on publish).
 
-## Thesis
+Companion report card:
+[peterponyu.github.io/geospatial-fm-reliability-research](https://peterponyu.github.io/geospatial-fm-reliability-research/).
 
-Frozen geospatial foundation models (Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12
-DINO and MAE) used as off-the-shelf encoders lose conformal-prediction coverage
-under a real East-to-West Europe geographic shift — a "geographic coverage
-debt" that is encoder-dependent (Prithvi heaviest, Clay lightest) and monotone
-in the encoder's calibration degradation (shift-ECE). A Mondrian conformal arm
-calibrated on a labeled target-region slice restores near-nominal coverage
-exactly where debt exists; the 2026-07-02 label-access ablation shows the
-restoration comes from the labeled target-region calibration access rather than
-the spatial binning per se, so the claim is deliberately conditional and
-diagnostic, not a universal spatial fix. The result replicates on GEO-Bench
-m-bigearthnet (per-label multi-label conformal + a CRC/FNR arm), and the
-2026-07-02 boundary sweep (P25/P33/P40/P50 longitude cuts) shows the headline
-is robust to the split-boundary choice.
+## Claim
 
-## Repository layout
+Frozen optical encoders used as off-the-shelf feature extractors lose
+conformal-prediction coverage under a real East→West Europe geographic shift.
+That loss is **geographic coverage debt**. It is encoder-dependent and is not
+the same ranking as accuracy or expected calibration error (ECE).
 
-| Path | What it is |
-|---|---|
-| `manuscripts/paper.tex` | Manuscript source (builds with `lualatex`, 9 pages); `paper.pdf` committed |
-| `manuscripts/figures/` | R figure scripts (`p3_figs.R`, `p3_bigearthnet.R`) + vendored `ggtheme.R`; figures F1/F2/F3/F6 are generated ONLY from on-disk result JSONs |
-| `experiments/eurosat_xsensor_calib/` | Core EuroSAT-MS runners: `run_real_geo_shift_calib.py` (single source of truth for the conformal/calibration primitives), `run_stage2_multi_fm_alpha.py` (4-FM x 3-alpha headline), `run_boundary_sweep.py` (boundary sweep + label-access ablation), feature extractors (`*_features.py`, `vendor_clay/`) |
-| `experiments/eurosat_spatial/` | EuroSAT-MS data prep (`prepare_eurosat.py`) and lat/lon recovery |
-| `experiments/bigearthnet_coverage_debt/` | GEO-Bench m-bigearthnet arm: `build_ben_arrays.py`, `run_ben_perlabel_conformal.py`, `run_ben_crc_arm.py` |
-| `experiments/xsensor_real/` | So2Sat S2/S1 prep + cross-sensor runner (Stage-0 only; see honest status) |
-| `experiments/results/` | All result JSONs, findings files, run logs, and the Stage-2 preregistration (`eurosat_stage2_multifm_multialpha/PREREGISTRATION-stage2.md`) |
-| `DATA_MANIFEST.md` | Sizes + SHA256 and re-download sources for every gitignored bulk-data artifact |
-| `NEXT-EXPERIMENTS.md` | Deferred experiments (GPU / bulk-download) with costs and exact commands |
-| `directions/`, `research/` | Direction documents and research notes |
+In-distribution multi-label false-negative rate (FNR) holds at the nominal risk
+level. The same conformal risk-control (CRC) arm under the shift does not.
+A Mondrian / spatial-Mondrian arm calibrated on a **labeled target-region
+slice** restores near-nominal coverage where debt exists. Label-access
+ablation attributes the restoration to target-region calibration access, not
+to spatial binning by itself.
 
-## Reproducing
+A preregistered Stage-2 gate required universal restoration (Prithvi and Clay
+at two or more risk levels). The gate returned **KILL**. Encoder-dependent
+repair is an exploratory reframe of that falsified universal-restoration
+hypothesis.
 
-### 1. Environment
+## Geographic split (P33)
 
-Python 3.13 (results produced on 3.13.5, Linux):
+The shift is a longitude percentile cut on EuroSAT-MS tile centroids, not an
+abstract out-of-distribution slogan.
 
-```bash
-python3 -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt
-# provenance stamping (optional but used by run_boundary_sweep.py):
-pip install -e ../reliability-commons   # or: export RELIABILITY_COMMONS=/path/to/reliability-commons
-```
+| Split | Definition | *n* |
+| --- | --- | ---: |
+| Source | east of **P33 = 4.2°E** (East / Central Europe) | 18,090 |
+| Target | west of the cut (Iberian–Atlantic Europe) | 8,910 |
 
-R (figures only): R >= 4.3 with `ggplot2`, `jsonlite`, `scales`
-(figures regenerated 2026-07-02 with R 4.3.3, ggplot2 4.0.3, jsonlite 2.0.0, scales 1.4.0).
+P25 and P50 are percentile guides only. A boundary sweep at P25 / P33 / P40 /
+P50 leaves the headline intact. Class priors move across the cut (Pasture is
+enriched in the target; Forest, River, and SeaLake are depleted); unlabeled
+label-shift corrections still fail to restore coverage.
 
-### 2. Data
+## Conformal protocol
 
-Bulk data is gitignored; every artifact's size, SHA256, and source is in
-`DATA_MANIFEST.md`. Datasets live at repo-relative paths except the GEO-Bench
-m-so2sat HDF5 source, which is resolved via the `DATA_ROOT` environment
-variable (default `${DATA_ROOT}`; layout
-`$DATA_ROOT/geobench/classification_v0.9.1/m-so2sat`):
+1. Freeze the encoder (no fine-tuning).
+2. Fit a linear probe on frozen features.
+3. Run split conformal under the geographic cut.
+4. Read a four-number report card before a regional move.
 
-- EuroSAT-MS zip (Zenodo 7711810) -> `data/eurosat_ms/`, unzip to `data/eurosat_ms/extracted/`, then `python experiments/eurosat_spatial/prepare_eurosat.py`
-- GEO-Bench m-bigearthnet zip (HF `recursix/geo-bench-1.0`) -> `experiments/bigearthnet_coverage_debt/data/`, then `python experiments/bigearthnet_coverage_debt/build_ben_arrays.py`
-- GEO-Bench m-so2sat (via `geobench.geobench_download`) -> `$DATA_ROOT/geobench/...`, then `python experiments/xsensor_real/prep_so2sat.py`
+Arms used in the frozen tables:
 
-Frozen FM checkpoints are NOT retained on disk; cached frozen-encoder feature
-arrays for all headline results are (hashes in `DATA_MANIFEST.md`), so the
-conformal analyses below re-run CPU-only without any FM download.
+- **Split (source)** — calibrate on the source region; evaluate on the target.
+- **Target-global** — calibrate on a labeled target slice (no spatial bins).
+- **Spatial-Mondrian / Mondrian-CRC** — same labeled target slice, with spatial
+  or class-conditional bins where the construction supplies them.
 
-### 3. Run order (headline results)
+Unlabeled remedies in the frozen tables do not close the debt.
+Covariate-shift-weighted conformal collapses effective sample size to
+0.1–1.6% of the calibration set. Oracle and BBSE label-shift corrections
+remain below target-global coverage.
 
-```bash
-# EuroSAT 4-FM x 3-alpha headline (writes experiments/results/eurosat_stage2_multifm_multialpha/)
-python experiments/eurosat_xsensor_calib/run_stage2_multi_fm_alpha.py
+## Report card (Clay v1.5 illustration, α = 0.05)
 
-# Boundary sweep + label-access ablation (CPU, cached features; ~15 min/FM)
-python experiments/eurosat_xsensor_calib/run_boundary_sweep.py
+Clay is the median-accuracy encoder on the five-encoder EuroSAT battery
+(mAP 0.502). Cells below are frozen; intervals are seed / bootstrap intervals
+from the same tables.
 
-# BigEarthNet per-label conformal + CRC arm
-python experiments/bigearthnet_coverage_debt/run_ben_perlabel_conformal.py
-python experiments/bigearthnet_coverage_debt/run_ben_crc_arm.py
-```
+| Question | Value |
+| --- | --- |
+| In-distribution multi-label FNR (CRC, BigEarthNet-S2) | 0.053 [0.049, 0.056] |
+| Geographic debt if deployed uncalibrated (same CRC arm, E→W) | 0.175 [0.143, 0.208] ≈ 3.5× the 0.05 target |
+| FNR after a 30% labeled target slice (Mondrian-CRC) | 0.022 [0.015, 0.029]; set size 13.3 → 23.8 of 27 labels |
+| Worst class under a healthy marginal (So2Sat LCZ42, LCZ-17, split) | 0.732 [0.692, 0.772]; marginal 0.891 |
 
-### 4. Figures and paper
+On the thirteen-encoder BigEarthNet roster, **13/13** encoders meet the
+in-distribution FNR guarantee and **13/13** incur shift debt (FNR 0.130–0.234,
+about 2.6–4.7× nominal). Larger prediction sets, not a “better” encoder, buy
+FNR back. At *n* = 13 the accuracy–FNR association is Spearman ρ = +0.32
+(*p* = 0.28); a five-encoder inversion does not survive the roster.
 
-```bash
-cd manuscripts/figures && Rscript p3_figs.R && Rscript p3_bigearthnet.R
-cd manuscripts && lualatex paper.tex && lualatex paper.tex
-```
+EuroSAT integrated geographic-debt order (largest to smallest): Prithvi,
+DOFA, SSL4EO-DINO, SSL4EO-MAE, Clay. Split coverage at α = 0.05 ranges from
+0.833 (Prithvi) to 0.918 (Clay); spatial-Mondrian restores each to
+0.951–0.962.
 
-### 5. Smoke test
+## Encoders
 
-```bash
-bash smoke_test.sh   # <1 min, CPU-only, read-only w.r.t. results
-```
+Headline EuroSAT / CRC battery: Clay v1.5, Prithvi-EO-2.0-300M, SSL4EO-S12
+DINO, SSL4EO-S12 MAE, DOFA. The BigEarthNet roster adds eight further frozen
+optical encoders (SoftCon, CROMA, ResNet50-MoCo/DINO, SSL4EO-MoCo, SSL4EO-MAE
+ViT-L). Checkpoints are not stored here; cached frozen features support
+CPU-only conformal re-analysis.
 
-Byte-compiles all experiment code, exercises the core conformal/calibration
-primitives on a synthetic fixture, and validates the key result JSONs.
+## Datasets
 
-## Honest status (read before citing anything)
+| Dataset | Role | Notes |
+| --- | --- | --- |
+| EuroSAT-MS | Headline geographic split | Optical Sentinel-2 land-cover tiles; P33 construction above. Upstream: Zenodo 7711810. |
+| GEO-Bench BigEarthNet-S2 | Multi-label CRC / FNR replication | 27 labels; in-distribution hold, East→West debt, Mondrian-CRC repair. |
+| So2Sat LCZ42 | Non-European city-holdout | Local-climate-zone labels. No per-tile lat/lon, so no spatial-Mondrian arm. Worst-class coverage can collapse while the marginal looks healthy. |
 
-- **Preregistration vs paper:** the Stage-2 machine gate
-  (`experiments/results/eurosat_stage2_multifm_multialpha/PREREGISTRATION-stage2.md`)
-  returned **KILL** against the original universal-restoration criterion (Clay
-  failed the >=2-alpha restoration test). The paper reports the honest
-  exploratory *conditional* reframe; any submission must disclose the original
-  gate verdict and the reframe.
-- **Label-access confound, resolved honestly:** the 2026-07-02 ablation shows
-  the coverage restoration is driven by labeled target-region calibration
-  access, not spatial binning; `paper.tex` says this explicitly and future
-  framing (including the title) must not re-inflate the spatial claim.
-- **So2Sat S1 cross-sensor result is degenerate** (Prithvi fed SAR into optical
-  slots; S1 accuracy 0.064 vs 17-class chance 0.059, 3 seeds, collapsed CIs).
-  It must NOT be cited as a finding; a proper S1-capable rerun is specified in
-  `NEXT-EXPERIMENTS.md`.
-  merge anything from it into manuscripts.
-- Results only change by re-running the analysis code; result JSONs are never
-  hand-edited, and figures are generated only from on-disk result JSONs.
-- Remaining experimental lift (weighted-conformal baseline, S1-capable
-  cross-sensor arm, non-European arm, 5th encoder) is specified with exact
-  commands and cost estimates in `NEXT-EXPERIMENTS.md` — not run.
+Raw tiles are not redistributed. Each dataset keeps its upstream license.
+See `DATA_MANIFEST.md` for sizes, SHA-256, and re-download sources of
+gitignored bulk artifacts.
 
-## Citation and license
+## Scope and withheld arms
 
-See `CITATION.cff`. Code is MIT-licensed (`LICENSE`). Datasets keep their own
-licenses/terms: EuroSAT (Zenodo record 7711810) and GEO-Bench
-(`recursix/geo-bench-1.0`) are public benchmark releases — check their
-respective license statements before redistribution; raw data is not
-redistributed in this repo.
+- Optical Sentinel-2 only.
+- Sentinel-1 (optical→SAR) is **withheld**: the in-distribution control failed
+  a probe-sanity guard. It is not a negative finding in this archive.
+- An optical shift-fingerprint module is omitted until the EuroSAT-MS
+  fingerprint is complete. Mixing incomplete multispectral tiles with RGB
+  would be dishonest.
+- Cross-encoder rankings, planning curves, and the report-card illustration
+  are post-hoc on frozen features.
+
+## Code and license
+
+Code is MIT-licensed (`LICENSE`). Citation metadata is in `CITATION.cff`.
+Python dependencies are in `requirements.txt`. Figures in the companion are
+redrawn from the frozen tables; they are not a dump of experiment outputs.
