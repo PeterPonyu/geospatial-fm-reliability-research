@@ -1,0 +1,30 @@
+{
+  "partition": "GEO-Bench train/valid (source) vs held-out test-city (target); no per-tile lat/lon, so no spatial-Mondrian arm",
+  "n_classes": 17,
+  "n_cities": 42,
+  "restoration": "paired-seed restoration interval excludes 0 in all 15 encoder × risk-level cells",
+  "coverage": [
+    {"alpha": 0.05, "encoder": "Prithvi", "split": 0.904, "split_set": 3.92, "tgt": 0.956, "tgt_set": 5.72, "acc_in": 0.67, "acc_shift": 0.522},
+    {"alpha": 0.05, "encoder": "Clay", "split": 0.891, "split_set": 3.32, "tgt": 0.954, "tgt_set": 5.08, "acc_in": 0.713, "acc_shift": 0.569},
+    {"alpha": 0.05, "encoder": "SSL4EO ViT-S/16 MAE", "split": 0.88, "split_set": 2.42, "tgt": 0.962, "tgt_set": 4.25, "acc_in": 0.781, "acc_shift": 0.601},
+    {"alpha": 0.05, "encoder": "SSL4EO-MAE ViT-B/16", "split": 0.882, "split_set": 2.18, "tgt": 0.95, "tgt_set": 3.47, "acc_in": 0.796, "acc_shift": 0.637},
+    {"alpha": 0.05, "encoder": "DOFA", "split": 0.877, "split_set": 2.49, "tgt": 0.963, "tgt_set": 5.35, "acc_in": 0.777, "acc_shift": 0.608},
+    {"alpha": 0.1, "encoder": "Prithvi", "split": 0.825, "split_set": 2.71, "tgt": 0.907, "tgt_set": 4.02, "acc_in": 0.67, "acc_shift": 0.522},
+    {"alpha": 0.1, "encoder": "Clay", "split": 0.808, "split_set": 2.27, "tgt": 0.888, "tgt_set": 3.24, "acc_in": 0.713, "acc_shift": 0.569},
+    {"alpha": 0.1, "encoder": "SSL4EO ViT-S/16 MAE", "split": 0.775, "split_set": 1.67, "tgt": 0.904, "tgt_set": 2.75, "acc_in": 0.781, "acc_shift": 0.601},
+    {"alpha": 0.1, "encoder": "SSL4EO-MAE ViT-B/16", "split": 0.795, "split_set": 1.57, "tgt": 0.896, "tgt_set": 2.38, "acc_in": 0.796, "acc_shift": 0.637},
+    {"alpha": 0.1, "encoder": "DOFA", "split": 0.781, "split_set": 1.69, "tgt": 0.918, "tgt_set": 3.3, "acc_in": 0.777, "acc_shift": 0.608},
+    {"alpha": 0.2, "encoder": "Prithvi", "split": 0.685, "split_set": 1.62, "tgt": 0.819, "tgt_set": 2.65, "acc_in": 0.67, "acc_shift": 0.522},
+    {"alpha": 0.2, "encoder": "Clay", "split": 0.672, "split_set": 1.39, "tgt": 0.795, "tgt_set": 2.17, "acc_in": 0.713, "acc_shift": 0.569},
+    {"alpha": 0.2, "encoder": "SSL4EO ViT-S/16 MAE", "split": 0.632, "split_set": 1.08, "tgt": 0.809, "tgt_set": 1.88, "acc_in": 0.781, "acc_shift": 0.601},
+    {"alpha": 0.2, "encoder": "SSL4EO-MAE ViT-B/16", "split": 0.654, "split_set": 1.04, "tgt": 0.793, "tgt_set": 1.59, "acc_in": 0.796, "acc_shift": 0.637},
+    {"alpha": 0.2, "encoder": "DOFA", "split": 0.634, "split_set": 1.07, "tgt": 0.823, "tgt_set": 1.99, "acc_in": 0.777, "acc_shift": 0.608}
+  ],
+  "condcov_alpha05": [
+    {"encoder": "Prithvi", "acc_shift": 0.522, "ece_shift": 0.364, "marg": 0.904, "worst": 0.731, "spread": 0.269},
+    {"encoder": "Clay", "acc_shift": 0.569, "ece_shift": 0.325, "marg": 0.891, "worst": 0.732, "spread": 0.264},
+    {"encoder": "SSL4EO ViT-S/16 MAE", "acc_shift": 0.601, "ece_shift": 0.114, "marg": 0.88, "worst": 0.689, "spread": 0.302},
+    {"encoder": "SSL4EO-MAE ViT-B/16", "acc_shift": 0.637, "ece_shift": 0.173, "marg": 0.882, "worst": 0.702, "spread": 0.269},
+    {"encoder": "DOFA", "acc_shift": 0.608, "ece_shift": 0.214, "marg": 0.877, "worst": 0.733, "spread": 0.253}
+  ]
+}

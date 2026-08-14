@@ -1,0 +1,15 @@
+:root {
+  --paper: #f7f4ee;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --rule: #d6d3d1;
+  --card: #fffdf8;
+  --source: #009e73;
+  --target: #d55e00;
+  --fail: #d55e00;
+  --survive: #0072b2;
+  --nominal: #44403c;
+  --measure: 42rem;
+  --stage: 72rem;
+  --gap: 3rem;
+}

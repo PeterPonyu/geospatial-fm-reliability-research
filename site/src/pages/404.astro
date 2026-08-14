@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Not found — coverage debt report card"
+  description="This route is not one of the seven report-card pages."
+  path=""
+>
+  <p class="kicker">404</p>
+  <h1>This route is not in the report card</h1>
+  <p>Use the primary navigation, or start at the four-number card.</p>
+  <p><a href={base}>Report card</a> · <a href={`${base}cite/`}>Cite</a></p>
+</Base>

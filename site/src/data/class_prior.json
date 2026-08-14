@@ -1,0 +1,46 @@
+{
+  "cut": "P33",
+  "cut_lon_e": 4.2,
+  "source_n": 18090,
+  "target_n": 8910,
+  "source_label": "E/Central Europe",
+  "target_label": "W/Iberian-Atlantic Europe",
+  "note": "Classes not listed shift by <2.4×.",
+  "rows": [
+    {
+      "class": "5 (Pasture)",
+      "source_pct": 2.62,
+      "target_pct": 17.13,
+      "ratio": 6.54,
+      "direction": "enriched"
+    },
+    {
+      "class": "2 (HerbaceousVegetation)",
+      "source_pct": 7.68,
+      "target_pct": 18.07,
+      "ratio": 2.35,
+      "direction": "enriched"
+    },
+    {
+      "class": "9 (SeaLake)",
+      "source_pct": 14.1,
+      "target_pct": 5.04,
+      "ratio": 0.36,
+      "direction": "depleted"
+    },
+    {
+      "class": "8 (River)",
+      "source_pct": 11.6,
+      "target_pct": 4.51,
+      "ratio": 0.39,
+      "direction": "depleted"
+    },
+    {
+      "class": "1 (Forest)",
+      "source_pct": 15.02,
+      "target_pct": 3.16,
+      "ratio": 0.21,
+      "direction": "depleted"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+---
+import Base from "../layouts/Base.astro";
+import CoverageChart from "../components/CoverageChart.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+import euro from "../data/eurosat_shift.json";
+
+const plan = euro.planning_endpoints.filter((r) => r.alpha === 0.1);
+const weighted05 = euro.weighted.filter((r) => r.alpha === 0.05);
+const label05 = euro.labelshift.filter((r) => r.alpha === 0.05);
+---
+
+<Base
+  title="Repair — labeled target-region recalibration"
+  description="How many labeled target tiles restore coverage, and why unlabeled fixes fail."
+  path="repair/"
+>
+  <p class="kicker">Repair</p>
+  <h1>Labeled target slice, set-size cost, planning curves</h1>
+  <p>
+    The priced remedy is a labeled target-region slice, not a bit of fine-tuning and not a
+    label-free universal fix. Coverage starts conservative on a tiny slice and tightens toward
+    nominal as the annotation budget grows.
+  </p>
+  <div class="chips">
+    <HonestyChip kind="survive">Conditional labeled-target recalibration</HonestyChip>
+    <HonestyChip kind="fail">Unlabeled weighted / label-shift fixes fail</HonestyChip>
+  </div>
+
+  <h2>Annotation budget versus tightness</h2>
+  <CoverageChart
+    src="figures/planning.svg"
+    alt="Line segments from 0.5 percent to 30 percent labeled target coverage endpoints at alpha 0.10 for four encoders."
+    caption="Figure-module: EuroSAT target-calibrated coverage endpoints at α = 0.10 (0.5% n = 44 → 30% n = 2,673). Only frozen endpoints are drawn."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">0.5% coverage</th>
+          <th scope="col">30% coverage</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          plan.map((r) => (
+            <tr>
+              <td>{r.encoder}</td>
+              <td class="num">{r.cov_005}</td>
+              <td class="num">{r.cov_030}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>Set size versus α</h2>
+  <CoverageChart
+    src="figures/setsize.svg"
+    alt="Mean spatial-Mondrian set size at alpha 0.05 for five EuroSAT encoders."
+    caption="Figure-module: EuroSAT spatial-Mondrian mean set size at α = 0.05. The singleton floor is 1."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">Mean set size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          Object.entries(euro.mondrian_setsize_alpha05).map(([k, v]) => (
+            <tr>
+              <td>{k}</td>
+              <td class="num">{v}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>When the audit is even informative</h2>
+  <CoverageChart
+    src="figures/singleton.svg"
+    alt="Prithvi accuracy versus log labeled-slice size at alpha 0.05."
+    caption="Figure-module: Prithvi singleton / low-shot boundary at α = 0.05 (log n). The audit is informative only while sets leave the singleton floor."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Fraction</th>
+          <th scope="col">n</th>
+          <th scope="col">Accuracy</th>
+          <th scope="col">Set size</th>
+          <th scope="col">Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          euro.singleton_prithvi_alpha05.map((r) => (
+            <tr>
+              <td class="num">{r.frac}</td>
+              <td class="num">{r.n}</td>
+              <td class="num">{r.acc}</td>
+              <td class="num">{r.ss}</td>
+              <td class="num">{r.gap}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>Worst-class gap a marginal would hide</h2>
+  <CoverageChart
+    src="figures/condcov.svg"
+    alt="Worst-class coverage gap after marginal repair at alpha 0.05. SSL4EO-DINO is the largest gap."
+    caption="Figure-module: EuroSAT worst-class gap after marginal repair (α = 0.05). SSL4EO-DINO class-3 collapse (worst 0.850 vs marginal 0.956) is the load-bearing datum."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">Marginal</th>
+          <th scope="col">Worst</th>
+          <th scope="col">Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          euro.condcov_alpha05.map((r) => (
+            <tr>
+              <td>{r.encoder}</td>
+              <td class="num">{r.marg}</td>
+              <td class="num">{r.worst}</td>
+              <td class="num">{r.gap}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>Unlabeled fixes fail</h2>
+  <p>
+    Covariate-shift-weighted conformal sees effective sample size collapse to 0.1–1.6% of the
+    calibration set. Oracle and BBSE label-shift corrections do not restore target-global coverage.
+  </p>
+  <table>
+    <caption>Weighted conformal at α = 0.05 versus split and target-global.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Encoder</th>
+        <th scope="col">Split</th>
+        <th scope="col">Weighted</th>
+        <th scope="col">Target-global</th>
+        <th scope="col">ESS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        weighted05.map((r) => (
+          <tr>
+            <td>{r.encoder}</td>
+            <td class="num">{r.split}</td>
+            <td class="num">{r.weighted}</td>
+            <td class="num">{r.target_global}</td>
+            <td class="num">{r.ess}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <table>
+    <caption>Label-shift corrections at α = 0.05 versus target-global.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Encoder</th>
+        <th scope="col">Split</th>
+        <th scope="col">Oracle</th>
+        <th scope="col">BBSE</th>
+        <th scope="col">Target-global</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        label05.map((r) => (
+          <tr>
+            <td>{r.encoder}</td>
+            <td class="num">{r.split}</td>
+            <td class="num">{r.oracle}</td>
+            <td class="num">{r.bbse}</td>
+            <td class="num">{r.target_global}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</Base>

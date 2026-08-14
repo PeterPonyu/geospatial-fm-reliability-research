@@ -1,0 +1,62 @@
+---
+import Base from "../layouts/Base.astro";
+import SplitMap from "../components/SplitMap.astro";
+import PatchStrip from "../components/PatchStrip.astro";
+import CoverageChart from "../components/CoverageChart.astro";
+import prior from "../data/class_prior.json";
+---
+
+<Base
+  title="Geography — longitude-cut construction"
+  description="How the East/Central to Iberian-Atlantic EuroSAT split is built at P33 = 4.2 degrees east."
+  path="geography/"
+>
+  <p class="kicker">Geography</p>
+  <h1>How the East/Central → Iberian-Atlantic cut is built</h1>
+  <p>
+    The shift is a longitude percentile cut, not an abstract out-of-distribution slogan.
+    Source tiles sit east of P33 = 4.2°E (E/Central Europe, n = 18,090). Target tiles sit
+    west of the cut (Iberian–Atlantic, n = 8,910).
+  </p>
+
+  <SplitMap />
+  <PatchStrip />
+
+  <h2>Class-prior control</h2>
+  <p>
+    A few classes move sharply across the cut. Classes not listed shift by less than 2.4×.
+    Prior shift is a control, not the claim: unlabeled label-shift corrections still fail
+    to restore coverage (see Repair).
+  </p>
+
+  <CoverageChart
+    src="figures/classprior.svg"
+    alt="Bar chart of target over source class-prior ratios for five extreme EuroSAT classes at P33."
+    caption="Figure-module: target/source class-prior ratio at P33. Pasture is enriched in the target; Forest, River, and SeaLake are depleted."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Class</th>
+          <th scope="col">Source %</th>
+          <th scope="col">Target %</th>
+          <th scope="col">Ratio</th>
+          <th scope="col">Direction</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          prior.rows.map((r) => (
+            <tr>
+              <td>{r.class}</td>
+              <td class="num">{r.source_pct}</td>
+              <td class="num">{r.target_pct}</td>
+              <td class="num">{r.ratio}</td>
+              <td>{r.direction}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+</Base>

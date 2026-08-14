@@ -1,0 +1,139 @@
+{
+  "debt_order": "Prithvi > DOFA > SSL4EO-DINO > SSL4EO-MAE > Clay",
+  "integrated_debt_e3": {
+    "Prithvi": 8.0,
+    "DOFA": 6.2,
+    "SSL4EO-DINO": 3.3,
+    "SSL4EO-MAE": 1.4,
+    "Clay": 0.8
+  },
+  "accuracy_in_to_shift": {
+    "Prithvi": {"in": 0.95, "shift": 0.83},
+    "SSL4EO-DINO": {"in": 0.97, "shift": 0.88},
+    "Clay": {"in": 0.98, "shift": 0.92}
+  },
+  "ece_shift": {
+    "Prithvi": 0.109,
+    "SSL4EO-DINO": 0.076,
+    "SSL4EO-MAE": 0.065,
+    "Clay": 0.057
+  },
+  "split_coverage_alpha05": {
+    "Prithvi": 0.833,
+    "DOFA": 0.851,
+    "SSL4EO-DINO": 0.88,
+    "SSL4EO-MAE": 0.898,
+    "Clay": 0.918
+  },
+  "mondrian_coverage_alpha05": {
+    "Prithvi": 0.955,
+    "DOFA": 0.951,
+    "SSL4EO-DINO": 0.956,
+    "SSL4EO-MAE": 0.962,
+    "Clay": 0.96
+  },
+  "mondrian_setsize_alpha05": {
+    "Prithvi": 1.62,
+    "DOFA": 1.58,
+    "SSL4EO-DINO": 1.43,
+    "SSL4EO-MAE": 1.39,
+    "Clay": 1.22
+  },
+  "levels_repaired": {
+    "Prithvi": "2/3",
+    "DOFA": "2/3",
+    "SSL4EO-DINO": "1/3",
+    "SSL4EO-MAE": "1/3",
+    "Clay": "1/3"
+  },
+  "condcov_alpha05": [
+    {"encoder": "DOFA", "acc_shift": 0.851, "ece_shift": 0.093, "marg": 0.951, "worst": 0.919, "gap": 0.031},
+    {"encoder": "SSL4EO-MAE", "acc_shift": 0.898, "ece_shift": 0.065, "marg": 0.962, "worst": 0.912, "gap": 0.038},
+    {"encoder": "Prithvi", "acc_shift": 0.833, "ece_shift": 0.109, "marg": 0.955, "worst": 0.905, "gap": 0.045},
+    {"encoder": "Clay", "acc_shift": 0.918, "ece_shift": 0.057, "marg": 0.96, "worst": 0.902, "gap": 0.048},
+    {"encoder": "SSL4EO-DINO", "acc_shift": 0.88, "ece_shift": 0.076, "marg": 0.956, "worst": 0.85, "gap": 0.1}
+  ],
+  "ssl4eo_dino_class3": {
+    "worst": 0.85,
+    "marginal": 0.956,
+    "seed_range": [0.826, 0.871],
+    "std": 0.016,
+    "alpha10_worst": 0.776,
+    "alpha10_marginal": 0.926
+  },
+  "singleton_prithvi_alpha05": [
+    {"frac": 1.0, "n": 10854, "acc": 0.832, "ss": 1.0, "gap": 0.0},
+    {"frac": 0.5, "n": 5427, "acc": 0.805, "ss": 1.026, "gap": 0.011},
+    {"frac": 0.25, "n": 2713, "acc": 0.783, "ss": 1.072, "gap": 0.026},
+    {"frac": 0.1, "n": 1085, "acc": 0.765, "ss": 1.202, "gap": 0.066},
+    {"frac": 0.05, "n": 542, "acc": 0.721, "ss": 1.383, "gap": 0.107},
+    {"frac": 0.02, "n": 217, "acc": 0.645, "ss": 1.866, "gap": 0.196},
+    {"frac": 0.01, "n": 108, "acc": 0.65, "ss": 2.294, "gap": 0.221}
+  ],
+  "singleton_exits": [
+    {"encoder": "Prithvi", "last_ss1": "0.832 / 1.00", "first_ns": "0.783 / 0.25"},
+    {"encoder": "Clay", "last_ss1": "0.884 / 0.10", "first_ns": "0.818 / 0.02"},
+    {"encoder": "SSL4EO-DINO", "last_ss1": "0.821 / 0.10", "first_ns": "0.784 / 0.02"}
+  ],
+  "weighted": [
+    {"alpha": 0.05, "encoder": "Prithvi", "split": 0.833, "weighted": 0.919, "target_global": 0.952, "ess": "1.6%"},
+    {"alpha": 0.05, "encoder": "SSL4EO-DINO", "split": 0.88, "weighted": 0.938, "target_global": 0.949, "ess": "1.3%"},
+    {"alpha": 0.05, "encoder": "SSL4EO-MAE", "split": 0.899, "weighted": 0.911, "target_global": 0.95, "ess": "0.4%"},
+    {"alpha": 0.05, "encoder": "Clay", "split": 0.918, "weighted": 0.927, "target_global": 0.951, "ess": "0.1%"},
+    {"alpha": 0.1, "encoder": "Prithvi", "split": 0.833, "weighted": 0.881, "target_global": 0.899, "ess": "1.6%"},
+    {"alpha": 0.1, "encoder": "SSL4EO-DINO", "split": 0.88, "weighted": 0.914, "target_global": 0.901, "ess": "1.3%"},
+    {"alpha": 0.1, "encoder": "SSL4EO-MAE", "split": 0.899, "weighted": 0.905, "target_global": 0.903, "ess": "0.4%"},
+    {"alpha": 0.1, "encoder": "Clay", "split": 0.918, "weighted": 0.923, "target_global": 0.918, "ess": "0.1%"},
+    {"alpha": 0.2, "encoder": "Prithvi", "split": 0.833, "weighted": 0.855, "target_global": 0.833, "ess": "1.6%"},
+    {"alpha": 0.2, "encoder": "SSL4EO-DINO", "split": 0.88, "weighted": 0.898, "target_global": 0.88, "ess": "1.3%"},
+    {"alpha": 0.2, "encoder": "SSL4EO-MAE", "split": 0.899, "weighted": 0.902, "target_global": 0.899, "ess": "0.4%"},
+    {"alpha": 0.2, "encoder": "Clay", "split": 0.918, "weighted": 0.921, "target_global": 0.918, "ess": "0.1%"}
+  ],
+  "labelshift": [
+    {"alpha": 0.05, "encoder": "Prithvi", "split": 0.833, "oracle": 0.879, "bbse": 0.884, "target_global": 0.952},
+    {"alpha": 0.05, "encoder": "SSL4EO-DINO", "split": 0.88, "oracle": 0.858, "bbse": 0.867, "target_global": 0.949},
+    {"alpha": 0.05, "encoder": "SSL4EO-MAE", "split": 0.899, "oracle": 0.856, "bbse": 0.865, "target_global": 0.95},
+    {"alpha": 0.05, "encoder": "Clay", "split": 0.918, "oracle": 0.891, "bbse": 0.895, "target_global": 0.951},
+    {"alpha": 0.1, "encoder": "Prithvi", "split": 0.833, "oracle": 0.793, "bbse": 0.798, "target_global": 0.899},
+    {"alpha": 0.1, "encoder": "SSL4EO-DINO", "split": 0.88, "oracle": 0.766, "bbse": 0.774, "target_global": 0.901},
+    {"alpha": 0.1, "encoder": "SSL4EO-MAE", "split": 0.898, "oracle": 0.793, "bbse": 0.803, "target_global": 0.903},
+    {"alpha": 0.1, "encoder": "Clay", "split": 0.918, "oracle": 0.825, "bbse": 0.832, "target_global": 0.918},
+    {"alpha": 0.2, "encoder": "Prithvi", "split": 0.833, "oracle": 0.675, "bbse": 0.682, "target_global": 0.833},
+    {"alpha": 0.2, "encoder": "SSL4EO-DINO", "split": 0.88, "oracle": 0.625, "bbse": 0.639, "target_global": 0.88},
+    {"alpha": 0.2, "encoder": "SSL4EO-MAE", "split": 0.898, "oracle": 0.688, "bbse": 0.704, "target_global": 0.898},
+    {"alpha": 0.2, "encoder": "Clay", "split": 0.918, "oracle": 0.711, "bbse": 0.719, "target_global": 0.918}
+  ],
+  "boundary_alpha05": [
+    {"encoder": "Prithvi", "P25": "0.792 / 0.946 / 0.952", "P33": "0.833 / 0.952 / 0.955", "P40": "0.843 / 0.950 / 0.955", "P50": "0.859 / 0.949 / 0.952"},
+    {"encoder": "SSL4EO-DINO", "P25": "0.847 / 0.947 / 0.951", "P33": "0.880 / 0.949 / 0.956", "P40": "0.892 / 0.950 / 0.955", "P50": "0.896 / 0.951 / 0.955"},
+    {"encoder": "SSL4EO-MAE", "P25": "0.865 / 0.948 / 0.957", "P33": "0.898 / 0.950 / 0.962", "P40": "0.910 / 0.946 / 0.962", "P50": "0.917 / 0.952 / 0.967"},
+    {"encoder": "Clay", "P25": "0.897 / 0.950 / 0.955", "P33": "0.918 / 0.951 / 0.960", "P40": "0.926 / 0.947 / 0.960", "P50": "0.936 / 0.950 / 0.963†"}
+  ],
+  "planning_endpoints": [
+    {"encoder": "Prithvi", "alpha": 0.05, "cov_005": 0.9937, "cov_030": 0.9522, "split": null},
+    {"encoder": "Prithvi", "alpha": 0.1, "cov_005": 0.9589, "cov_030": 0.8987, "split": null},
+    {"encoder": "Prithvi", "alpha": 0.2, "cov_005": 0.9044, "cov_030": 0.8327, "split": 0.8327},
+    {"encoder": "SSL4EO-DINO", "alpha": 0.05, "cov_005": 0.9805, "cov_030": 0.9486, "split": null},
+    {"encoder": "SSL4EO-DINO", "alpha": 0.1, "cov_005": 0.9463, "cov_030": 0.9013, "split": null},
+    {"encoder": "SSL4EO-DINO", "alpha": 0.2, "cov_005": 0.885, "cov_030": 0.8798, "split": 0.8798},
+    {"encoder": "Clay", "alpha": 0.05, "cov_005": 0.9872, "cov_030": 0.9512, "split": null},
+    {"encoder": "Clay", "alpha": 0.1, "cov_005": 0.9462, "cov_030": 0.918, "split": null},
+    {"encoder": "Clay", "alpha": 0.2, "cov_005": 0.918, "cov_030": 0.918, "split": 0.918},
+    {"encoder": "SSL4EO-MAE", "alpha": 0.05, "cov_005": 0.9767, "cov_030": 0.9496, "split": null},
+    {"encoder": "SSL4EO-MAE", "alpha": 0.1, "cov_005": 0.9503, "cov_030": 0.9026, "split": null},
+    {"encoder": "SSL4EO-MAE", "alpha": 0.2, "cov_005": 0.9008, "cov_030": 0.8985, "split": 0.8985}
+  ],
+  "planning_prithvi_setsize": {
+    "n_small": 44,
+    "n_30pct": 2673,
+    "alpha05": {"small": 3.66, "large": 1.56},
+    "alpha10": {"small": 1.77, "large": 1.22},
+    "alpha20": {"small": 1.28, "large": 1.0}
+  },
+  "ben_planning_prithvi": {
+    "note": "CRC floor: α = 0.05 needs ≥19 positive-label calibration examples. 0.5% (n = 12) is unattainable.",
+    "alpha05_fnr": {"pct1_n25": 0.022, "pct30_n759": 0.051, "source_crc": 0.129},
+    "alpha10_fnr": {"pct05_n12": 0.059, "pct30": 0.103, "source_crc": 0.205},
+    "alpha05_set": {"cheap": 23.7, "pct30": 21.0}
+  }
+}

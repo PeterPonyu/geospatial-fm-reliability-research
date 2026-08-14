@@ -1,0 +1,37 @@
+---
+const bibtex = `@misc{fu2026coverage,
+  title={Cross-European coverage debt of frozen optical Earth-observation foundation models: a pre-deployment reliability report card and a conditional target-recalibration remedy},
+  author={Fu, Zeyu},
+  year={2026},
+  howpublished={Coverage-debt report card},
+  doi={10.5281/zenodo.21130299},
+  note={Reserved data and code DOI}
+}`;
+---
+
+<div class="cite-box">
+  <pre id="bibtex" tabindex="0">{bibtex}</pre>
+  <p>
+    <button type="button" id="copy-bib">Copy BibTeX</button>
+    <span id="copy-status" aria-live="polite"></span>
+  </p>
+</div>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("copy-bib");
+    var pre = document.getElementById("bibtex");
+    var status = document.getElementById("copy-status");
+    if (!btn || !pre || !status) return;
+    btn.addEventListener("click", function () {
+      var text = pre.textContent || "";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          status.textContent = "Copied";
+        });
+      } else {
+        status.textContent = "Select the block and copy";
+      }
+    });
+  })();
+</script>

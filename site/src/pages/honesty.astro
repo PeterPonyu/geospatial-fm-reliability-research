@@ -1,0 +1,62 @@
+---
+import Base from "../layouts/Base.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Honesty — preregistration, withheld arms, scope"
+  description="Stage-2 universal-restoration gate was not met. Cross-sensor Sentinel-1 is withheld. F15 is omitted."
+  path="honesty/"
+>
+  <p class="kicker">Honesty</p>
+  <h1>Preregistration, exploratory reframe, withheld arms</h1>
+  <div class="chips">
+    <HonestyChip kind="fail">Stage-2 gate: KILL</HonestyChip>
+    <HonestyChip>Exploratory reframe</HonestyChip>
+    <HonestyChip>Withheld Sentinel-1</HonestyChip>
+  </div>
+
+  <h2>The one preregistered confirmatory result is a falsification</h2>
+  <p>
+    Stage-2 was preregistered as a universal-restoration gate: spatial-Mondrian should restore
+    coverage for both Prithvi and Clay at two or more risk levels. The machine gate returned
+    KILL (Clay does not restore at ≥2 α). The encoder-dependent claim is an exploratory
+    reframe of that falsified universal-restoration hypothesis. The KILL is the confirmatory
+    result; the within-encoder FNR-debt-and-repair pattern sits beside it and is not itself
+    the preregistered hypothesis.
+  </p>
+
+  <h2>What is exploratory</h2>
+  <p>
+    Cross-encoder rankings, planning curves, singleton/low-shot boundaries, weighted and
+    label-shift baselines, and the report-card illustration are post-hoc on frozen features.
+    The five-encoder accuracy–FNR inversion (ρ = +0.90) regresses at n = 13 (ρ = +0.32,
+    p = 0.28). Rankings remain underpowered.
+  </p>
+
+  <h2>Withheld: Sentinel-1 cross-sensor</h2>
+  <p>
+    A preliminary optical-to-SAR probe (Sentinel-2 calibration transferred to a native
+    Sentinel-1 encoder on paired So2Sat tiles) is withheld because its in-distribution control
+    failed the probe-sanity guard. It is not a negative scientific finding on this site.
+  </p>
+
+  <h2>Omitted: shift fingerprint</h2>
+  <p>
+    The optical shift-fingerprint module is omitted pending a complete EuroSAT-MS fingerprint.
+    Mixing incomplete multispectral tiles with RGB would be dishonest. It is not featured
+    anywhere else on this site.
+  </p>
+
+  <h2>Scope</h2>
+  <p>
+    Optical Sentinel-2 only. Cross-European until the So2Sat LCZ extension. Frozen encoders;
+    no fine-tuning playground. The audit is diagnostic and reuses existing conformal
+    estimators. It is not a label-free universal fix.
+  </p>
+  <p>
+    <a href={`${base}cite/`}>Cite, DOI, and code archive</a>
+  </p>
+</Base>

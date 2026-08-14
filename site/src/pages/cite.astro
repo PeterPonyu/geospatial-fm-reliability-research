@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+import CiteBox from "../components/CiteBox.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+---
+
+<Base
+  title="Cite — code, data, reserved DOI"
+  description="Code archive, reserved Zenodo DOI, and dataset licenses for the coverage-debt report card."
+  path="cite/"
+>
+  <p class="kicker">Cite</p>
+  <h1>Code, data, reserved DOI</h1>
+  <div class="chips">
+    <HonestyChip>Reserved DOI</HonestyChip>
+    <HonestyChip>Frozen science</HonestyChip>
+  </div>
+
+  <h2 id="data">Data and code</h2>
+  <p>
+    Frozen coverage, FNR, and encoder tables on this site come from the public code archive
+    and the reserved data DOI. Datasets stay under their upstream licenses.
+  </p>
+  <ul>
+    <li>
+      Code archive (MIT):
+      <a href="https://github.com/PeterPonyu/geospatial-fm-reliability-research"
+        >github.com/PeterPonyu/geospatial-fm-reliability-research</a
+      >
+    </li>
+    <li>
+      Reserved DOI (draft until publish):
+      <a href="https://doi.org/10.5281/zenodo.21130299">10.5281/zenodo.21130299</a>
+    </li>
+    <li>EuroSAT-MS — optical Sentinel-2 land-cover tiles (upstream license).</li>
+    <li>GEO-Bench BigEarthNet-S2 — multi-label Sentinel-2 scenes (upstream license).</li>
+    <li>So2Sat LCZ42 — local-climate-zone labels, non-European extension (upstream license).</li>
+  </ul>
+
+  <h2>Attribution</h2>
+  <p>
+    Use this record for the coverage-debt report card, conformal protocol, and frozen encoder
+    numbers.
+  </p>
+  <CiteBox />
+</Base>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 280" width="1100" height="280" role="img" aria-labelledby="t">
+<title id="t">Report-card protocol with FAILURE / SURVIVING fork</title>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+
+<text x="24" y="36" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#57534e">Protocol · freeze encoder → probe → conformal under geographic split → card</text>
+<rect x="24" y="56" width="200" height="88" fill="#f7f4ee" stroke="#d6d3d1"/>
+<text x="36" y="80" font-family="IBM Plex Mono, monospace" font-size="12" fill="#57534e">1 DATA</text>
+<text x="36" y="108" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#1c1917">Optical Sentinel-2 tile</text>
+<rect x="239" y="56" width="200" height="88" fill="#f7f4ee" stroke="#d6d3d1"/>
+<text x="251" y="80" font-family="IBM Plex Mono, monospace" font-size="12" fill="#57534e">2 MODEL</text>
+<text x="251" y="108" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#1c1917">Frozen optical GFM</text>
+<rect x="454" y="56" width="200" height="88" fill="#f7f4ee" stroke="#d6d3d1"/>
+<text x="466" y="80" font-family="IBM Plex Mono, monospace" font-size="12" fill="#57534e">3 PROBE</text>
+<text x="466" y="108" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#1c1917">Frozen-embedding probe</text>
+<rect x="669" y="56" width="200" height="88" fill="#f7f4ee" stroke="#d6d3d1"/>
+<text x="681" y="80" font-family="IBM Plex Mono, monospace" font-size="12" fill="#57534e">4 EVAL</text>
+<text x="681" y="108" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#1c1917">Geographic conformal</text>
+<rect x="884" y="56" width="200" height="88" fill="#f7f4ee" stroke="#d6d3d1"/>
+<text x="896" y="80" font-family="IBM Plex Mono, monospace" font-size="12" fill="#57534e">5 REPORT</text>
+<text x="896" y="108" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#1c1917">Four-number card</text>
+<line x1="550" y1="160" x2="550" y2="188" stroke="#1c1917"/>
+<rect x="80" y="196" width="420" height="56" fill="#fffdf8" stroke="#D55E00"/>
+<text x="96" y="230" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#D55E00">FAILURE — no universal restoration</text>
+<rect x="600" y="196" width="420" height="56" fill="#fffdf8" stroke="#0072B2"/>
+<text x="616" y="230" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#0072B2">SURVIVING — conditional labeled-target recalibration</text>
+
+</svg>

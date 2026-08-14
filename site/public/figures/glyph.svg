@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Longitude-cut glyph">
+<rect width="24" height="24" fill="none"/>
+<rect x="2" y="4" width="9" height="16" fill="#D55E00"/>
+<rect x="13" y="4" width="9" height="16" fill="#009E73"/>
+<line x1="12" y1="2" x2="12" y2="22" stroke="#1c1917" stroke-width="1.5"/>
+</svg>

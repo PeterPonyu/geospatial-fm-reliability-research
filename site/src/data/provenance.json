@@ -1,0 +1,21 @@
+{
+  "status": "curated extracts from frozen coverage, FNR, and caption tables",
+  "not_rendered": true,
+  "tables": [
+    "reportcard",
+    "classprior",
+    "fnrdecouple",
+    "crc",
+    "condcov",
+    "singleton",
+    "weighted",
+    "labelshift",
+    "boundary",
+    "so2sat",
+    "so2satcond"
+  ],
+  "omitted": [
+    "F15 shift fingerprint (incomplete optical fingerprint; omitted)",
+    "Sentinel-1 cross-sensor (failed in-distribution control; withheld)"
+  ]
+}

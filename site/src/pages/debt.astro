@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import CoverageChart from "../components/CoverageChart.astro";
+import HonestyChip from "../components/HonestyChip.astro";
+import ben from "../data/bigearthnet.json";
+import euro from "../data/eurosat_shift.json";
+
+const crc05 = ben.crc.filter((r) => r.alpha === 0.05);
+---
+
+<Base
+  title="Debt — geographic coverage and FNR under shift"
+  description="Every frozen encoder meets in-distribution FNR; all thirteen incur geographic debt under East to West shift."
+  path="debt/"
+>
+  <p class="kicker">Debt</p>
+  <h1>Coverage / FNR loss under shift</h1>
+  <p>
+    Every frozen encoder meets its in-distribution multi-label FNR risk-control guarantee.
+    All thirteen incur a real geographic debt under the East→West Europe shift
+    (FNR 0.130–0.234, 2.6–4.7× nominal). Larger sets, not a better encoder, buy FNR back.
+  </p>
+  <div class="chips">
+    <HonestyChip kind="fail">13/13 in-distribution hold; 13/13 shift debt</HonestyChip>
+  </div>
+
+  <h2 id="fnr-13">CRC FNR: the powered claim</h2>
+  <CoverageChart
+    src="figures/crc_fnr.svg"
+    alt="Grouped bars of CRC false-negative rate at alpha 0.05 for five encoders: in-distribution, shift, and Mondrian repair, with a dashed alpha line."
+    caption="Figure-module: CRC FNR at α = 0.05. In-distribution tracks α; shift incurs debt; Mondrian-CRC on a labeled target slice restores it. Encoder hues locked."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">FNR in-dist.</th>
+          <th scope="col">FNR shift</th>
+          <th scope="col">FNR Mondrian</th>
+          <th scope="col">Set CRC / Mondrian</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          crc05.map((r) => (
+            <tr>
+              <td>{r.encoder}</td>
+              <td class="num">{r.fnr_in} [{r.fnr_in_ci[0]}, {r.fnr_in_ci[1]}]</td>
+              <td class="num">{r.fnr_shift} [{r.fnr_shift_ci[0]}, {r.fnr_shift_ci[1]}]</td>
+              <td class="num">{r.fnr_mond} [{r.fnr_mond_ci[0]}, {r.fnr_mond_ci[1]}]</td>
+              <td class="num">{r.set}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>Accuracy is not the reliability ranking</h2>
+  <p>
+    On EuroSAT-MS the integrated geographic-debt order is Prithvi &gt; DOFA &gt; SSL4EO-DINO
+    &gt; SSL4EO-MAE &gt; Clay. Accuracy and ECE rankings do not reproduce that order.
+  </p>
+  <CoverageChart
+    src="figures/debt_robust.svg"
+    alt="Five encoders with integrated debt, accuracy drop, shift ECE, and split coverage."
+    caption="Figure-module: EuroSAT geographic debt versus accuracy and ECE. Clay is lightest on debt; Prithvi is heaviest. Do not read this as a leaderboard of encoders."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">Integrated debt (×10⁻³)</th>
+          <th scope="col">Split coverage (α = 0.05)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          Object.entries(euro.integrated_debt_e3).map(([k, v]) => (
+            <tr>
+              <td>{k}</td>
+              <td class="num">{v}</td>
+              <td class="num">{euro.split_coverage_alpha05[k]}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+
+  <h2>Split versus spatial-Mondrian</h2>
+  <CoverageChart
+    src="figures/coverage_restore.svg"
+    alt="Bars of EuroSAT coverage at alpha 0.05 for split source calibration versus spatial-Mondrian, with a dashed 0.95 line."
+    caption="Figure-module: EuroSAT α = 0.05 coverage. Split (source) under-covers; spatial-Mondrian on a labeled target slice restores near 1 − α."
+  >
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Encoder</th>
+          <th scope="col">Split</th>
+          <th scope="col">Spatial-Mondrian</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          Object.keys(euro.split_coverage_alpha05).map((k) => (
+            <tr>
+              <td>{k}</td>
+              <td class="num">{euro.split_coverage_alpha05[k]}</td>
+              <td class="num">{euro.mondrian_coverage_alpha05[k]}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </CoverageChart>
+</Base>

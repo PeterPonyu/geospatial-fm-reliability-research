@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" width="1100" height="360" role="img" aria-labelledby="t">
+<title id="t">EuroSAT spatial-Mondrian mean set size at α = 0.05 (singleton floor = 1)</title>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<text x="24" y="28" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#57534e">EuroSAT spatial-Mondrian mean set size at α = 0.05 (singleton floor = 1)</text>
+<line x1="72" y1="300" x2="1000" y2="300" stroke="#d6d3d1"/>
+<line x1="72" y1="48" x2="72" y2="300" stroke="#d6d3d1"/>
+<text x="24" y="180" transform="rotate(-90 24 180)" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#57534e">set size</text>
+<rect x="80" y="95.88" width="144" height="204.12" fill="#009E73"/>
+<text x="152" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">Prithvi</text>
+<text x="152" y="89.88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">1.62</text>
+<rect x="240" y="100.91999999999999" width="144" height="199.08" fill="#E69F00"/>
+<text x="312" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">DOFA</text>
+<text x="312" y="94.91999999999999" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">1.58</text>
+<rect x="400" y="119.82000000000002" width="144" height="180.17999999999998" fill="#D55E00"/>
+<text x="472" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">DINO</text>
+<text x="472" y="113.82000000000002" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">1.43</text>
+<rect x="560" y="124.86000000000001" width="144" height="175.14" fill="#CC79A7"/>
+<text x="632" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">MAE</text>
+<text x="632" y="118.86000000000001" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">1.39</text>
+<rect x="720" y="146.28" width="144" height="153.72" fill="#0072B2"/>
+<text x="792" y="318" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#1c1917">Clay</text>
+<text x="792" y="140.28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1c1917">1.22</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "type": "FeatureCollection",
+  "name": "EuroSAT P33 longitude cut (schematic)",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "cut": "P33", "lon_e": 4.2, "role": "cut" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [4.2, 35.0],
+          [4.2, 60.0]
+        ]
+      }
+    }
+  ]
+}

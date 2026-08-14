@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const routes = [
+  { href: "", label: "Report card" },
+  { href: "geography/", label: "Geography" },
+  { href: "debt/", label: "Debt" },
+  { href: "repair/", label: "Repair" },
+  { href: "roster/", label: "Roster" },
+  { href: "honesty/", label: "Honesty" },
+  { href: "cite/", label: "Cite" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href={`${base}figures/glyph.svg`} type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site">
+      <div class="wrap bar">
+        <a class="brand" href={base}>
+          <img src={`${base}figures/glyph.svg`} width="24" height="24" alt="" />
+          Coverage debt
+        </a>
+        <nav class="primary" aria-label="Primary">
+          {
+            routes.map((r) => (
+              <a
+                href={`${base}${r.href}`}
+                aria-current={path === r.href ? "page" : undefined}
+              >
+                {r.label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="header-links">
+          <a href="https://github.com/PeterPonyu/geospatial-fm-reliability-research">Code</a>
+          <span aria-hidden="true">·</span>
+          <a href={`${base}cite/`}>Cite</a>
+        </div>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        Zeyu Fu · coverage debt · conformal · P33 · FNR · MIT code archive ·
+        <a href="https://peterponyu.github.io/">Author homepage</a>
+      </div>
+    </footer>
+  </body>
+</html>
