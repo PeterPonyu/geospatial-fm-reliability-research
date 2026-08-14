@@ -27,6 +27,10 @@ ${body}
 `;
 }
 
+function xmlText(text) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 function write(name, content) {
   writeFileSync(join(outDir, name), content);
 }
@@ -102,7 +106,7 @@ const rows = [
 ];
 let tiles = "";
 rows.forEach((row, ri) => {
-  tiles += `<text x="16" y="${70 + ri * 110}" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="${row.fill}">${row.lab}</text>`;
+  tiles += `<text x="16" y="${70 + ri * 110}" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="${row.fill}">${xmlText(row.lab)}</text>`;
   classes.forEach((c, ci) => {
     const x = 220 + ci * 140;
     const y = 40 + ri * 110;
@@ -373,3 +377,32 @@ write(
 );
 
 console.log("plot_build: wrote SVG modules to public/figures");
+
+function assertSvgWellFormed(path) {
+  const text = readFileSync(path, "utf8");
+  const textNodes = [...text.matchAll(/<text\b[^>]*>(.*?)<\/text>/gs)].map((match) => match[1]);
+  for (const node of textNodes) {
+    if (/<|&(?!amp;|lt;|gt;)/.test(node)) {
+      throw new Error(`plot_build: unescaped text in ${path}: ${node}`);
+    }
+  }
+}
+
+for (const name of [
+  "protocol.svg",
+  "splitmap.svg",
+  "geopatches.svg",
+  "classprior.svg",
+  "crc_fnr.svg",
+  "inversion_n13.svg",
+  "condcov.svg",
+  "setsize.svg",
+  "planning.svg",
+  "coverage_restore.svg",
+  "debt_robust.svg",
+  "singleton.svg",
+  "glyph.svg",
+]) {
+  assertSvgWellFormed(join(outDir, name));
+}
+console.log("plot_build: SVG modules pass XML text checks");
