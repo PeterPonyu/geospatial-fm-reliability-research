@@ -1,5 +1,5 @@
 {
-  "status": "curated extracts from the submitted ISPRS tables and captions",
+  "status": "curated extracts from frozen coverage, FNR, and caption tables",
   "not_rendered": true,
   "tables": [
     "reportcard",
@@ -15,7 +15,7 @@
     "so2satcond"
   ],
   "omitted": [
-    "F15 shift fingerprint (TeX-deferred; incomplete optical fingerprint)",
+    "F15 shift fingerprint (incomplete optical fingerprint; omitted)",
     "Sentinel-1 cross-sensor (failed in-distribution control; withheld)"
   ]
 }
