@@ -242,7 +242,6 @@ Initial submission (Your Paper Your Way — one PDF is enough for refereeing):
              paper_isprs.tex
              paper_isprs.bbl
              refs.bib
-             shared.bib
              figures/ (14 manuscript PDFs listed below)
              or the source zip: geo_isprs_submission_source_2026-08-12.zip
 
@@ -291,7 +290,7 @@ Word/page limit:    none for regular Papers
 =====================================================================
 First upload: PDF (paper_isprs.pdf) is sufficient.
 Revision / acceptance: editable elsarticle source (already prepared).
-Bibliography: BibTeX via shared.bib + refs.bib; authoryear / plainnat.
+Bibliography: BibTeX via a single independent refs.bib; authoryear / plainnat.
 Individual figure files >10 MB must be uploaded separately — not applicable
 (largest manuscript figure is F9_geopatches.pdf, under 2 MB).
 

@@ -1,1 +1,776 @@
-../refs.bib
+% Independent ISPRS bibliography (paper_isprs.tex: \bibliography{refs}).
+% Cited keys only. Portfolio leftovers that used to live in shared.bib
+% (WeatherBench, GraphCast, GenCast, MACE, Matbench, TabPFN, EmbodiedBench,
+% unused selective-classification keys) are not included.
+% Do not upload a second .bib.
+
+% ---------- Reference-expansion addendum (2026-07-16): geospatial foundation
+% models beyond the five audited encoders, foundational/adjacent conformal
+% machinery, uncertainty-quantification and calibration context, EO domain
+% adaptation, and land-cover/LCZ benchmark provenance. Every entry below is
+% live-verified against arXiv/DOI resolution at add-time. ----------
+@inproceedings{cong2022satmae,
+  author    = {Cong, Yezhen and Khanna, Samar and Meng, Chenlin and Liu, Patrick and Rozi, Erik and He, Yutong and Burke, Marshall and Lobell, David B. and Ermon, Stefano},
+  title     = {{SatMAE}: Pre-training Transformers for Temporal and Multi-Spectral Satellite Imagery},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  year      = {2022},
+  note      = {arXiv:2207.08051}
+}
+
+@inproceedings{reed2023scalemae,
+  author    = {Reed, Colorado J. and Gupta, Ritwik and Li, Shufan and Brockman, Sarah and Funk, Christopher and Clipp, Brian and Keutzer, Kurt and Candido, Salvatore and Uyttendaele, Matt and Darrell, Trevor},
+  title     = {{Scale-MAE}: A Scale-Aware Masked Autoencoder for Multiscale Geospatial Representation Learning},
+  booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2023},
+  doi       = {10.1109/ICCV51070.2023.00378},
+  note      = {arXiv:2212.14532}
+}
+
+@inproceedings{manas2021seasonal,
+  author    = {Ma{\~n}as, Oscar and Lacoste, Alexandre and Giro-i-Nieto, Xavier and Vazquez, David and Rodriguez, Pau},
+  title     = {Seasonal Contrast: Unsupervised Pre-Training from Uncurated Remote Sensing Data},
+  booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages     = {9394--9403},
+  year      = {2021},
+  doi       = {10.1109/ICCV48922.2021.00928},
+  note      = {arXiv:2103.16607}
+}
+
+@article{sun2023ringmo,
+  author  = {Sun, Xian and Wang, Peijin and Lu, Wanxuan and Zhu, Zicong and Lu, Xiaonan and He, Qibin and Li, Junxi and Rong, Xuee and Yang, Zhujun and Chang, Hao and He, Qinglin and Yang, Guang and Wang, Ruiping and Lu, Jiwen and Fu, Kun},
+  title   = {{RingMo}: A Remote Sensing Foundation Model with Masked Image Modeling},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume  = {61},
+  pages   = {1--22},
+  year    = {2023},
+  doi     = {10.1109/TGRS.2022.3194732}
+}
+
+@inproceedings{mendieta2023gfm,
+  author    = {Mendieta, Matias and Han, Boran and Shi, Xingjian and Zhu, Yi and Chen, Chen},
+  title     = {Towards Geospatial Foundation Models via Continual Pretraining},
+  booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2023},
+  note      = {arXiv:2302.04476}
+}
+
+@inproceedings{bastani2023satlas,
+  author    = {Bastani, Favyen and Wolters, Piper and Gupta, Ritwik and Ferdinando, Joe and Kembhavi, Aniruddha},
+  title     = {{SatlasPretrain}: A Large-Scale Dataset for Remote Sensing Image Understanding},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages     = {16772--16782},
+  year      = {2023},
+  doi       = {10.1109/ICCV51070.2023.01538}
+}
+
+@inproceedings{fuller2023croma,
+  author    = {Fuller, Anthony and Millard, Koreen and Green, James R.},
+  title     = {{CROMA}: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {36},
+  year      = {2023},
+  note      = {arXiv:2311.00566}
+}
+
+@inproceedings{guo2024skysense,
+  author    = {Guo, Xin and Lao, Jiangwei and Dang, Bo and Zhang, Yingying and Yu, Lei and Ru, Lixiang and Zhong, Liheng and Huang, Ziyuan and Wu, Kang and Hu, Dingxiang and He, Huimei and Wang, Jian and Chen, Jingdong and Yang, Ming and Zhang, Yongjun and Li, Yansheng},
+  title     = {{SkySense}: A Multi-Modal Remote Sensing Foundation Model Towards Universal Interpretation for {Earth} Observation Imagery},
+  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {27662--27673},
+  year      = {2024},
+  doi       = {10.1109/CVPR52733.2024.02613},
+  note      = {arXiv:2312.10115}
+}
+
+@article{hong2024spectralgpt,
+  author  = {Hong, Danfeng and Zhang, Bing and Li, Xuyang and Li, Yuxuan and Li, Chenyu and Yao, Jing and Yokoya, Naoto and Li, Hao and Ghamisi, Pedram and Jia, Xiuping and Plaza, Antonio and Gamba, Paolo and Benediktsson, Jon Atli and Chanussot, Jocelyn},
+  title   = {{SpectralGPT}: Spectral Remote Sensing Foundation Model},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume  = {46},
+  number  = {8},
+  pages   = {5227--5244},
+  year    = {2024},
+  doi     = {10.1109/TPAMI.2024.3362475}
+}
+
+@inproceedings{astruc2025anysat,
+  author    = {Astruc, Guillaume and Gonthier, Nicolas and Mallet, Clement and Landrieu, Loic},
+  title     = {{AnySat}: One {Earth} Observation Model for Many Resolutions, Scales, and Modalities},
+  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {19530--19540},
+  year      = {2025},
+  doi       = {10.1109/CVPR52734.2025.01819},
+  note      = {arXiv:2412.14123}
+}
+
+@misc{danish2025terrafm,
+  author = {Danish, Muhammad Sohail and Munir, Muhammad Akhtar and Shah, Syed Roshaan Ali and Khan, Muhammad Haris and Anwer, Rao Muhammad and Laaksonen, Jorma and Khan, Fahad Shahbaz and Khan, Salman},
+  title  = {{TerraFM}: A Scalable Foundation Model for Unified Multisensor {Earth} Observation},
+  note   = {arXiv:2506.06281},
+  year   = {2025}
+}
+
+@inproceedings{tseng2025galileo,
+  author    = {Tseng, Gabriel and Fuller, Anthony and Reil, Marlena and Herzog, Henry and Beukema, Patrick and Bastani, Favyen and Green, James R. and Shelhamer, Evan and Kerner, Hannah and Rolnick, David},
+  title     = {{Galileo}: Learning Global \& Local Features of Many Remote Sensing Modalities},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year      = {2025},
+  note      = {arXiv:2502.09356}
+}
+
+@article{wang2024softcon,
+  author    = {Wang, Yi and Albrecht, Conrad M. and Zhu, Xiao Xiang},
+  title     = {Multilabel-Guided Soft Contrastive Learning for Efficient Earth Observation Pretraining},
+  journal   = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume    = {62},
+  pages     = {1--16},
+  year      = {2024},
+  doi       = {10.1109/TGRS.2024.3466896},
+  note      = {arXiv:2405.20462}
+}
+
+@article{liu2024remoteclip,
+  author  = {Liu, Fan and Chen, Delong and Guan, Zhangqingyun and Zhou, Xiaocong and Zhu, Jiale and Ye, Qiaolin and Fu, Liyong and Zhou, Jun},
+  title   = {{RemoteCLIP}: A Vision Language Foundation Model for Remote Sensing},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume  = {62},
+  pages   = {1--16},
+  year    = {2024},
+  doi     = {10.1109/TGRS.2024.3390838},
+  note    = {arXiv:2306.11029}
+}
+
+@inproceedings{stewart2023ssl4eol,
+  author    = {Stewart, Adam J. and Lehmann, Nils and Corley, Isaac A. and Wang, Yi and Chang, Yi-Chia and Braham, Nassim Ait Ali and Sehgal, Shradha and Robinson, Caleb and Banerjee, Arindam},
+  title     = {{SSL4EO-L}: Datasets and Foundation Models for {Landsat} Imagery},
+  booktitle = {Advances in Neural Information Processing Systems (Datasets and Benchmarks)},
+  volume    = {36},
+  pages     = {59787--59807},
+  year      = {2023},
+  doi       = {10.52202/075280-2612},
+  note      = {arXiv:2306.09424}
+}
+
+@misc{braham2024spectralearth,
+  author = {Braham, Nassim Ait Ali and Albrecht, Conrad M. and Mairal, Julien and Chanussot, Jocelyn and Wang, Yi and Zhu, Xiao Xiang},
+  title  = {{SpectralEarth}: Training Hyperspectral Foundation Models at Scale},
+  note   = {arXiv:2408.08447},
+  year   = {2024}
+}
+
+% ---------- Reference-expansion addendum (2026-08-12, pass 2): online-verified
+% EO FM / VL / Landsat / HSI families, geographic-shift benchmarks, classical
+% conformal & calibration machinery, additional EO conformal applications.
+% Every entry checked against arXiv abs, Crossref DOI, or publisher landing. ----------
+@misc{jakubik2023prithvi,
+  author = {Jakubik, Johannes and Roy, Sujit and Phillips, C. E. and Fraccaro, Paolo and Godwin, Denys and Zadrozny, Bianca and others},
+  title  = {Foundation Models for Generalist Geospatial Artificial Intelligence},
+  note   = {arXiv:2310.18660},
+  year   = {2023}
+}
+
+@misc{tseng2023presto,
+  author = {Tseng, Gabriel and Cartuyvels, Ruben and Zvonkov, Ivan and Purohit, Mirali and Rolnick, David and Kerner, Hannah},
+  title  = {Lightweight, Pre-trained Transformers for Remote Sensing Timeseries},
+  note   = {arXiv:2304.14065; NeurIPS 2023 Workshop on Tackling Climate Change with Machine Learning},
+  year   = {2023}
+}
+
+% ---------- Reference-expansion addendum (2026-08-12): EO FM surveys,
+% geographic / cross-city shift, calibration under shift, adaptive CP,
+% additional GFMs. Every entry live-checked against arXiv/DOI/venue. ----------
+@article{xiao2025rsfm,
+  author  = {Xiao, Aoran and Xuan, Weihao and Wang, Junjue and Huang, Jiaxing and Tao, Dacheng and Lu, Shijian and Yokoya, Naoto},
+  title   = {Foundation Models for Remote Sensing and {Earth} Observation: A Survey},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {13},
+  number  = {4},
+  pages   = {297--324},
+  year    = {2025},
+  doi     = {10.1109/MGRS.2025.3576766},
+  note    = {arXiv:2410.16602}
+}
+
+@article{lu2025visionfm,
+  author  = {Lu, Siqi and Guo, Junlin and Zimmer-Dauphinee, James and Nieusma, Jordan M. and Wang, Xiao and VanValkenburgh, Parker and Wernke, Steven A. and Huo, Yuankai},
+  title   = {Vision Foundation Models in Remote Sensing: A Survey},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {13},
+  number  = {3},
+  pages   = {190--215},
+  year    = {2025},
+  doi     = {10.1109/MGRS.2025.3541952},
+  note    = {arXiv:2408.03464}
+}
+
+@article{huo2025whenrs,
+  author  = {Huo, Chunlei and Chen, Keming and Zhang, Shuaihao and Wang, Zeyu and Yan, Heyu and Shen, Jing and Hong, Yuyang and Qi, Geqi and Fang, Hongmei and Wang, Zihan},
+  title   = {When Remote Sensing Meets Foundation Model: A Survey and Beyond},
+  journal = {Remote Sensing},
+  volume  = {17},
+  number  = {2},
+  pages   = {179},
+  year    = {2025},
+  doi     = {10.3390/rs17020179}
+}
+
+@misc{yang2025multimodalgfm,
+  author = {Yang, Liling and Chen, Ning and Yue, Jun and Liu, Yidan and Ma, Jiayi and Ghamisi, Pedram and Plaza, Antonio and Fang, Leyuan},
+  title  = {Survey of Multimodal Geospatial Foundation Models: Techniques, Applications, and Challenges},
+  note   = {arXiv:2510.22964},
+  year   = {2025}
+}
+
+@article{ghamisi2025sustainfm,
+  author  = {Ghamisi, Pedram and Yu, Weikang and Zhang, Xiaokang and Rizaldy, Aldino and Wang, Jian and Zhou, Chufeng and Gloaguen, Richard and Camps-Valls, Gustau},
+  title   = {Geospatial Foundation Models to Enable Progress on Sustainable Development Goals},
+  journal = {arXiv preprint arXiv:2505.24528},
+  year    = {2025},
+  note    = {arXiv:2505.24528}
+}
+
+@misc{cohrs2025shrugfm,
+  author = {Gonzalez-Calabuig, Maria and Cohrs, Kai-Hendrik and Nedungadi, Vishal and Osika, Zuzanna and Cartuyvels, Ruben and Knoblauch, Steffen and Massant, Joppe and Nath, Shruti and Ebel, Patrick and Sitokonstantinou, Vasileios},
+  title  = {{SHRUG-FM}: Reliability-Aware Foundation Models for {Earth} Observation},
+  note   = {arXiv:2511.10370},
+  year   = {2025}
+}
+
+@misc{tamazyan2025geocrossbench,
+  author = {Tamazyan, Hakob and Vanyan, Ani and Barseghyan, Alvard and Khosrovyan, Anna and Shelhamer, Evan and Khachatrian, Hrant},
+  title  = {{GeoCrossBench}: Cross-band generalization for remote sensing},
+  note   = {arXiv:2511.02831},
+  year   = {2025}
+}
+
+@misc{doerksen2026earthshift,
+  author = {Doerksen, Kelsey and Kerner, Hannah},
+  title  = {{EarthShift}: A Benchmark for Measuring Robustness to Real-World Distribution Shifts in {Earth} Observation},
+  note   = {arXiv:2605.29330},
+  year   = {2026}
+}
+
+@article{alemadi2025dsgr,
+  author  = {Al-Emadi, Sara A. and Yang, Yin and Ofli, Ferda},
+  title   = {Analysing Satellite Imagery Classification under Spatial Domain Shift across Geographic Regions},
+  journal = {International Journal of Computer Vision},
+  year    = {2025},
+  doi     = {10.1007/s11263-025-02518-z}
+}
+
+@article{tuia2016domain,
+  author  = {Tuia, Devis and Persello, Claudio and Bruzzone, Lorenzo},
+  title   = {Domain Adaptation for the Classification of Remote Sensing Data: An Overview of Recent Advances},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {4},
+  number  = {2},
+  pages   = {41--57},
+  year    = {2016},
+  doi     = {10.1109/MGRS.2016.2548504}
+}
+
+@article{zhu2017deep,
+  author  = {Zhu, Xiao Xiang and Tuia, Devis and Mou, Lichao and Xia, Gui-Song and Zhang, Liangpei and Xu, Feng and Fraundorfer, Friedrich},
+  title   = {Deep Learning in Remote Sensing: A Comprehensive Review and List of Resources},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {5},
+  number  = {4},
+  pages   = {8--36},
+  year    = {2017},
+  doi     = {10.1109/MGRS.2017.2762307}
+}
+
+@article{hong2023crosscity,
+  author  = {Hong, Danfeng and Zhang, Bing and Li, Hao and Li, Yuxuan and Yao, Jing and Li, Chenyu and Werner, Martin and Chanussot, Jocelyn and Zipf, Alexander and Zhu, Xiao Xiang},
+  title   = {Cross-City Matters: A Multimodal Remote Sensing Benchmark Dataset for Cross-City Semantic Segmentation Using High-Resolution Domain Adaptation Networks},
+  journal = {Remote Sensing of Environment},
+  volume  = {299},
+  pages   = {113856},
+  year    = {2023},
+  doi     = {10.1016/j.rse.2023.113856}
+}
+
+@inproceedings{scheibenreif2024domainadapt,
+  author    = {Scheibenreif, Linus and Mommert, Michael and Borth, Damian},
+  title     = {Parameter Efficient Self-Supervised Geospatial Domain Adaptation},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {27841--27851},
+  year      = {2024},
+  doi       = {10.1109/CVPR52733.2024.02630}
+}
+
+@article{meyer2021aoa,
+  author  = {Meyer, Hanna and Pebesma, Edzer},
+  title   = {Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models},
+  journal = {Methods in Ecology and Evolution},
+  volume  = {12},
+  number  = {9},
+  pages   = {1620--1633},
+  year    = {2021},
+  doi     = {10.1111/2041-210X.13650}
+}
+
+@inproceedings{koh2021wilds,
+  author    = {Koh, Pang Wei and Sagawa, Shiori and Marklund, Henrik and Xie, Sang Michael and Zhang, Marvin and Balsubramani, Akshay and Hu, Weihua and Yasunaga, Michihiro and Phillips, Richard Lanas and Gao, Irena and Lee, Tony and David, Etienne and Stavness, Ian and Guo, Wei and Earnshaw, Berton A. and Haque, Imran S. and Beery, Sara and Leskovec, Jure and Kundaje, Anshul and Pierson, Emma and Levine, Sergey and Finn, Chelsea and Liang, Percy},
+  title     = {{WILDS}: A Benchmark of in-the-Wild Distribution Shifts},
+  booktitle = {Proceedings of the 38th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {139},
+  pages     = {5637--5664},
+  year      = {2021}
+}
+
+@misc{crasto2025geoshift,
+  author = {Crasto, Ruth and Rolf, Esther},
+  title  = {Latent Domain Modeling Improves Robustness to Geographic Shifts},
+  note   = {arXiv:2503.02036},
+  year   = {2025}
+}
+
+@inproceedings{christie2018fmow,
+  author    = {Christie, Gordon and Fendley, Neil and Wilson, James and Mukherjee, Ryan},
+  title     = {Functional Map of the World},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {6172--6180},
+  year      = {2018},
+  note      = {arXiv:1711.07846}
+}
+
+@article{brown2022dynamicworld,
+  author  = {Brown, Christopher F. and Brumby, Steven P. and Guzder-Williams, Brook and Birch, Tanya and Hyde, Samantha Brooks and Mazzariello, Joseph and Czerwinski, Wanda and Pasquarella, Valerie J. and Haugland, Robert and Olsson, Nataniel and others},
+  title   = {Dynamic World, Near real-time global 10\,m land use land cover mapping},
+  journal = {Scientific Data},
+  volume  = {9},
+  pages   = {251},
+  year    = {2022},
+  doi     = {10.1038/s41597-022-01307-4}
+}
+
+@article{rolf2021mosaiks,
+  author  = {Rolf, Esther and Proctor, Jonathan and Carleton, Tamma and Bolliger, Ian and Shankar, Vaishaal and Ishihara, Miyabi and Recht, Benjamin and Hsiang, Solomon},
+  title   = {A Generalizable and Accessible Approach to Machine Learning with Global Satellite Imagery},
+  journal = {Nature Communications},
+  volume  = {12},
+  pages   = {4392},
+  year    = {2021},
+  doi     = {10.1038/s41467-021-24638-z}
+}
+
+@article{jean2016combining,
+  author  = {Jean, Neal and Burke, Marshall and Xie, Michael and Davis, W. Matthew and Lobell, David B. and Ermon, Stefano},
+  title   = {Combining Satellite Imagery and Machine Learning to Predict Poverty},
+  journal = {Science},
+  volume  = {353},
+  number  = {6301},
+  pages   = {790--794},
+  year    = {2016},
+  doi     = {10.1126/science.aaf7894}
+}
+
+% ---------- Calibration ----------
+@inproceedings{guo2017calibration,
+  title     = {On Calibration of Modern Neural Networks},
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {70},
+  pages     = {1321--1330},
+  year      = {2017},
+}
+
+@article{nixon2019measuring,
+  author  = {Nixon, Jeremy and Dusenberry, Michael W. and Zhang, Linchuan and Jerfel, Ghassen and Tran, Dustin},
+  title   = {Measuring Calibration in Deep Learning},
+  journal = {arXiv preprint arXiv:1904.01685},
+  year    = {2019},
+  note    = {CVPR 2019 Workshop on Uncertainty and Robustness in Deep Visual Learning}
+}
+
+@inproceedings{mukhoti2020calibrating,
+  author    = {Mukhoti, Jishnu and Kulharia, Viveka and Sanyal, Amartya and Golodetz, Stuart and Torr, Philip H. S. and Dokania, Puneet K.},
+  title     = {Calibrating Deep Neural Networks using Focal Loss},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  year      = {2020},
+  note      = {arXiv:2002.09437}
+}
+
+@inproceedings{kumar2019verified,
+  author    = {Kumar, Ananya and Liang, Percy and Ma, Tengyu},
+  title     = {Verified Uncertainty Calibration},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {32},
+  year      = {2019},
+  note      = {arXiv:1909.10155}
+}
+
+@inproceedings{minderer2021revisiting,
+  author    = {Minderer, Matthias and Djolonga, Josip and Romijnders, Rob and Hubis, Frances and Zhai, Xiaohua and Houlsby, Neil and Tran, Dustin and Lucic, Mario},
+  title     = {Revisiting the Calibration of Modern Neural Networks},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {34},
+  year      = {2021},
+  note      = {arXiv:2106.07998}
+}
+
+@inproceedings{ovadia2019uncertainty,
+  author    = {Ovadia, Yaniv and Fertig, Emily and Ren, Jie and Nado, Zachary and Sculley, D. and Nowozin, Sebastian and Dillon, Joshua and Lakshminarayanan, Balaji and Snoek, Jasper},
+  title     = {Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty under Dataset Shift},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {32},
+  year      = {2019},
+  note      = {arXiv:1906.02530}
+}
+
+@article{gawlikowski2023survey,
+  author  = {Gawlikowski, Jakob and Tassi, Cedrique Rovile Njieutcheu and Ali, Mohsin and Lee, Jongseok and Humt, Matthias and Feng, Jianxiang and Kruspe, Anna and Triebel, Rudolph and Jung, Peter and Roscher, Ribana and Shahzad, Muhammad and Yang, Wen and Bamler, Richard and Zhu, Xiao Xiang},
+  title   = {A Survey of Uncertainty in Deep Neural Networks},
+  journal = {Artificial Intelligence Review},
+  volume  = {56},
+  pages   = {1513--1589},
+  year    = {2023},
+  doi     = {10.1007/s10462-023-10562-9},
+  note    = {arXiv:2107.03342}
+}
+
+% ==========================================================================
+% shared.bib -- curated shared bibliography for the ML-reliability portfolio.
+%
+% Usage: paper-template Makefile copies this file next to each paper as
+% shared.bib and paper.tex loads \bibliography{shared,refs}. Keep
+% paper-specific entries in each paper's refs.bib with disjoint keys.
+%
+% Citation data written from standard well-known records; fields that could
+% not be verified against the source at kit-creation time are flagged by a
+% "% TODO verify ..." comment line ABOVE the entry (BibTeX does not allow
+% comments inside entries). Verify all flagged fields against publisher
+% metadata before any camera-ready submission.
+% ==========================================================================
+
+% ---------- Conformal prediction ----------
+
+% DOI verified against Crossref/Springer, 2026-07-16
+@book{vovk2005algorithmic,
+  title     = {Algorithmic Learning in a Random World},
+  author    = {Vovk, Vladimir and Gammerman, Alexander and Shafer, Glenn},
+  year      = {2005},
+  publisher = {Springer},
+  address   = {New York},
+  doi       = {10.1007/b106715},
+}
+
+@article{shafer2008tutorial,
+  author  = {Shafer, Glenn and Vovk, Vladimir},
+  title   = {A Tutorial on Conformal Prediction},
+  journal = {Journal of Machine Learning Research},
+  volume  = {9},
+  pages   = {371--421},
+  year    = {2008}
+}
+
+% DOI verified against Crossref, 2026-07-16
+@article{angelopoulos2023conformal,
+  title   = {Conformal Prediction: A Gentle Introduction},
+  author  = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  journal = {Foundations and Trends in Machine Learning},
+  volume  = {16},
+  number  = {4},
+  pages   = {494--591},
+  year    = {2023},
+  doi     = {10.1561/2200000101},
+}
+
+@inproceedings{angelopoulos2021sets,
+  author    = {Angelopoulos, Anastasios N. and Bates, Stephen and Malik, Jitendra and Jordan, Michael I.},
+  title     = {Uncertainty Sets for Image Classifiers using Conformal Prediction},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021},
+  note      = {arXiv:2009.14193}
+}
+
+@article{lei2018distributionfree,
+  author  = {Lei, Jing and G'Sell, Max and Rinaldo, Alessandro and Tibshirani, Ryan J. and Wasserman, Larry},
+  title   = {Distribution-Free Predictive Inference for Regression},
+  journal = {Journal of the American Statistical Association},
+  volume  = {113},
+  number  = {523},
+  pages   = {1094--1111},
+  year    = {2018},
+  doi     = {10.1080/01621459.2017.1307116}
+}
+
+@techreport{vovk2003mondrian,
+  author      = {Vovk, Vladimir and Lindsay, David and Nouretdinov, Ilia and Gammerman, Alex},
+  title       = {Mondrian confidence machine},
+  institution = {On-line Compression Modelling Project, Royal Holloway University of London},
+  number      = {Working Paper 4},
+  year        = {2003}
+}
+
+@article{sadinle2019lac,
+  author  = {Sadinle, Mauricio and Lei, Jing and Wasserman, Larry},
+  title   = {Least ambiguous set-valued classifiers with bounded error levels},
+  journal = {Journal of the American Statistical Association},
+  volume  = {114},
+  number  = {525},
+  pages   = {223--234},
+  year    = {2019},
+  doi     = {10.1080/01621459.2017.1395341}
+}
+
+@inproceedings{romano2020classification,
+  author    = {Romano, Yaniv and Sesia, Matteo and Cand{\`e}s, Emmanuel},
+  title     = {Classification with Valid and Adaptive Coverage},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  pages     = {3581--3591},
+  year      = {2020}
+}
+
+@article{cauchois2021knowing,
+  author  = {Cauchois, Maxime and Gupta, Suyash and Duchi, John C.},
+  title   = {Knowing what You Know: Valid and Validated Confidence Sets in Multiclass and Multilabel Prediction},
+  journal = {Journal of Machine Learning Research},
+  volume  = {22},
+  number  = {81},
+  pages   = {1--42},
+  year    = {2021}
+}
+
+@inproceedings{romano2019cqr,
+  author    = {Romano, Yaniv and Patterson, Evan and Cand{\`e}s, Emmanuel J.},
+  title     = {Conformalized Quantile Regression},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {32},
+  year      = {2019},
+  note      = {arXiv:1905.03222}
+}
+
+@article{bates2021distributionfree,
+  author    = {Bates, Stephen and Angelopoulos, Anastasios and Lei, Lihua and Malik, Jitendra and Jordan, Michael I.},
+  title     = {Distribution-Free, Risk-Controlling Prediction Sets},
+  journal   = {Journal of the ACM},
+  volume    = {68},
+  number    = {6},
+  articleno = {43},
+  year      = {2021},
+  doi       = {10.1145/3478535},
+  note      = {arXiv:2101.02703}
+}
+
+@inproceedings{angelopoulos2024crc,
+  author    = {Angelopoulos, Anastasios N. and Bates, Stephen and Fisch, Adam and Lei, Lihua and Schuster, Tal},
+  title     = {Conformal risk control},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  note      = {arXiv:2208.02814},
+  year      = {2024}
+}
+
+@article{singh2024uncertainty,
+  author  = {Singh, Geethen and Moncrieff, Glenn and Venter, Zander and Cawse-Nicholson, Kerry and Slingsby, Jasper and Robinson, Tamara B.},
+  title   = {Uncertainty quantification for probabilistic machine learning in earth observation using conformal prediction},
+  journal = {Scientific Reports},
+  volume  = {14},
+  pages   = {16166},
+  year    = {2024},
+  doi     = {10.1038/s41598-024-65954-w}
+}
+
+@article{lou2024geoconformal,
+  author  = {Lou, Xiayin and Luo, Peng and Meng, Liqiu},
+  title   = {{GeoConformal} prediction: A model-agnostic framework for measuring the uncertainty of spatial prediction},
+  journal = {Annals of the American Association of Geographers},
+  volume  = {115},
+  number  = {8},
+  pages   = {1971--1998},
+  year    = {2025},
+  doi     = {10.1080/24694452.2025.2516091},
+  note    = {originally released as arXiv:2412.08661 (2024)}
+}
+
+@article{mao2024spatial,
+  author  = {Mao, Huiying and Martin, Ryan and Reich, Brian J.},
+  title   = {Valid Model-Free Spatial Prediction},
+  journal = {Journal of the American Statistical Association},
+  volume  = {119},
+  number  = {546},
+  pages   = {904--914},
+  year    = {2024},
+  doi     = {10.1080/01621459.2022.2147531},
+  note    = {arXiv:2006.15640}
+}
+
+@article{kakhani2024socconformal,
+  author  = {Kakhani, Nafiseh and Alamdar, Setareh and Kebonye, Ndiye Michael and Amani, Meisam and Scholten, Thomas},
+  title   = {Uncertainty Quantification of Soil Organic Carbon Estimation from Remote Sensing Data with Conformal Prediction},
+  journal = {Remote Sensing},
+  volume  = {16},
+  number  = {3},
+  pages   = {438},
+  year    = {2024},
+  doi     = {10.3390/rs16030438}
+}
+
+@inproceedings{tibshirani2019covariate,
+  author    = {Tibshirani, Ryan J. and Barber, Rina Foygel and Cand{\`e}s, Emmanuel J. and Ramdas, Aaditya},
+  title     = {Conformal prediction under covariate shift},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {32},
+  pages     = {2526--2536},
+  year      = {2019}
+}
+
+@inproceedings{gibbs2021adaptive,
+  author    = {Gibbs, Isaac and Cand{\`e}s, Emmanuel J.},
+  title     = {Adaptive Conformal Inference under Distribution Shift},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {34},
+  year      = {2021},
+  note      = {arXiv:2106.00170}
+}
+
+@article{gibbs2024online,
+  author  = {Gibbs, Isaac and Cand{\`e}s, Emmanuel J.},
+  title   = {Conformal Inference for Online Prediction with Arbitrary Distribution Shifts},
+  journal = {Journal of Machine Learning Research},
+  volume  = {25},
+  number  = {162},
+  pages   = {1--36},
+  year    = {2024}
+}
+
+@article{barber2023conformal,
+  author  = {Barber, Rina Foygel and Cand{\`e}s, Emmanuel J. and Ramdas, Aaditya and Tibshirani, Ryan J.},
+  title   = {Conformal Prediction Beyond Exchangeability},
+  journal = {Annals of Statistics},
+  volume  = {51},
+  number  = {2},
+  pages   = {816--845},
+  year    = {2023},
+  doi     = {10.1214/23-AOS2276}
+}
+
+@article{fillioux2024fmconformal,
+  author  = {Fillioux, Leo and Silva-Rodr\'{i}guez, Julio and Ben Ayed, Ismail and Courn\`{e}de, Paul-Henry and Vakalopoulou, Maria and Christodoulidis, Stergios and Dolz, Jose},
+  title   = {Are foundation models for computer vision good conformal predictors?},
+  journal = {arXiv preprint arXiv:2412.06082},
+  year    = {2024}
+}
+
+@article{aolaritei2025levyprokhorov,
+  author  = {Aolaritei, Liviu and Wang, Zheyu Oliver and Zhu, Julie and Jordan, Michael I. and Marzouk, Youssef},
+  title   = {Conformal Prediction under {L\'{e}vy}--{Prokhorov} Distribution Shifts: Robustness to Local and Global Perturbations},
+  journal = {arXiv preprint arXiv:2502.14105},
+  year    = {2025}
+}
+
+@article{zhou2026acp,
+  author  = {Zhou, Yanfei and Fathony, Rizal and Nguyen, Nam H. and Sesia, Matteo},
+  title   = {Audited Conformal Prediction for Classification under Unknown Distribution Shift},
+  journal = {arXiv preprint arXiv:2606.14909},
+  year    = {2026},
+  note    = {arXiv:2606.14909}
+}
+
+@inproceedings{lipton2018bbse,
+  title     = {Detecting and correcting for label shift with black box predictors},
+  author    = {Lipton, Zachary C. and Wang, Yu-Xiang and Smola, Alexander},
+  booktitle = {Proc. 35th Int. Conf. Machine Learning (ICML)},
+  year      = {2018},
+  note      = {arXiv:1802.03916},
+}
+
+@inproceedings{podkopaev2021labelshift,
+  title     = {Distribution-free uncertainty quantification for classification under label shift},
+  author    = {Podkopaev, Aleksandr and Ramdas, Aaditya},
+  booktitle = {Proc. 37th Conf. Uncertainty in Artificial Intelligence (UAI)},
+  volume    = {161},
+  pages     = {844--853},
+  year      = {2021},
+  note      = {arXiv:2103.03323},
+}
+
+@misc{xiong2024dofa,
+  author = {Xiong, Zhitong and Wang, Yi and Zhang, Fahong and Stewart, Adam J. and Hanna, Jo{\"e}lle and Borth, Damian and Papoutsis, Ioannis and Le Saux, Bertrand and Camps-Valls, Gustau and Zhu, Xiao Xiang},
+  title  = {Neural plasticity-inspired multimodal foundation model for {Earth} observation ({DOFA})},
+  note   = {arXiv:2403.15356},
+  year   = {2024}
+}
+
+% Paper-specific references (keys disjoint from reliability-commons/shared.bib).
+% Converted 2026-07-02 from the inline thebibliography of the pre-template draft
+% (manuscripts/archive/paper-2026-07-01-pre-template.tex); entry content preserved.
+@article{helber2019eurosat,
+  author  = {Helber, Patrick and Bischke, Benjamin and Dengel, Andreas and Borth, Damian},
+  title   = {{EuroSAT}: A novel dataset and deep learning benchmark for land use and land cover classification},
+  journal = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  volume  = {12},
+  number  = {7},
+  pages   = {2217--2226},
+  year    = {2019},
+  doi     = {10.1109/JSTARS.2019.2918242}
+}
+
+@inproceedings{lacoste2023geobench,
+  author    = {Lacoste, Alexandre and Lehmann, Nils and Rodriguez, Pau and Sherwin, Evan D. and Kerner, Hannah and L{\"u}tjens, Bj{\"o}rn and others},
+  title     = {{GEO-Bench}: Toward foundation models for {Earth} monitoring},
+  booktitle = {Advances in Neural Information Processing Systems (Datasets and Benchmarks)},
+  volume    = {36},
+  pages     = {51080--51093},
+  year      = {2023},
+  doi       = {10.52202/075280-2223},
+  note      = {arXiv:2306.03831}
+}
+
+@inproceedings{sumbul2019bigearthnet,
+  author    = {Sumbul, Gencer and Charfuelan, Marcela and Demir, Beg{\"u}m and Markl, Volker},
+  title     = {{BigEarthNet}: A Large-Scale Benchmark Archive for Remote Sensing Image Understanding},
+  booktitle = {IEEE International Geoscience and Remote Sensing Symposium (IGARSS)},
+  pages     = {5901--5904},
+  year      = {2019},
+  doi       = {10.1109/IGARSS.2019.8900532},
+  note      = {arXiv:1902.06148}
+}
+
+@article{zhu2020so2sat,
+  author  = {Zhu, Xiao Xiang and Hu, Jingliang and Qiu, Chunping and Shi, Yilei and Kang, Jian and Mou, Lichao and Bagheri, Hossein and H{\"a}berle, Matthias and Hua, Yuansheng and Huang, Rong and Hughes, Lloyd and Li, Hao and Sun, Yao and Zhang, Guichen and Han, Shiyao and Schmitt, Michael and Wang, Yuanyuan},
+  title   = {{So2Sat} {LCZ42}: A Benchmark Data Set for the Classification of Global Local Climate Zones [Software and Data Sets]},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {8},
+  number  = {3},
+  pages   = {76--89},
+  year    = {2020},
+  doi     = {10.1109/MGRS.2020.2964708},
+  note    = {arXiv:1912.12171}
+}
+
+@article{szwarcman2024prithvi,
+  author  = {Szwarcman, Daniela and Roy, Sujit and Fraccaro, Paolo and G{\'\i}slason, {\TH}orsteinn El{\'\i} and Blumenstiel, Benedikt and Ghosal, Rinki and others},
+  title   = {{Prithvi-EO-2.0}: A Versatile Multitemporal Foundation Model for {Earth} Observation Applications},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume  = {64},
+  pages   = {1--20},
+  year    = {2026},
+  doi     = {10.1109/TGRS.2025.3642610},
+  note    = {arXiv:2412.02732}
+}
+
+@misc{clay2024model,
+  author       = {{Clay Foundation}},
+  title        = {Clay foundation model v1.5},
+  howpublished = {Open model weights and documentation, \url{https://clay-foundation.github.io/model/}},
+  year         = {2024}
+}
+
+@article{wang2023ssl4eo,
+  author  = {Wang, Yi and Braham, Nassim Ait Ali and Xiong, Zhitong and Liu, Chenying and Albrecht, Conrad M. and Zhu, Xiao Xiang},
+  title   = {{SSL4EO-S12}: A large-scale multimodal, multitemporal dataset for self-supervised learning in {Earth} observation},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {11},
+  number  = {3},
+  pages   = {98--106},
+  year    = {2023},
+  doi     = {10.1109/MGRS.2023.3281651}
+}
+
