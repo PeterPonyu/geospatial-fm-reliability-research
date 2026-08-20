@@ -1,6 +1,6 @@
 # geospatial-fm-reliability-research
 
-Code archive: Zenodo DOI 10.5281/zenodo.21130299 (reserved; draft record, activates on publish).
+Code archive: Zenodo DOI 10.5281/zenodo.21130299.
 
 Geographic coverage debt of frozen Earth-observation foundation models, and a
 conditional target-side conformal repair.
