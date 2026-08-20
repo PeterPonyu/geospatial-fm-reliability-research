@@ -7,9 +7,6 @@ not a label-free universal fix.
 
 Public archive: Zenodo DOI [10.5281/zenodo.21130299](https://doi.org/10.5281/zenodo.21130299).
 
-Companion report card:
-[peterponyu.github.io/geospatial-fm-reliability-research](https://peterponyu.github.io/geospatial-fm-reliability-research/).
-
 ## Thesis
 
 Frozen geospatial foundation models (Prithvi-EO-2.0-300M, Clay v1.5, SSL4EO-S12
